@@ -1,0 +1,4 @@
+# Files Windows and macOS create in image folders
+Thumbs.db
+desktop.ini
+.DS_Store
