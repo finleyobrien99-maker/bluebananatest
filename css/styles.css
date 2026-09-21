@@ -103,7 +103,7 @@ input { font: inherit; }
   transition: background-color .2s, color .2s;
 }
 .btn--dark { background: var(--bb-ink); color: #fff; }
-.btn--dark:hover { background: var(--bb-blue); }
+.btn--dark:hover { background: var(--bb-button-light); color: #000; }
 .btn--light { background: var(--bb-button-light); color: var(--bb-ink); }
 .btn--light:hover { background: #d0d0d0; }
 .btn--yellow { background: var(--bb-yellow); color: #000; text-transform: uppercase; }
@@ -459,7 +459,8 @@ input { font: inherit; }
   bottom: 50px;
   min-width: 144px;
 }
-.hero__link:hover .hero__cta { background: var(--bb-blue); }
+.hero__link:hover .hero__cta,
+.hero__link:focus-visible .hero__cta { background: #fff; color: #000; }
 
 /* ==========================================================================
    Product scroller rows (New In / Clearance Sale / Body Jewellery)
@@ -513,7 +514,7 @@ input { font: inherit; }
 @container (max-width: 1399px) { .scroller--row .scroller__track { --n: 5; } }
 @container (max-width: 1149px) { .scroller--row .scroller__track { --n: 4; } }
 @container (max-width: 819px)  { .scroller--row .scroller__track { --n: 3; --gap: 20px; } }
-@container (max-width: 599px)  { .scroller--row .scroller__track { --n: 2.3; --gap: 12px; } }
+@container (max-width: 599px)  { .scroller--row .scroller__track { --n: 2; --gap: 12px; } }
 
 .scroller--grid .scroller__track {
   --n: 2;
@@ -521,7 +522,7 @@ input { font: inherit; }
   grid-template-rows: auto auto;
   row-gap: 15px;
 }
-@container (max-width: 599px) { .scroller--grid .scroller__track { --n: 2.2; --gap: 12px; } }
+@container (max-width: 599px) { .scroller--grid .scroller__track { --n: 2; --gap: 12px; } }
 
 .scroller__btn {
   position: absolute;
@@ -623,7 +624,8 @@ input { font: inherit; }
   bottom: 50px;
   min-width: 144px;
 }
-.feature__banner:hover .feature__cta { background: var(--bb-blue); }
+.feature__banner:hover .feature__cta,
+.feature__banner:focus-visible .feature__cta { background: #fff; color: #000; }
 
 .feature__products {
   min-width: 0;
@@ -1156,15 +1158,13 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
 
 /* ---------- Product rows stack ---------- */
 @media (max-width: 899.98px) {
+  /* 24px sides leave room for the arrows, which sit on the edges of the first and last visible tiles */
   .product-row {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 22px;
-    padding: 34px 0 30px;
+    padding: 34px 24px 30px;
   }
-  .product-row__intro { padding: 0 16px; }
   .product-row__intro .btn { margin-top: 20px; }
-  .scroller--row .scroller__track { padding: 0 16px; scroll-padding: 0 16px; }
-  .scroller--row .scroller__btn { display: none; }
 }
 
 /* ---------- Summer blocks stack ---------- */
@@ -1174,9 +1174,9 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   .feature--reverse { grid-template-columns: minmax(0, 1fr); }
   .feature--reverse .feature__banner { order: 0; }
   .feature__products,
-  .feature--reverse .feature__products { padding: 22px 0 0; }
-  .scroller--grid .scroller__track { padding: 0 16px; scroll-padding: 0 16px; }
-  .scroller--grid .scroller__btn { display: none; }
+  .feature--reverse .feature__products { padding: 22px 24px 0; }
+  /* One row of products on phones */
+  .scroller--grid .scroller__track { grid-template-rows: auto; }
 
   /* Footer becomes an accordion (iPhone artboard) */
   .site-footer { padding: 24px 0 36px; }
@@ -1240,10 +1240,11 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   }
 }
 
-/* Touch screens swipe instead of using arrows */
-@media (hover: none) {
+/* Phones: two whole tiles per view, so centre the arrows on the product images
+   (100cqw is the slider width; 12px is the gap between the two tiles) */
+@media (max-width: 599.98px) {
   .scroller--row .scroller__btn,
-  .scroller--grid .scroller__btn { display: none; }
+  .scroller--grid .scroller__btn { top: calc((100cqw - 12px) / 4); }
 }
 
 @media (prefers-reduced-motion: reduce) {
