@@ -165,6 +165,21 @@ input { font: inherit; }
 .header-link:hover .header-link__label,
 .locale__btn:hover { text-decoration: underline; text-underline-offset: 4px; }
 
+/* Loyalty scheme shortcut: a flat yellow block in the header, square like the rest of the site */
+.header-link--loyalty {
+  gap: 0;
+  min-height: 32px;
+  padding: 0 16px;
+  background: var(--bb-yellow);
+  color: var(--bb-ink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  transition: background .15s;
+}
+.header-link--loyalty:hover { background: #ffd62b; text-decoration: none; }
+
 /* Glyph boxes match the XD icon frames (user 16.5x20, search 20x20, bag 17.5x20) */
 .icon--user { width: 16.5px; height: 20px; }
 .icon--search { width: 20px; height: 20px; }
@@ -968,6 +983,7 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   .nav-open { display: inline-grid; }
   .header-link { justify-content: center; min-width: 44px; gap: 0; }
   .header-link__label,
+  .header-link--loyalty,
   .locale { display: none; }
   .site-logo img { width: clamp(150px, 44vw, 240px); }
   .bag-count { top: 4px; right: 1px; }
@@ -1145,6 +1161,16 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     color: #fff;
   }
   .site-nav__foot a { font-size: 13px; font-weight: 500; line-height: 36px; }
+  .site-nav__loyalty {
+    margin-bottom: 8px;
+    padding: 0 14px;
+    background: var(--bb-yellow);
+    color: var(--bb-ink);
+    font-weight: 800 !important;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-align: center;
+  }
   .site-nav__foot a:hover { text-decoration: underline; }
   .site-nav__locale { margin-top: 10px; font-size: 12px; opacity: .75; }
 

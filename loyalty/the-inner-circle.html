@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Inner Circle | Blue Banana Loyalty</title>
+<meta name="description" content="Join the Inner Circle, the Blue Banana loyalty scheme. 2 points per £1, members-only offers and 10% off piercings. Free to join in all 18 stores and online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@700;900&family=Oswald:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+/* ==========================================================================
+   The Inner Circle — Blue Banana loyalty landing page
+   Identity: black and acid yellow, blackletter over condensed caps, zine edges.
+   ========================================================================== */
+:root{
+  --ink:#0a0a0a;
+  --ink-2:#141414;
+  --yellow:#f1c30e;        /* brand Feature Colour Yellow, sampled from artwork */
+  --white:#ffffff;
+  --grey:#d6d6d6;
+  --muted:#9a9a9a;
+  --gothic:"Grenze Gotisch",Georgia,serif;
+  --cond:"Oswald","Arial Narrow",sans-serif;
+  --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--white);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+p{margin:0}
+h1,h2,h3{margin:0;line-height:1}
+.wrap{width:min(1180px,100% - 44px);margin-inline:auto}
+.kicker{font-family:var(--cond);font-size:14px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--yellow);margin:0}
+.gothic{font-family:var(--gothic);font-weight:900;letter-spacing:.01em}
+.cond{font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 32px;
+  font-family:var(--cond);font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;border:3px solid var(--yellow);cursor:pointer;transition:background .15s,color .15s;
+}
+.btn--yellow{background:var(--yellow);color:#000}
+.btn--yellow:hover{background:#fff;border-color:#fff;color:#000}
+.btn--outline{background:transparent;color:var(--yellow)}
+.btn--outline:hover{background:var(--yellow);color:#000}
+.btn--sm{min-height:42px;padding:0 20px;font-size:13px;border-width:2px}
+
+/* ---------- Masthead ---------- */
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0}
+.masthead img{width:196px;filter:brightness(0) invert(1)}
+
+/* ---------- Ticker ---------- */
+.ticker{background:var(--yellow);color:#000;border-block:3px solid #000;overflow:hidden}
+.ticker__track{display:flex;gap:40px;padding:11px 0;white-space:nowrap;animation:slide 28s linear infinite;width:max-content}
+.ticker span{font-family:var(--cond);font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker__track{animation:none}}
+
+/* ---------- Hero ---------- */
+.hero{padding:46px 0 72px;border-bottom:3px solid var(--yellow)}
+.hero__grid{display:grid;gap:40px;align-items:center}
+@media(min-width:900px){.hero__grid{grid-template-columns:1.05fr .95fr;gap:56px}}
+.hero h1{font-size:clamp(54px,11vw,128px)}
+.hero h1 .pre{display:block;font-family:var(--cond);font-size:.22em;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:.35em}
+.hero h1 .line{display:block;color:var(--white)}
+.hero__sub{margin-top:26px;max-width:46ch;color:var(--grey);font-size:18px}
+.hero__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.hero__media{position:relative}
+.hero__media img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:52% 18%;border:4px solid var(--yellow)}
+.hero__media::before{content:"";position:absolute;inset:16px -16px -16px 16px;border:3px solid #2a2a2a;z-index:-1}
+.sticker{
+  position:absolute;right:-14px;bottom:-22px;width:124px;height:124px;border-radius:50%;
+  background:var(--yellow);color:#000;display:grid;place-items:center;text-align:center;
+  transform:rotate(-11deg);border:3px solid #000;
+}
+.sticker b{font-family:var(--cond);font-size:19px;font-weight:700;line-height:1.05;text-transform:uppercase;letter-spacing:.04em}
+.sticker small{display:block;font-size:11px;letter-spacing:.14em;font-weight:600}
+
+/* ---------- Benefit tiles (from the print artwork) ---------- */
+.section{padding:84px 0}
+.section__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:40px}
+.section__head h2{font-family:var(--gothic);font-weight:900;font-size:clamp(40px,7vw,76px)}
+.tiles{display:grid;gap:20px}
+@media(min-width:820px){.tiles{grid-template-columns:repeat(3,1fr)}}
+.tile{padding:30px 28px 34px;min-height:230px;display:flex;flex-direction:column}
+.tile--yellow{background:var(--yellow);color:#000}
+.tile--black{background:var(--ink-2);color:#fff;outline:3px solid var(--yellow);outline-offset:-3px}
+.tile--grey{background:var(--grey);color:#000}
+.tile svg{width:38px;height:38px;margin-bottom:auto}
+.tile h3{font-family:var(--cond);font-size:26px;text-transform:uppercase;letter-spacing:.02em;margin:26px 0 6px}
+.tile--black h3{color:var(--yellow)}
+.tile em{font-style:italic;font-size:13px;opacity:.75;font-weight:500}
+.tile p{margin-top:12px;font-size:16px;font-weight:600}
+
+/* ---------- How it works ---------- */
+.steps{display:grid;gap:3px;background:var(--yellow);border:3px solid var(--yellow)}
+@media(min-width:860px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--ink);padding:34px 30px 38px}
+.step__n{font-family:var(--gothic);font-size:64px;font-weight:900;color:var(--yellow);line-height:.8}
+.step h3{font-family:var(--cond);font-size:24px;text-transform:uppercase;margin:16px 0 10px}
+.step p{color:var(--grey);font-size:16px}
+
+/* ---------- Perks + card ---------- */
+.more{display:grid;gap:46px;align-items:center}
+@media(min-width:900px){.more{grid-template-columns:1.1fr .9fr;gap:64px}}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:2px;background:#222}
+.checks li{background:var(--ink);display:grid;grid-template-columns:auto 1fr;gap:16px;padding:20px 4px}
+.checks svg{width:24px;height:24px;color:var(--yellow);margin-top:2px}
+.checks h3{font-family:var(--cond);font-size:21px;text-transform:uppercase;margin-bottom:4px}
+.checks p{color:var(--muted);font-size:15px}
+.card{
+  aspect-ratio:1.586;background:var(--ink-2);border:3px solid var(--yellow);padding:7% 7.5%;
+  display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:10px 10px 0 rgba(241,195,14,.16);
+}
+.card__top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.card__brand{font-family:var(--cond);font-size:clamp(11px,1.5vw,14px);font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--white)}
+.card__scheme{font-family:var(--cond);font-size:clamp(9px,1.1vw,11px);font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow)}
+.card__name{font-family:var(--gothic);font-weight:900;font-size:clamp(30px,5.2vw,46px);line-height:.95;margin:auto 0}
+.card__foot{display:flex;align-items:flex-end;justify-content:space-between;gap:5%}
+.card__no{font-family:var(--cond);font-size:clamp(11px,1.4vw,15px);font-weight:600;letter-spacing:.18em;color:var(--white)}
+.card__code{width:42%;max-width:190px}
+.card__bars{height:clamp(26px,4.4vw,40px);padding:3px;background-color:#fff;background-image:repeating-linear-gradient(90deg,#000 0px 2px,#fff 2px 5px,#000 5px 6px,#fff 6px 9px,#000 9px 12px,#fff 12px 14px,#000 14px 15px,#fff 15px 19px,#000 19px 21px,#fff 21px 23px,#000 23px 24px,#fff 24px 27px,#000 27px 30px,#fff 30px 33px,#000 33px 34px,#fff 34px 36px);background-origin:content-box;background-clip:content-box}
+.card__codeno{margin-top:5px;font-family:var(--cond);font-size:10px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;text-align:center}
+
+/* ---------- Join ---------- */
+.join{background:var(--yellow);color:#000;border-block:3px solid #000}
+.join h2{font-family:var(--gothic);font-size:clamp(44px,9vw,92px);font-weight:900}
+.join p{max-width:52ch;font-weight:600}
+.form{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;max-width:620px}
+.form input{
+  flex:1 1 260px;min-height:58px;padding:0 18px;border:3px solid #000;background:#fff;color:#000;
+  font-family:var(--sans);font-size:16px;font-weight:600;
+}
+.form input::placeholder{color:#6b6b6b;font-weight:500}
+.form input:focus{outline:none;box-shadow:inset 0 0 0 3px rgba(0,0,0,.25)}
+.form input[aria-invalid="true"]{border-color:#b3261e;background:#ffe9e7}
+.form .btn{border-color:#000;background:#000;color:var(--yellow)}
+.form .btn:hover{background:#fff;color:#000}
+.form__msg{margin-top:14px;min-height:22px;font-weight:700;font-size:15px}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:820px;margin-right:auto}
+.faq details{border:3px solid #2a2a2a;margin-bottom:12px;background:var(--ink-2)}
+.faq details[open]{border-color:var(--yellow)}
+.faq summary{
+  cursor:pointer;list-style:none;padding:20px 54px 20px 22px;position:relative;
+  font-family:var(--cond);font-size:20px;text-transform:uppercase;letter-spacing:.02em;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--yellow);font-size:26px;font-family:var(--sans)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 22px 22px;color:var(--grey)}
+
+/* ---------- Footer ---------- */
+.foot{padding:50px 0 66px;color:var(--muted);font-size:14px}
+.foot nav{display:flex;flex-wrap:wrap;gap:10px 26px;margin-bottom:20px}
+.foot a{font-family:var(--cond);text-transform:uppercase;letter-spacing:.12em;font-size:13px;text-decoration:none}
+.foot a:hover{color:var(--yellow)}
+.foot__note{margin-top:14px;font-size:12px;color:#6f6f6f}
+.foot__note a{text-decoration:underline;text-underline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="masthead">
+    <a href="../" aria-label="Blue Banana home">
+      <img src="assets/blue-banana-logo.png" alt="Blue Banana" width="196" height="16">
+    </a>
+    <a class="btn btn--yellow btn--sm" href="#join">Join free</a>
+  </div>
+</div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Members only</span><span>·</span><span>2 points per £1</span><span>·</span><span>10% off piercings</span><span>·</span><span>First look at every drop</span><span>·</span><span>Free to join</span><span>·</span>
+    <span>Members only</span><span>·</span><span>2 points per £1</span><span>·</span><span>10% off piercings</span><span>·</span><span>First look at every drop</span><span>·</span><span>Free to join</span><span>·</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <h1 class="gothic"><span class="pre">Join the</span><span class="line">Inner Circle</span></h1>
+      <p class="hero__sub">The Blue Banana loyalty card. Points on everything you buy, offers we keep for members, and 10&nbsp;% off every piercing — including the jewellery.</p>
+      <div class="hero__cta">
+        <a class="btn btn--yellow" href="#join">Get in — it's free</a>
+        <a class="btn btn--outline" href="#what">What you get</a>
+      </div>
+    </div>
+    <div class="hero__media">
+      <img src="assets/inner-circle-hero.jpg" alt="" width="1080" height="700">
+      <div class="sticker"><b>Free<br>to join</b><small>No catch</small></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section" id="what">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <p class="kicker">Card in, perks out</p>
+          <h2>What members get</h2>
+        </div>
+        <p style="max-width:34ch;color:var(--muted);font-size:15px">Same deal for everyone in the Circle. No tiers, no levels, no points-expiry games.</p>
+      </div>
+      <div class="tiles">
+        <div class="tile tile--yellow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <h3>Points on purchase</h3>
+          <em>Available to all members</em>
+          <p>2 points per £1, in store and online.</p>
+        </div>
+        <div class="tile tile--black">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12.5 12.5 3H21v8.5L11.5 21 3 12.5Z"/><circle cx="16.5" cy="7.5" r="1.4"/></svg>
+          <h3>Exclusive offers</h3>
+          <em>Available to all members</em>
+          <p>In-store offers for members only. Just show your card.</p>
+        </div>
+        <div class="tile tile--grey">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 4v10a5 5 0 0 0 10 0V4"/><circle cx="7" cy="3" r="1.8"/><circle cx="17" cy="3" r="1.8"/></svg>
+          <h3>Piercing offer</h3>
+          <em>Available to all members</em>
+          <p>10% off all piercings, including jewellery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <p class="kicker">Three steps</p>
+          <h2>How it works</h2>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <p class="step__n">01</p>
+          <h3>Get your card</h3>
+          <p>Sign up free at any till or online. You'll start with 10&nbsp;% off your first order, or a free jewellery upgrade — your pick.</p>
+        </div>
+        <div class="step">
+          <p class="step__n">02</p>
+          <h3>Earn on everything</h3>
+          <p>2 points per £1 across all 18 stores and the website. Clothing, band merch, boots, dye, jewellery — it all counts.</p>
+        </div>
+        <div class="step">
+          <p class="step__n">03</p>
+          <h3>Cash them in</h3>
+          <p>100 points = £2 off, in store or online. Or turn your points into a donation instead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap more">
+      <div>
+        <p class="kicker">Beyond the points</p>
+        <h2 class="gothic" style="font-size:clamp(38px,6vw,64px);margin:10px 0 28px">The rest of it</h2>
+        <ul class="checks">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+            <div><h3>First look at drops</h3><p>24 to 48 hours ahead of everyone else on new collections and collabs.</p></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+            <div><h3>Aftercare that follows up</h3><p>Check-ins at day 3, 14, 30 and 60 after a piercing, plus an offer on your first jewellery change.</p></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+            <div><h3>Bring someone in</h3><p>Get pierced together and you both get rewarded for the referral.</p></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+            <div><h3>Points for showing up</h3><p>Reviews, tagged photos and referrals earn points too, not just spending.</p></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+            <div><h3>Give them away</h3><p>Swap your points for a charity donation instead of a voucher.</p></div>
+          </li>
+        </ul>
+      </div>
+      <div class="card" role="img" aria-label="The Inner Circle membership card: Blue Banana, member number 4927 0381 6654">
+        <div class="card__top">
+          <p class="card__brand">Blue Banana</p>
+          <span class="card__scheme">Customer loyalty scheme</span>
+        </div>
+        <p class="card__name gothic">Inner Circle</p>
+        <div class="card__foot">
+          <p class="card__no">4927 0381 6654</p>
+          <div class="card__code" aria-hidden="true">
+            <div class="card__bars"></div>
+            <p class="card__codeno">Scan at the till</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section join" id="join">
+    <div class="wrap">
+      <p class="kicker" style="color:#000">Last bit</p>
+      <h2>Get in</h2>
+      <p style="margin-top:14px">Free to join, free to stay. Pop your email in and we'll set the card up, or ask at the till in any of our 18 stores.</p>
+      <form class="form" id="joinForm" novalidate>
+        <label for="email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="your@email.com" required>
+        <button class="btn" type="submit">Join free</button>
+      </form>
+      <p class="form__msg" id="formMsg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap"><div class="faq">
+      <p class="kicker">The small print</p>
+      <h2 class="gothic" style="font-size:clamp(36px,6vw,60px);margin:10px 0 28px">Questions</h2>
+      <details>
+        <summary>Is it actually free?</summary>
+        <p>Yes. Joining the Inner Circle costs nothing, in any of our 18 UK stores or online.</p>
+      </details>
+      <details>
+        <summary>How many points do I get?</summary>
+        <p>2 points for every £1 you spend. 100 points turns into a £2 reward you can use in store or online.</p>
+      </details>
+      <details>
+        <summary>Are there tiers?</summary>
+        <p>No. Everyone in the Circle gets the same programme and the same rules — nothing to climb, nothing to keep up.</p>
+      </details>
+      <details>
+        <summary>Does it work online and in store?</summary>
+        <p>Both. One account is recognised at the till, in the app and on the website, so your points land in the same place wherever you shop.</p>
+      </details>
+      <details>
+        <summary>Is jewellery included in the piercing discount?</summary>
+        <p>It is — members get 10&nbsp;% off all piercings in our studios, jewellery included.</p>
+      </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav>
+      <a href="https://www.bluebanana.com/en_GB/">Shop</a>
+      <a href="https://piercing.bluebanana.com/">Book a piercing</a>
+      <a href="https://www.bluebanana.com/en_GB/stores">Find a store</a>
+      <a href="https://www.bluebanana.com/en_GB/contact-forms/contact-us">Contact us</a>
+      <a href="https://www.bluebanana.com/en_GB/terms-and-conditions">Terms</a>
+    </nav>
+    <p>© 2026 Blue Banana · Alternative clothing &amp; piercing since 1996</p>
+    <p class="foot__note">Concept page for the loyalty scheme. The sign-up form isn't connected yet. <a href="index.html">Compare all three names</a>.</p>
+  </div>
+</footer>
+
+<script>
+  // Prototype sign-up: validates locally, sends nothing anywhere.
+  var form = document.getElementById('joinForm');
+  var input = document.getElementById('email');
+  var msg = document.getElementById('formMsg');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var value = input.value.trim();
+    var valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+    input.setAttribute('aria-invalid', String(!valid));
+    if (!valid) {
+      msg.textContent = value ? 'That email address doesn’t look right.' : 'Enter your email address to join.';
+      input.focus();
+      return;
+    }
+    msg.textContent = 'You’re in. (Demo page — nothing was sent.)';
+    form.reset();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Coven | Blue Banana Loyalty</title>
+<meta name="description" content="Join the Coven, the Blue Banana loyalty scheme. Two points for every £1, 10% off piercings and first call on every drop. Free to join in all 18 stores and online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Montserrat:wght@400;500;600;700&display=swap">
+<style>
+/* ==========================================================================
+   The Coven — Blue Banana loyalty landing page
+   Identity: deep violet-black, high-contrast serif, ritual language.
+   ========================================================================== */
+:root{
+  --ink:#0d0a11;            /* violet-leaning black */
+  --ink-2:#17121d;
+  --purple:#9c5dc6;         /* sampled from the display artwork */
+  --purple-lt:#c9a6e6;
+  --bone:#f5f1f7;
+  --muted:#b4a7bf;
+  --rule:rgba(201,166,230,.26);
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ink);color:var(--bone);
+  font-family:var(--sans);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:700;margin:0;line-height:1.04}
+p{margin:0}
+.wrap{width:min(1120px,100% - 48px);margin-inline:auto}
+.eyebrow{
+  font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--purple-lt);margin:0;
+}
+.lede{font-size:19px;color:#ded5e6;max-width:52ch}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--rule) 18%,var(--rule) 82%,transparent);border:0;margin:0}
+:focus-visible{outline:2px solid var(--purple-lt);outline-offset:3px}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:56px;padding:0 34px;border:1px solid transparent;cursor:pointer;
+  font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;text-decoration:none;transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn--solid{background:var(--purple);color:#140d1a}
+.btn--solid:hover{background:var(--purple-lt)}
+.btn--ghost{border-color:var(--rule);color:var(--bone)}
+.btn--ghost:hover{border-color:var(--purple-lt);background:rgba(156,93,198,.12)}
+
+/* ---------- Masthead ---------- */
+.masthead{
+  position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;
+  gap:20px;padding:22px 0;
+}
+.masthead img{width:188px;filter:brightness(0) invert(1)}
+.masthead .btn{min-height:44px;padding:0 22px;font-size:11px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:88vh;display:flex;flex-direction:column;isolation:isolate;overflow:hidden}
+@media(max-width:640px){.hero{min-height:74vh}}
+.hero__media{position:absolute;inset:0;z-index:-2}
+.hero__media img{width:100%;height:100%;object-fit:cover;object-position:52% 22%}
+.hero__veil{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(120% 80% at 50% 8%,rgba(13,10,17,.18),rgba(13,10,17,.72) 58%,var(--ink) 92%),
+    linear-gradient(180deg,rgba(13,10,17,.55),rgba(13,10,17,.2) 30%,rgba(13,10,17,.95));
+}
+.hero__inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 0 64px}
+.hero h1{font-size:clamp(68px,16vw,180px);font-weight:900;letter-spacing:-.02em;margin:10px 0 0}
+.hero h1 em{display:block;font-size:.3em;font-style:italic;font-weight:500;letter-spacing:.02em;margin-bottom:-.1em;color:var(--purple-lt)}
+.hero__sub{margin:26px auto 0;max-width:46ch;font-size:19px;color:#e3dbe9}
+.hero__cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px}
+.hero__note{margin-top:20px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Pact (core benefits) ---------- */
+.section{padding:96px 0}
+.section__head{text-align:center;max-width:42ch;margin:0 auto 54px}
+.section__head h2{font-size:clamp(38px,6vw,64px);font-weight:900;letter-spacing:-.01em}
+.section__head p{margin-top:16px;color:var(--muted)}
+.pact{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+@media(min-width:820px){.pact{grid-template-columns:repeat(3,1fr)}}
+.pact__item{background:var(--ink);padding:40px 34px}
+.pact__item svg{width:34px;height:34px;color:var(--purple-lt)}
+.pact__item h3{margin:22px 0 10px;font-size:26px;font-weight:700}
+.pact__item p{color:var(--muted);font-size:15px}
+.pact__value{
+  display:block;margin-top:18px;font-family:var(--serif);font-size:34px;font-weight:900;
+  font-style:italic;color:var(--purple-lt);
+}
+
+/* ---------- Rites (how it works) ---------- */
+.rites{display:grid;gap:0;counter-reset:rite}
+.rite{display:grid;gap:12px 32px;padding:38px 0;border-top:1px solid var(--rule);align-items:baseline}
+@media(min-width:820px){.rite{grid-template-columns:140px 1fr 1fr}}
+.rite:last-child{border-bottom:1px solid var(--rule)}
+.rite__num{font-family:var(--serif);font-size:44px;font-weight:900;font-style:italic;color:var(--purple)}
+.rite h3{font-size:30px}
+.rite p{color:var(--muted)}
+
+/* ---------- Card + deeper perks ---------- */
+.deeper{display:grid;gap:56px;align-items:center}
+@media(min-width:900px){.deeper{grid-template-columns:.9fr 1.1fr;gap:72px}}
+.card{
+  position:relative;aspect-ratio:1.586;padding:30px 32px;
+  background:linear-gradient(145deg,#241a2e,#0e0a12 65%);
+  border:1px solid var(--rule);display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:0 40px 80px -40px rgba(156,93,198,.6);
+}
+.card::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(90% 60% at 80% 0%,rgba(156,93,198,.35),transparent 60%);
+}
+.card__top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.card__brand{font-size:clamp(10px,1.3vw,12px);font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:#efeaf4}
+.card__scheme{font-size:clamp(9px,1.1vw,10px);font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--purple-lt)}
+.card__name{font-family:var(--serif);font-size:clamp(30px,5.2vw,46px);font-weight:900;letter-spacing:-.01em;margin:auto 0}
+.card__foot{display:flex;align-items:flex-end;justify-content:space-between;gap:5%}
+.card__no{font-size:clamp(11px,1.3vw,14px);font-weight:600;letter-spacing:.22em;color:#e9e3f1}
+.card__code{width:42%;max-width:186px;position:relative;z-index:1}
+.card__bars{height:clamp(26px,4.4vw,40px);padding:3px;background-color:#efeaf4;background-image:repeating-linear-gradient(90deg,#120d18 0px 2px,#efeaf4 2px 5px,#120d18 5px 6px,#efeaf4 6px 9px,#120d18 9px 12px,#efeaf4 12px 14px,#120d18 14px 15px,#efeaf4 15px 19px,#120d18 19px 21px,#efeaf4 21px 23px,#120d18 23px 24px,#efeaf4 24px 27px,#120d18 27px 30px,#efeaf4 30px 33px,#120d18 33px 34px,#efeaf4 34px 36px);background-origin:content-box;background-clip:content-box}
+.card__codeno{margin-top:5px;font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);text-align:center}
+.perks{list-style:none;margin:0;padding:0}
+.perks li{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--rule)}
+.perks li:first-child{border-top:1px solid var(--rule)}
+.perks h3{font-size:21px;margin-bottom:4px}
+.perks p{color:var(--muted);font-size:15px}
+.perks .mark{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--rule);display:grid;place-items:center;
+  font-family:var(--serif);font-style:italic;font-size:15px;color:var(--purple-lt);
+}
+
+/* ---------- Join ---------- */
+.join{background:linear-gradient(180deg,var(--ink),var(--ink-2));border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.join__inner{text-align:center;max-width:620px;margin:0 auto}
+.form{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px}
+.form input{
+  flex:1 1 280px;min-height:56px;padding:0 20px;background:rgba(255,255,255,.04);
+  border:1px solid var(--rule);color:var(--bone);font-family:var(--sans);font-size:16px;
+}
+.form input::placeholder{color:#8e8296}
+.form input:focus{outline:none;border-color:var(--purple-lt);background:rgba(156,93,198,.1)}
+.form input[aria-invalid="true"]{border-color:#e4738f}
+.form__msg{margin-top:16px;min-height:24px;font-size:14px;color:var(--purple-lt)}
+.form__msg[data-state="error"]{color:#f0a0b4}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:760px;margin:0 auto}
+.faq details{border-top:1px solid var(--rule)}
+.faq details:last-of-type{border-bottom:1px solid var(--rule)}
+.faq summary{
+  cursor:pointer;list-style:none;padding:24px 44px 24px 0;position:relative;
+  font-family:var(--serif);font-size:22px;font-weight:700;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  font-family:var(--sans);font-size:24px;font-weight:400;color:var(--purple-lt);
+}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 26px;color:var(--muted);max-width:62ch}
+
+/* ---------- Footer ---------- */
+.foot{padding:56px 0 72px;text-align:center;color:var(--muted);font-size:14px}
+.foot nav{display:flex;flex-wrap:wrap;gap:8px 26px;justify-content:center;margin-bottom:22px}
+.foot a{text-decoration:none;letter-spacing:.1em;text-transform:uppercase;font-size:12px;font-weight:600}
+.foot a:hover{color:var(--purple-lt)}
+.foot__note{margin-top:18px;font-size:12px;color:#7d7186}
+.foot__note a{text-decoration:underline;text-underline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero__media"><img src="assets/coven-hero.jpg" alt="" width="1080" height="850"></div>
+  <div class="hero__veil"></div>
+  <div class="wrap">
+    <div class="masthead">
+      <a href="../" aria-label="Blue Banana home">
+        <img src="assets/blue-banana-logo.png" alt="Blue Banana" width="188" height="15">
+      </a>
+      <a class="btn btn--ghost" href="#join">Join free</a>
+    </div>
+  </div>
+  <div class="wrap hero__inner">
+    <h1><em>Join the</em>Coven</h1>
+    <p class="hero__sub">Our loyalty scheme for the ones who keep coming back. Gather points on everything, take 10&nbsp;% off your piercings, and get first call on every drop.</p>
+    <div class="hero__cta">
+      <a class="btn btn--solid" href="#join">Join the Coven</a>
+      <a class="btn btn--ghost" href="#pact">See what you get</a>
+    </div>
+    <p class="hero__note">Free to join · 18 UK stores &amp; online</p>
+  </div>
+</header>
+
+<main>
+  <section class="section" id="pact">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">The pact</p>
+        <h2>What every member gets</h2>
+        <p>One circle, one set of rules. No tiers, no small print, nothing to prove — the same offer for everyone who joins.</p>
+      </div>
+      <div class="pact">
+        <div class="pact__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <h3>Points on every purchase</h3>
+          <p>Earned in any of our 18 stores and online, the moment you pay.</p>
+          <span class="pact__value">2 points per £1</span>
+        </div>
+        <div class="pact__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 12.5 12.5 3H21v8.5L11.5 21 3 12.5Z"/><circle cx="16.5" cy="7.5" r="1.4"/></svg>
+          <h3>Offers kept for members</h3>
+          <p>In-store offers that never reach the shop floor. Show your card, that's it.</p>
+          <span class="pact__value">Members only</span>
+        </div>
+        <div class="pact__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 4v10a5 5 0 0 0 10 0V4"/><circle cx="7" cy="3" r="1.8"/><circle cx="17" cy="3" r="1.8"/></svg>
+          <h3>Piercings, cheaper</h3>
+          <p>On every piercing in our studios, jewellery included.</p>
+          <span class="pact__value">10% off</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">The rites</p>
+        <h2>How it works</h2>
+        <p>Three steps, then it looks after itself.</p>
+      </div>
+      <div class="rites">
+        <article class="rite">
+          <span class="rite__num">I.</span>
+          <h3>Join the circle</h3>
+          <p>Free, in any store or online, in about a minute. You'll get 10&nbsp;% off your first order or a free jewellery upgrade for turning up.</p>
+        </article>
+        <article class="rite">
+          <span class="rite__num">II.</span>
+          <h3>Gather as you go</h3>
+          <p>Two points for every £1, whether you're buying a dress, a dye, a pair of boots or a new piece of jewellery. One account at the till, in the app and on the web.</p>
+        </article>
+        <article class="rite">
+          <span class="rite__num">III.</span>
+          <h3>Claim your due</h3>
+          <p>100 points becomes a £2 reward to spend in store or online. Or pass it on — points can be given as a donation instead.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap deeper">
+      <div class="card" role="img" aria-label="The Coven membership card: Blue Banana, member number 4927 0381 6654">
+        <div class="card__top">
+          <p class="card__brand">Blue Banana</p>
+          <span class="card__scheme">Customer loyalty scheme</span>
+        </div>
+        <p class="card__name">The Coven</p>
+        <div class="card__foot">
+          <p class="card__no">4927 0381 6654</p>
+          <div class="card__code" aria-hidden="true">
+            <div class="card__bars"></div>
+            <p class="card__codeno">Scan at the till</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Deeper in</p>
+        <h2 style="font-size:clamp(34px,5vw,52px);font-weight:900;margin:14px 0 26px">More than points</h2>
+        <ul class="perks">
+          <li>
+            <span class="mark" aria-hidden="true">i</span>
+            <div><h3>First through the door</h3><p>A 24 to 48 hour head start on new collections and collabs, before anyone else sees them.</p></div>
+          </li>
+          <li>
+            <span class="mark" aria-hidden="true">ii</span>
+            <div><h3>Aftercare that checks in</h3><p>A fresh piercing gets looked after: messages at day 3, 14, 30 and 60, and an offer on your first jewellery change once it's healed.</p></div>
+          </li>
+          <li>
+            <span class="mark" aria-hidden="true">iii</span>
+            <div><h3>Bring your coven</h3><p>Get pierced together and you both earn. Referrals are rewarded for the pair of you.</p></div>
+          </li>
+          <li>
+            <span class="mark" aria-hidden="true">iv</span>
+            <div><h3>Points between purchases</h3><p>Reviews, tagged photos and referrals all earn, not just what you spend.</p></div>
+          </li>
+          <li>
+            <span class="mark" aria-hidden="true">v</span>
+            <div><h3>Give it away</h3><p>Turn your points into a donation instead of a voucher, whenever you'd rather.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section join" id="join">
+    <div class="wrap join__inner">
+      <p class="eyebrow">Initiation</p>
+      <h2 style="font-size:clamp(40px,7vw,72px);font-weight:900;margin:14px 0 18px">Join the Coven</h2>
+      <p class="lede" style="margin-inline:auto">Free, for good. Drop your email and we'll set your account up, or ask any of our 18 stores to do it at the till.</p>
+      <form class="form" id="joinForm" novalidate>
+        <label class="sr-only" for="email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="your@email.com" required>
+        <button class="btn btn--solid" type="submit">Join free</button>
+      </form>
+      <p class="form__msg" id="formMsg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap faq">
+      <div class="section__head">
+        <p class="eyebrow">Before you ask</p>
+        <h2>Questions</h2>
+      </div>
+      <details>
+        <summary>What does it cost?</summary>
+        <p>Nothing. The Coven is free to join and free to stay in, in any of our 18 UK stores or online.</p>
+      </details>
+      <details>
+        <summary>How do points work?</summary>
+        <p>You earn 2 points for every £1 you spend, in store or online. 100 points becomes a £2 reward you can spend either way. One account, one balance, wherever you shop.</p>
+      </details>
+      <details>
+        <summary>Are there tiers or levels?</summary>
+        <p>No. Everyone in the Coven is in the same circle with the same rules — there's no status to climb and nothing to maintain.</p>
+      </details>
+      <details>
+        <summary>Do I need to carry a card?</summary>
+        <p>Show your card at the till for in-store offers, or sign in online. Your account is recognised at the till, in the app and on the website.</p>
+      </details>
+      <details>
+        <summary>Does the piercing discount include jewellery?</summary>
+        <p>Yes. Members get 10&nbsp;% off all piercings in our studios, jewellery included.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav>
+      <a href="https://www.bluebanana.com/en_GB/">Shop</a>
+      <a href="https://piercing.bluebanana.com/">Book a piercing</a>
+      <a href="https://www.bluebanana.com/en_GB/stores">Find a store</a>
+      <a href="https://www.bluebanana.com/en_GB/contact-forms/contact-us">Contact us</a>
+      <a href="https://www.bluebanana.com/en_GB/terms-and-conditions">Terms</a>
+    </nav>
+    <p>© 2026 Blue Banana · Alternative clothing &amp; piercing since 1996</p>
+    <p class="foot__note">Concept page for the loyalty scheme. The sign-up form isn't connected yet. <a href="index.html">Compare all three names</a>.</p>
+  </div>
+</footer>
+
+<script>
+  // Prototype sign-up: validates locally, sends nothing anywhere.
+  var form = document.getElementById('joinForm');
+  var input = document.getElementById('email');
+  var msg = document.getElementById('formMsg');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var value = input.value.trim();
+    var valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+    input.setAttribute('aria-invalid', String(!valid));
+    if (!valid) {
+      msg.dataset.state = 'error';
+      msg.textContent = value ? 'That email address doesn’t look right.' : 'Enter your email address to join.';
+      input.focus();
+      return;
+    }
+    msg.dataset.state = 'ok';
+    msg.textContent = 'Welcome to the Coven. (Demo page — nothing was sent.)';
+    form.reset();
+  });
+</script>
+</body>
+</html>
