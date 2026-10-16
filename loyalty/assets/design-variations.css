@@ -1,0 +1,67 @@
+/* Reference artwork controls: design treatment and page composition are independent. */
+:root{--variant-accent:#fe3cac;--variant-soft:#ffd9ef;--variant-face:"Poppins",sans-serif;--variant-weight:800;--variant-card:#2a2a33;--variant-ink:#101014;--variant-step:#c5178a}
+html[data-concept="coven"]{--variant-accent:#9c5dc6;--variant-soft:#e8dff1;--variant-card:#221930;--variant-ink:#0d0a11;--variant-step:#663086;--purple:#9c5dc6;--purple-lt:#cdaae9}
+html[data-variant="coven-classic"]{--variant-face:"Bodoni Moda",serif;--variant-weight:400;--serif:"Bodoni Moda",serif}
+html[data-variant="coven-editorial"]{--variant-face:"Playfair Display",serif;--variant-weight:900;--serif:"Playfair Display",serif}
+html[data-variant="inner-fraktur"],html[data-variant="inner-gothic"]{--variant-accent:#f1c30e;--variant-soft:#e5e4e1;--variant-card:#141414;--variant-ink:#0a0a0a;--variant-step:#756000}
+html[data-variant="inner-fraktur"]{--variant-face:"UnifrakturCook",serif;--variant-weight:700}
+html[data-variant="inner-gothic"]{--variant-face:"Grenze Gotisch",serif;--variant-weight:900}
+html[data-variant="inner-modern"],html[data-variant="collective-bold"]{--variant-face:"Poppins",sans-serif;--variant-weight:800}
+html[data-concept]{--pink:var(--variant-accent);--yellow:var(--variant-accent);--pink-soft:var(--variant-soft);--ink:var(--variant-ink);--gothic:var(--variant-face);--display:var(--variant-face);--cond:"Montserrat",sans-serif;--step-accent:var(--variant-step)}
+.loyalty-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;padding:12px 22px;background:#1d1c1b;color:#fff}
+.variation-controls{display:flex;flex-wrap:wrap;gap:12px 18px;font:600 14px/1.4 Montserrat,Arial,sans-serif}
+.variation-controls label{display:flex;align-items:center;gap:10px}
+.variation-controls select{min-height:44px;max-width:100%;padding:8px 30px 8px 12px;border:0;border-radius:0;background:#fff;color:#1d1c1b;font:600 14px/1.4 Montserrat,Arial,sans-serif;cursor:pointer}
+.variation-controls select:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.loyalty-toolbar .loyalty-switcher{padding:0;background:transparent}
+@media(max-width:900px){.loyalty-toolbar{justify-content:flex-start}.loyalty-toolbar .loyalty-switcher{flex-basis:100%;justify-content:flex-start}}
+@media(max-width:500px){.loyalty-toolbar{padding:14px 16px;gap:14px}.variation-controls{display:grid;width:100%;gap:10px}.variation-controls label{display:grid;grid-template-columns:50px minmax(0,1fr)}.variation-controls select{width:100%}.loyalty-toolbar .loyalty-switcher{justify-content:center;gap:2px}.loyalty-toolbar .loyalty-switcher a{padding:8px;font-size:13px}}
+/* The family reaches headings and the card, while navigation stays in the store's type. */
+main h2,main .card__name{font-family:var(--variant-face);font-weight:var(--variant-weight);letter-spacing:-.015em}
+main h3{font-family:Montserrat,Arial,sans-serif;font-weight:700;letter-spacing:0;text-transform:none;line-height:1.2}
+html[data-variant="coven-classic"] .hero h1{text-transform:uppercase;letter-spacing:0}
+main .counts{background:var(--variant-soft);color:var(--variant-ink)}
+main .counts p,main .counts .intro,main .counts__row span{color:var(--variant-ink)}
+main .card,main .card-b--dark{background:var(--variant-card)}
+main .card__scheme{color:#ff7ac8}
+html[data-concept="coven"] main .card__scheme{color:#cdaae9}
+html[data-variant="inner-fraktur"] main .card__scheme,html[data-variant="inner-gothic"] main .card__scheme{color:#f1c30e}
+main .card-b--dark h3{color:var(--variant-accent)}
+main .step h3{color:var(--variant-accent)}
+main .section--paper .step h3{color:var(--variant-step)}
+main .join{background:var(--variant-accent)}
+main .join .form__msg{color:#151116}
+main .hero{
+  display:block;position:relative;isolation:isolate;min-height:0;padding:64px 0;background:var(--variant-ink);overflow:hidden;
+}
+main .hero .hero__grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:60px}
+main .hero .hero__copy{position:relative;z-index:1;min-width:0;text-align:left}
+main .hero h1{font-family:var(--variant-face);font-weight:var(--variant-weight);font-size:clamp(50px,7.3vw,104px);line-height:1.06;letter-spacing:-.02em;margin:0;max-width:12ch;color:#fff}
+main .hero .hero__sub{font:400 19px/1.6 Montserrat,Arial,sans-serif;max-width:47ch;margin:24px 0 0;color:#f0edf2}
+main .hero .hero__cta{justify-content:flex-start;margin-top:30px;gap:14px}
+main .hero .hero__note{font:400 15px/1.5 Montserrat,Arial,sans-serif;color:#d9d2de;margin-top:22px}
+main .hero .hero__media{position:relative;inset:auto;z-index:0;overflow:hidden;order:2;aspect-ratio:4/5}
+main .hero .hero__media::before{display:none}
+main .hero .hero__media img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 22%;border:0}
+main .hero .variant-join,main .hero .variant-benefits{font:700 15px/1.4 Montserrat,Arial,sans-serif;letter-spacing:0;text-transform:none;min-height:56px;border:0;padding:16px 28px}
+main .hero .variant-join{background:var(--variant-accent);color:#0a060c}
+main .hero .variant-join:hover{background:#fff}
+main .hero .variant-benefits{background:#302c35;color:#fff}
+main .hero .variant-benefits:hover{background:#45404b}
+@media(max-width:939px){main .hero{padding:44px 0}main .hero .hero__grid{grid-template-columns:1fr;gap:34px}main .hero h1{max-width:none;font-size:clamp(46px,9vw,76px)}main .hero .hero__media{max-height:620px}main .hero .hero__copy{max-width:760px}}
+/* Photo-poster echoes the supplied POS: portrait, large name and a legible dark scrim. */
+html[data-layout="poster"] main .hero{min-height:680px;display:flex;align-items:flex-end;padding:80px 0}
+html[data-layout="poster"] main .hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.62);z-index:-1} /* taste-skill-ignore: neutral scrim over the actual campaign photograph */
+html[data-layout="poster"] main .hero .hero__grid{display:block}
+html[data-layout="poster"] main .hero .hero__copy{max-width:760px}
+html[data-layout="poster"] main .hero .hero__media{position:absolute;inset:0;aspect-ratio:auto;z-index:-2;max-height:none}
+html[data-layout="poster"] main .hero .hero__media img{object-position:50% 24%}
+html[data-layout="poster"] main .hero h1{font-size:clamp(50px,8.5vw,120px);max-width:12ch}
+/* The artboard version lets the type and the accent fields carry the opening. */
+html[data-layout="type"] main .hero{padding:82px 0 90px}
+html[data-layout="type"] main .hero .hero__grid{display:block}
+html[data-layout="type"] main .hero .hero__media{display:none}
+html[data-layout="type"] main .hero .hero__copy{max-width:none}
+html[data-layout="type"] main .hero h1{max-width:none;font-size:clamp(50px,9vw,132px)}
+html[data-layout="type"] main .hero .hero__sub{max-width:62ch}
+@media(max-width:600px){html[data-layout="poster"] main .hero{min-height:640px;padding:52px 0}html[data-layout="poster"] main .hero h1,html[data-layout="type"] main .hero h1{font-size:50px}html[data-layout="type"] main .hero{padding:50px 0 58px}}
