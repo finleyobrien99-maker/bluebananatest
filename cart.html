@@ -768,11 +768,12 @@
 <main id="main" class="cart-page" data-cart-page>
 
   <div class="cart-page__head">
-    <ol class="checkout-steps" aria-label="Checkout progress">
-      <li class="checkout-steps__step is-current" aria-current="step"><span class="checkout-steps__num">1</span> Cart</li>
-      <li class="checkout-steps__step"><span class="checkout-steps__num">2</span> Delivery</li>
-      <li class="checkout-steps__step"><span class="checkout-steps__num">3</span> Payment</li>
-    </ol>
+    <!-- Basket notice for Christmas delivery dates, courier delays and similar.
+         Hand-off: set the text from the CMS and leave the block out when there's nothing to say. -->
+    <div class="cart-notice" role="note">
+      <svg class="icon" aria-hidden="true"><use href="#i-gift"></use></svg>
+      <p><strong>Christmas delivery:</strong> order by <strong>Thursday 17 December</strong> for standard UK delivery before Christmas, or by 2pm on <strong>Tuesday 22 December</strong> with Next Day Delivery. <a class="text-link" href="https://www.bluebanana.com/en_GB/delivery-information">See all delivery dates</a></p>
+    </div>
     <div class="cart-page__title-row">
       <h1 class="section-title cart-page__title">Your Cart <span class="cart-page__count" data-cart-heading-count></span></h1>
       <a class="text-link cart-page__continue" href="index.html">
@@ -789,6 +790,34 @@
       <p class="delivery-meter__text" data-delivery-text></p>
       <div class="delivery-meter__track" aria-hidden="true"><span class="delivery-meter__fill" data-delivery-fill></span></div>
       <p class="delivery-meter__small">Free standard UK delivery is taken off at the final checkout step. Excludes footwear.</p>
+
+      <!-- Teasers: offers the cart doesn't qualify for yet.
+           Hand-off: fill from the platform's Teasers functionality and leave out when there are none. -->
+      <details class="teasers">
+        <summary>
+          <svg class="icon" aria-hidden="true"><use href="#i-tag"></use></svg>
+          Want to see offers you’ve missed?
+          <span class="teasers__count">3</span>
+          <svg class="icon teasers__chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </summary>
+        <ul class="teasers__list">
+          <li class="teaser">
+            <p class="teaser__title">Multibuy Madness!</p>
+            <p class="teaser__text">Any 2 Manic Panic High Voltage hair dyes for £18.</p>
+            <a class="text-link teaser__link" href="https://www.bluebanana.com/en_GB/section/hair-dye">Shop Manic Panic</a>
+          </li>
+          <li class="teaser">
+            <p class="teaser__title">Body Jewellery 3 for 2</p>
+            <p class="teaser__text">Buy any 3 pieces of body jewellery and the cheapest one is free.</p>
+            <a class="text-link teaser__link" href="https://www.bluebanana.com/en_GB/section/body-jewellery">Shop Body Jewellery</a>
+          </li>
+          <li class="teaser">
+            <p class="teaser__title">Free Aftercare Spray</p>
+            <p class="teaser__text">Spend £30 on piercing jewellery and get a free saline aftercare spray.</p>
+            <a class="text-link teaser__link" href="https://www.bluebanana.com/en_GB/section/body-jewellery">Shop Piercing Jewellery</a>
+          </li>
+        </ul>
+      </details>
     </div>
 
     <!-- Order summary: above the cart lines on phones and tablets, beside them on desktop -->
@@ -966,12 +995,46 @@
 
 <!-- Mobile checkout bar: appears once the summary's checkout button scrolls out of view -->
 <div class="checkout-bar" data-checkout-bar hidden>
-  <p class="checkout-bar__total"><span>Total</span> <strong data-checkout-bar-total>£0.00</strong></p>
-  <a class="btn btn--dark checkout-bar__btn" href="https://www.bluebanana.com/en_GB/checkout/">
+  <p class="checkout-bar__total">
+    <span>Total</span>
+    <span class="checkout-bar__amounts">
+      <strong data-checkout-bar-total>£0.00</strong>
+      <span class="checkout-bar__saving" data-checkout-bar-saving hidden></span>
+    </span>
+  </p>
+  <!-- Opens the Express Checkout pop-up; without JavaScript it goes straight to checkout -->
+  <a class="btn btn--dark checkout-bar__btn" href="https://www.bluebanana.com/en_GB/checkout/" aria-haspopup="dialog" data-express-open>
     <svg class="icon icon--lock" aria-hidden="true"><use href="#i-lock"></use></svg>
     Checkout
   </a>
 </div>
+
+<!-- Express Checkout pop-up (from the mobile checkout bar) -->
+<dialog class="express-dialog" aria-labelledby="express-dialog-title" data-express-dialog>
+  <div class="express-dialog__inner">
+    <div class="express-dialog__head">
+      <h2 class="express-dialog__title" id="express-dialog-title">Express Checkout</h2>
+      <button class="express-dialog__close" type="button" aria-label="Close" data-express-close>
+        <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+    </div>
+    <!-- Hand-off: the same SDK buttons as the order summary. -->
+    <div class="express">
+      <a class="express__btn express__btn--apple" href="https://www.bluebanana.com/en_GB/checkout/">
+        Buy with <span class="apple-mark">Apple&nbsp;Pay</span>
+      </a>
+      <a class="express__btn express__btn--paypal" href="https://www.bluebanana.com/en_GB/checkout/">
+        <span class="paypal-mark" aria-hidden="true"><b>Pay</b><b>Pal</b></span>
+        <span class="sr-only">PayPal</span> Checkout
+      </a>
+    </div>
+    <p class="summary__or"><span>Or</span></p>
+    <a class="btn btn--dark btn--block summary__checkout" href="https://www.bluebanana.com/en_GB/checkout/">
+      <svg class="icon icon--lock" aria-hidden="true"><use href="#i-lock"></use></svg>
+      Checkout Securely
+    </a>
+  </div>
+</dialog>
 
 <!-- Undo toast -->
 <div class="toast" data-toast hidden>

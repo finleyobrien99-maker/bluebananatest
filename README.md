@@ -50,8 +50,9 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 There's no cart artboard in the XD files, so the page is built from the homepage build's components and patterns in the product page XD: the grey promo bars, dark 50px buttons, the quantity stepper, the PayPal / Apple Pay pair, the next-day delivery countdown and the Trustpilot block. The drawer's "Go to Cart" button now opens it.
 
 Changes from the live cart page:
-- Checkout steps (Cart › Delivery › Payment) above the title.
+- A basket notice at the top of the page for things like Christmas delivery dates or courier problems.
 - A free delivery meter that shows how much more to spend. It replaces the static orange banner.
+- Under the meter, "Want to see offers you've missed?" opens a list of teasers: offers the cart hasn't unlocked yet.
 - Quantity changes update the totals straight away, so there's no "Update Cart" button.
 - Removing an item, or clearing the cart, can be undone from a toast.
 - The order summary shows sale savings and the applied discount. On phones and tablets it sits between the free delivery meter and the cart items, so the total and checkout come first. On desktop it sits to the right of the items and stays in view while you scroll.
@@ -59,7 +60,7 @@ Changes from the live cart page:
 - Apple Pay and PayPal are stacked above "Checkout Securely", at the same width.
 - The PayPal delivery-country help from the live page is a short disclosure under the PayPal button.
 - Recommendations have "Add to Cart" buttons.
-- Phones get a sticky Total + Checkout bar whenever the summary's checkout button is off screen.
+- Phones get a sticky Total + Checkout bar whenever the summary's checkout button is off screen. It shows the sale savings next to the total. Its Checkout button slides up a full-width Express Checkout panel from the bottom of the screen, with Apple Pay, PayPal and Checkout Securely.
 - The empty cart keeps the live page's Homepage / Contact Us help.
 
 ### Before the cart page goes live
@@ -67,8 +68,10 @@ Changes from the live cart page:
 1. **Basket data:** it runs on demo data (`DEMO_CART` in `js/cart.js`, the same items as the drawer). Quantity, remove, clear and add need connecting to the basket API.
 2. **Discount codes and gift cards:** `DEMO_CODES` only knows `DRMARTENS10` (from the product page XD), and every gift card is rejected. Connect both to the platform's coupon and gift card endpoints.
 3. **Delivery rules:** the free delivery threshold (£50, footwear excluded, from the live cart page) and the 2pm weekday next-day cut-off are settings at the top of `js/cart.js`. Confirm them. The countdown doesn't know about bank holidays. The homepage promo bar says £70, so one of the two needs changing.
-4. **Express checkout:** the PayPal and Apple Pay buttons are styled links to checkout. Swap them for the SDK buttons, and only show Apple Pay where `ApplePaySession` exists.
+4. **Express checkout:** the PayPal and Apple Pay buttons, in both the order summary and the Express Checkout pop-up, are styled links to checkout. Swap them for the SDK buttons, and only show Apple Pay where `ApplePaySession` exists.
 5. **Trustpilot:** the rating block is static (5,706 reviews, from the live page). Swap it for the Trustpilot widget.
+6. **Basket notice:** the Christmas delivery dates are example text in `cart.html`. Set the notice from the CMS, and leave it out when there's nothing to say.
+7. **Teasers:** the three offers are made-up examples in `cart.html`. Fill the list from the Teasers functionality, update the count, and leave the dropdown out when the cart hasn't missed any offers.
 
 ## Changes from the XD
 

@@ -1,7 +1,8 @@
 /* Blue Banana cart page
    Cart lines (quantity, remove with undo, clear cart), free delivery meter,
    order summary, discount code / gift card forms, next-day countdown,
-   "You May Also Like" add buttons and the mobile checkout bar.
+   "You May Also Like" add buttons, and the mobile checkout bar with its
+   Express Checkout pop-up.
    Header, menus and the product scroller come from main.js. */
 (() => {
   'use strict';
@@ -302,6 +303,7 @@
     delivery: $('[data-summary-delivery]'),
     total: $('[data-summary-total]'),
     barTotal: $('[data-checkout-bar-total]'),
+    barSaving: $('[data-checkout-bar-saving]'),
     bagCount: $('[data-cart-count]'),
     bag: $('.header-link--bag'),
   };
@@ -332,6 +334,8 @@
     out.delivery.textContent = freeDelivery ? 'Free' : 'Calculated at checkout';
     out.total.textContent = gbp.format(total);
     out.barTotal.textContent = gbp.format(total);
+    out.barSaving.hidden = saving <= 0;
+    out.barSaving.textContent = `Save ${gbp.format(saving)}`;
 
     out.bagCount.textContent = String(count);
     out.bagCount.hidden = count === 0;
@@ -407,6 +411,41 @@
       if (!entry.isIntersecting && cart.length) showCheckoutBar();
       else hideCheckoutBar();
     }).observe(summaryCheckout);
+  }
+
+  /* ---------- Express Checkout pop-up (from the checkout bar) ---------- */
+  const expressDialog = $('[data-express-dialog]');
+  const expressOpen = $('[data-express-open]');
+
+  // Browsers without <dialog> keep the plain link to checkout.
+  if (typeof expressDialog.showModal === 'function') {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // Slide the sheet back down before closing it.
+    const closeExpress = () => {
+      if (!expressDialog.open || expressDialog.classList.contains('is-closing')) return;
+      if (reduceMotion.matches) { expressDialog.close(); return; }
+      expressDialog.classList.add('is-closing');
+      setTimeout(() => {
+        expressDialog.classList.remove('is-closing');
+        expressDialog.close();
+      }, 200);
+    };
+
+    expressOpen.addEventListener('click', (e) => {
+      e.preventDefault();
+      expressDialog.showModal();
+    });
+    $('[data-express-close]').addEventListener('click', closeExpress);
+    // Esc: run the same closing slide instead of the instant close.
+    expressDialog.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      closeExpress();
+    });
+    // A click on the backdrop lands on the <dialog> itself, outside the inner panel.
+    expressDialog.addEventListener('click', (e) => {
+      if (e.target === expressDialog) closeExpress();
+    });
   }
 
   renderLines();
