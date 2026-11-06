@@ -98,11 +98,12 @@
         item.variant ? el('p', { class: 'cart-line__variant', text: item.variant }) : null,
         item.stock && item.stock <= 3 ? el('p', { class: 'cart-line__badge', text: `Only ${item.stock} left in stock` }) : null,
         item.footwear && FREE_DELIVERY_EXCLUDES_FOOTWEAR ? el('p', { class: 'cart-line__note', text: 'Footwear doesn’t count towards free delivery' }) : null,
-        priceEl(item, 'p', 'cart-line__each'),
-        remove),
+        priceEl(item, 'p', 'cart-line__each')),
       priceEl(item, 'div', 'cart-line__price'),
       el('div', { class: 'cart-line__qty' },
         el('div', { class: 'qty', role: 'group', 'aria-label': `Quantity of ${item.name}` }, dec, value, inc)),
+      // Its own grid item: under the details on desktop, beside the quantity box on phones.
+      remove,
       el('p', { class: 'cart-line__sum' }, el('span', { class: 'sr-only', text: 'Line total ' }), sum, saving));
 
     const sync = () => {

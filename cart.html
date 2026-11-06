@@ -784,16 +784,132 @@
 
   <div class="cart-layout">
 
+    <!-- Free delivery meter -->
+    <div class="delivery-meter" data-delivery-meter>
+      <p class="delivery-meter__text" data-delivery-text></p>
+      <div class="delivery-meter__track" aria-hidden="true"><span class="delivery-meter__fill" data-delivery-fill></span></div>
+      <p class="delivery-meter__small">Free standard UK delivery is taken off at the final checkout step. Excludes footwear.</p>
+    </div>
+
+    <!-- Order summary: above the cart lines on phones and tablets, beside them on desktop -->
+    <aside class="summary" aria-labelledby="summary-title" data-summary>
+      <div class="summary__box">
+        <div class="summary__totals">
+          <h2 class="summary__title" id="summary-title">Order Summary</h2>
+
+          <dl class="summary__rows">
+            <div class="summary__row">
+              <dt>Subtotal <span class="summary__muted" data-summary-items></span></dt>
+              <dd data-summary-subtotal>£0.00</dd>
+            </div>
+            <div class="summary__row summary__row--saving" data-summary-saving-row hidden>
+              <dt>Sale savings</dt>
+              <dd data-summary-saving>£0.00</dd>
+            </div>
+            <div class="summary__row summary__row--saving" data-summary-discount-row hidden>
+              <dt>
+                Discount <span class="summary__code" data-summary-code></span>
+                <button class="text-link text-link--muted summary__remove-code" type="button" data-code-remove>Remove<span class="sr-only"> discount code</span></button>
+              </dt>
+              <dd data-summary-discount>£0.00</dd>
+            </div>
+            <div class="summary__row">
+              <dt>Delivery</dt>
+              <dd data-summary-delivery>Calculated at checkout</dd>
+            </div>
+          </dl>
+
+          <div class="summary__total">
+            <span>Total</span>
+            <span data-summary-total>£0.00</span>
+          </div>
+          <p class="summary__vat">Including VAT</p>
+
+          <!-- Hand-off: point these at the platform's promotion-coupon and gift-card endpoints. -->
+          <details class="summary__drawer" data-code-panel>
+            <summary>
+              <svg class="icon icon--tag" aria-hidden="true"><use href="#i-tag"></use></svg>
+              Add a discount code
+              <svg class="icon summary__chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            </summary>
+            <form class="code-form" novalidate data-code-form>
+              <label class="sr-only" for="discount-code">Discount code</label>
+              <input class="code-form__input" id="discount-code" name="code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Enter your code">
+              <button class="btn btn--dark code-form__btn" type="submit">Apply</button>
+              <p class="code-form__msg" role="status" aria-live="polite" data-code-msg></p>
+            </form>
+          </details>
+
+          <details class="summary__drawer" data-gift-panel>
+            <summary>
+              <svg class="icon icon--gift" aria-hidden="true"><use href="#i-gift"></use></svg>
+              Add a gift card
+              <svg class="icon summary__chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            </summary>
+            <form class="code-form" novalidate data-gift-form>
+              <label class="sr-only" for="gift-card">Gift card code</label>
+              <input class="code-form__input" id="gift-card" name="giftcard" type="text" autocomplete="off" spellcheck="false" placeholder="Enter gift card code">
+              <button class="btn btn--dark code-form__btn" type="submit">Apply</button>
+              <p class="code-form__msg" role="status" aria-live="polite" data-gift-msg></p>
+            </form>
+          </details>
+        </div>
+
+        <div class="summary__pay">
+          <!-- Hand-off: replace with the Apple Pay and PayPal SDK buttons. Only show Apple Pay where ApplePaySession is available. -->
+          <div class="express">
+            <a class="express__btn express__btn--apple" href="https://www.bluebanana.com/en_GB/checkout/">
+              Buy with <span class="apple-mark">Apple&nbsp;Pay</span>
+            </a>
+            <a class="express__btn express__btn--paypal" href="https://www.bluebanana.com/en_GB/checkout/">
+              <span class="paypal-mark" aria-hidden="true"><b>Pay</b><b>Pal</b></span>
+              <span class="sr-only">PayPal</span> Checkout
+            </a>
+          </div>
+
+          <p class="summary__or"><span>Or</span></p>
+
+          <a class="btn btn--dark btn--block summary__checkout" href="https://www.bluebanana.com/en_GB/checkout/" data-summary-checkout>
+            <svg class="icon icon--lock" aria-hidden="true"><use href="#i-lock"></use></svg>
+            Checkout Securely
+          </a>
+
+          <details class="summary__help">
+            <summary>PayPal says it can't deliver to my country</summary>
+            <p>Update your PayPal address so every field is filled in. Older saved PayPal addresses can be missing details such as the country, which causes this message. Once your address is updated you can carry on with your order.</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="summary__trust">
+        <ul class="assurances">
+          <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>
+            <span><strong>Secure checkout</strong> Your payment details are encrypted</span>
+          </li>
+          <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-truck"></use></svg>
+            <span><strong>Free UK delivery over £50</strong> <a class="text-link" href="https://www.bluebanana.com/en_GB/delivery-information">Delivery information</a></span>
+          </li>
+          <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-return"></use></svg>
+            <span><strong>Easy returns</strong> <a class="text-link" href="https://www.bluebanana.com/en_GB/returning-items-to-blue-banana">Returns information</a></span>
+          </li>
+        </ul>
+
+        <a class="trustpilot" href="https://uk.trustpilot.com/review/www.bluebanana.com" target="_blank" rel="noopener">
+          <span class="trustpilot__label">Excellent</span>
+          <span class="trustpilot__stars" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span class="is-half"></span>
+          </span>
+          <span class="trustpilot__count">Check out our <strong>5,706</strong> reviews on Trustpilot</span>
+        </a>
+      </div>
+    </aside>
+
     <!-- Cart lines -->
     <section class="cart-main" aria-labelledby="cart-lines-title">
       <h2 class="sr-only" id="cart-lines-title">Items in your cart</h2>
-
-      <!-- Free delivery meter -->
-      <div class="delivery-meter" data-delivery-meter>
-        <p class="delivery-meter__text" data-delivery-text></p>
-        <div class="delivery-meter__track" aria-hidden="true"><span class="delivery-meter__fill" data-delivery-fill></span></div>
-        <p class="delivery-meter__small">Free standard UK delivery is taken off at the final checkout step. Excludes footwear.</p>
-      </div>
 
       <div class="cart-lines">
         <div class="cart-lines__head" aria-hidden="true">
@@ -825,115 +941,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Order summary -->
-    <aside class="summary" aria-labelledby="summary-title" data-summary>
-      <div class="summary__box">
-        <h2 class="summary__title" id="summary-title">Order Summary</h2>
-
-        <dl class="summary__rows">
-          <div class="summary__row">
-            <dt>Subtotal <span class="summary__muted" data-summary-items></span></dt>
-            <dd data-summary-subtotal>£0.00</dd>
-          </div>
-          <div class="summary__row summary__row--saving" data-summary-saving-row hidden>
-            <dt>Sale savings</dt>
-            <dd data-summary-saving>£0.00</dd>
-          </div>
-          <div class="summary__row summary__row--saving" data-summary-discount-row hidden>
-            <dt>
-              Discount <span class="summary__code" data-summary-code></span>
-              <button class="text-link text-link--muted summary__remove-code" type="button" data-code-remove>Remove<span class="sr-only"> discount code</span></button>
-            </dt>
-            <dd data-summary-discount>£0.00</dd>
-          </div>
-          <div class="summary__row">
-            <dt>Delivery</dt>
-            <dd data-summary-delivery>Calculated at checkout</dd>
-          </div>
-        </dl>
-
-        <div class="summary__total">
-          <span>Total</span>
-          <span data-summary-total>£0.00</span>
-        </div>
-        <p class="summary__vat">Including VAT</p>
-
-        <!-- Hand-off: point these at the platform's promotion-coupon and gift-card endpoints. -->
-        <details class="summary__drawer" data-code-panel>
-          <summary>
-            <svg class="icon icon--tag" aria-hidden="true"><use href="#i-tag"></use></svg>
-            Add a discount code
-            <svg class="icon summary__chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
-          </summary>
-          <form class="code-form" novalidate data-code-form>
-            <label class="sr-only" for="discount-code">Discount code</label>
-            <input class="code-form__input" id="discount-code" name="code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Enter your code">
-            <button class="btn btn--dark code-form__btn" type="submit">Apply</button>
-            <p class="code-form__msg" role="status" aria-live="polite" data-code-msg></p>
-          </form>
-        </details>
-
-        <details class="summary__drawer" data-gift-panel>
-          <summary>
-            <svg class="icon icon--gift" aria-hidden="true"><use href="#i-gift"></use></svg>
-            Add a gift card
-            <svg class="icon summary__chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
-          </summary>
-          <form class="code-form" novalidate data-gift-form>
-            <label class="sr-only" for="gift-card">Gift card code</label>
-            <input class="code-form__input" id="gift-card" name="giftcard" type="text" autocomplete="off" spellcheck="false" placeholder="Enter gift card code">
-            <button class="btn btn--dark code-form__btn" type="submit">Apply</button>
-            <p class="code-form__msg" role="status" aria-live="polite" data-gift-msg></p>
-          </form>
-        </details>
-
-        <a class="btn btn--dark btn--block summary__checkout" href="https://www.bluebanana.com/en_GB/checkout/" data-summary-checkout>
-          <svg class="icon icon--lock" aria-hidden="true"><use href="#i-lock"></use></svg>
-          Checkout Securely
-        </a>
-
-        <p class="summary__or"><span>Or check out with</span></p>
-        <!-- Hand-off: replace with the PayPal and Apple Pay SDK buttons. Only show Apple Pay where ApplePaySession is available. -->
-        <div class="express">
-          <a class="express__btn express__btn--paypal" href="https://www.bluebanana.com/en_GB/checkout/">
-            <span class="paypal-mark" aria-hidden="true"><b>Pay</b><b>Pal</b></span>
-            <span class="sr-only">PayPal</span> Checkout
-          </a>
-          <a class="express__btn express__btn--apple" href="https://www.bluebanana.com/en_GB/checkout/">
-            Buy with <span class="apple-mark">Apple&nbsp;Pay</span>
-          </a>
-        </div>
-
-        <details class="summary__help">
-          <summary>PayPal says it can't deliver to my country</summary>
-          <p>Update your PayPal address so every field is filled in. Older saved PayPal addresses can be missing details such as the country, which causes this message. Once your address is updated you can carry on with your order.</p>
-        </details>
-      </div>
-
-      <ul class="assurances">
-        <li>
-          <svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>
-          <span><strong>Secure checkout</strong> Your payment details are encrypted</span>
-        </li>
-        <li>
-          <svg class="icon" aria-hidden="true"><use href="#i-truck"></use></svg>
-          <span><strong>Free UK delivery over £50</strong> <a class="text-link" href="https://www.bluebanana.com/en_GB/delivery-information">Delivery information</a></span>
-        </li>
-        <li>
-          <svg class="icon" aria-hidden="true"><use href="#i-return"></use></svg>
-          <span><strong>Easy returns</strong> <a class="text-link" href="https://www.bluebanana.com/en_GB/returning-items-to-blue-banana">Returns information</a></span>
-        </li>
-      </ul>
-
-      <a class="trustpilot" href="https://uk.trustpilot.com/review/www.bluebanana.com" target="_blank" rel="noopener">
-        <span class="trustpilot__label">Excellent</span>
-        <span class="trustpilot__stars" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span class="is-half"></span>
-        </span>
-        <span class="trustpilot__count">Check out our <strong>5,706</strong> reviews on Trustpilot</span>
-      </a>
-    </aside>
   </div>
 
   <!-- You May Also Like -->

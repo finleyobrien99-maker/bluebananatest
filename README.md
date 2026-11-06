@@ -54,9 +54,9 @@ Changes from the live cart page:
 - A free delivery meter that shows how much more to spend. It replaces the static orange banner.
 - Quantity changes update the totals straight away, so there's no "Update Cart" button.
 - Removing an item, or clearing the cart, can be undone from a toast.
-- The order summary shows sale savings and the applied discount, and stays in view while you scroll on desktop.
+- The order summary shows sale savings and the applied discount. On phones and tablets it sits between the free delivery meter and the cart items, so the total and checkout come first. On desktop it sits to the right of the items and stays in view while you scroll.
 - The discount code and gift card fields fold away under the summary.
-- "Checkout Securely" and the express payment buttons sit together.
+- Apple Pay and PayPal are stacked above "Checkout Securely", at the same width.
 - The PayPal delivery-country help from the live page is a short disclosure under the PayPal button.
 - Recommendations have "Add to Cart" buttons.
 - Phones get a sticky Total + Checkout bar whenever the summary's checkout button is off screen.
