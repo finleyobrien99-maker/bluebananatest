@@ -885,6 +885,12 @@
         </div>
 
         <div class="summary__pay">
+          <p class="dispatch" data-dispatch hidden>
+            <svg class="icon icon--truck" aria-hidden="true"><use href="#i-truck"></use></svg>
+            <span>Order within <strong data-dispatch-timer>00:00:00</strong> for Next Day Delivery by <strong data-dispatch-date></strong>
+            <a class="text-link" href="https://www.bluebanana.com/en_GB/delivery-information">(View Options)</a></span>
+          </p>
+
           <!-- Hand-off: replace with the Apple Pay and PayPal SDK buttons. Only show Apple Pay where ApplePaySession is available. -->
           <div class="express">
             <a class="express__btn express__btn--apple" href="https://www.bluebanana.com/en_GB/checkout/">
@@ -952,11 +958,6 @@
 
       <div class="cart-main__foot">
         <button class="text-link text-link--muted" type="button" data-cart-clear>Clear cart</button>
-        <p class="dispatch" data-dispatch hidden>
-          <svg class="icon icon--truck" aria-hidden="true"><use href="#i-truck"></use></svg>
-          <span>Order within <strong data-dispatch-timer>00:00:00</strong> for Next Day Delivery by <strong data-dispatch-date></strong>
-          <a class="text-link" href="https://www.bluebanana.com/en_GB/delivery-information">(View Options)</a></span>
-        </p>
       </div>
 
       <!-- Empty cart (shown when the last item is removed) -->

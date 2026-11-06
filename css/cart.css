@@ -253,14 +253,14 @@
   gap: 12px 24px;
   padding: 16px 0 0;
 }
+/* Next-day countdown, in the order summary above the Apple Pay button */
 .dispatch {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  margin-left: auto;
+  margin-bottom: 14px;
   font-size: 12px;
   line-height: 18px;
-  text-align: right;
 }
 .dispatch .icon { width: 20px; height: 20px; margin-top: -1px; }
 .dispatch strong { font-weight: 800; font-variant-numeric: tabular-nums; }
@@ -587,7 +587,6 @@ html:has(.express-dialog[open]) { overflow: hidden; }
   .cart-line__sum { align-self: center; }
 
   .cart-main__foot { flex-direction: column; align-items: flex-start; }
-  .dispatch { margin-left: 0; text-align: left; }
 
   .cart-recs { margin-top: 44px; padding: 34px 24px 44px; }
   .cart-recs .scroller { margin: 0; }

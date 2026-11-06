@@ -335,7 +335,7 @@
     out.total.textContent = gbp.format(total);
     out.barTotal.textContent = gbp.format(total);
     out.barSaving.hidden = saving <= 0;
-    out.barSaving.textContent = `Save ${gbp.format(saving)}`;
+    out.barSaving.textContent = `Saved ${gbp.format(saving)}`;
 
     out.bagCount.textContent = String(count);
     out.bagCount.hidden = count === 0;
