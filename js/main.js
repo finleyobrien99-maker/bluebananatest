@@ -508,12 +508,15 @@
     back.focus();
   }
 
-  cartOpenBtn.addEventListener('click', openCart);
-  $$('[data-cart-close]').forEach((node) => node.addEventListener('click', closeCart));
+  // The cart page has no drawer (its bag icon links to the page), so only wire the drawer where it exists.
+  if (drawer) {
+    cartOpenBtn.addEventListener('click', openCart);
+    $$('[data-cart-close]').forEach((node) => node.addEventListener('click', closeCart));
 
-  cartList.replaceChildren(...cart.map(createRow));
-  renderUpsell();
-  updateTotals();
+    cartList.replaceChildren(...cart.map(createRow));
+    renderUpsell();
+    updateTotals();
+  }
   $$('[data-scroller]').forEach(initScroller);
 
   /* ---------- Newsletter ----------
