@@ -195,6 +195,24 @@
   const countEl = $('[data-product-count]');
   const pagerStatus = $('[data-pager-status]');
   const pagerFill = $('[data-pager-fill]');
+  // Progress line: starts empty and fills (slowly, via the CSS transition) once the pager is on screen,
+  // then grows each time more products load.
+  let fillTarget = pagerFill.style.width;
+  let pagerSeen = !('IntersectionObserver' in window) || reduceMotion.matches;
+  const setFill = (width) => {
+    fillTarget = width;
+    if (pagerSeen) pagerFill.style.width = width;
+  };
+  if (!pagerSeen) {
+    pagerFill.style.width = '0%';
+    const watch = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      pagerSeen = true;
+      watch.disconnect();
+      window.requestAnimationFrame(() => { pagerFill.style.width = fillTarget; });
+    }, { threshold: 1 });
+    watch.observe(pagerFill.parentElement);
+  }
   const loadMore = $('[data-load-more]');
   const emptyState = $('[data-grid-empty]');
   const appliedWrap = $('[data-applied]');
@@ -225,7 +243,7 @@
     const total = filtering ? shown : TOTAL;
     countEl.textContent = total.toLocaleString('en-GB');
     pagerStatus.textContent = `Viewing ${shown.toLocaleString('en-GB')} of ${total.toLocaleString('en-GB')} Products`;
-    pagerFill.style.width = `${total ? Math.min(100, (shown / total) * 100) : 0}%`;
+    setFill(`${total ? Math.min(100, (shown / total) * 100) : 0}%`);
     const demoTotal = productTiles().length + DEMO_MORE.length - poolIndex;
     loadMore.hidden = filtering || shown >= demoTotal;
     $('[data-pager]').hidden = shown === 0;

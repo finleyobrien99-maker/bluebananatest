@@ -90,9 +90,9 @@ From top to bottom:
 - Applied filters as chips with a Reset chip (Web 1920 – 5).
 - The product grid: three 400px tiles at 1920, three on tablets, two on phones. Each tile can show a Selling Fast!, Promo Code or Back Print badge.
 - The promotion tile (a red-tinted photo with "Sale up to 90% off") keeps the 5th place in the grid, whatever the sort or filters. That puts it in row 2 on desktop and row 3 on phones, as in the XD.
-- "Viewing 24 of 386 Products", a progress line and Load More.
+- "Viewing 24 of 386 Products", a progress line and Load More. The progress line starts empty and fills slowly to the share of products viewed once it scrolls into view, then grows again after each Load More.
 - Customer Reviews, Related Posts, Styled By Us Worn By You, and the SEO Text Block.
-  - Related Posts and Styled By Us scroll with the XD's arrow buttons: 55px black squares with a thin white chevron, either side of the row. Both arrows always show, and the one with nowhere to go is dimmed. Each carousel repeats its four items once, so there's something to scroll through.
+  - Related Posts and Styled By Us scroll with the XD's arrow buttons: 55px black squares with a thin white chevron, 20px outside the first and last card and vertically centred on the cards. Both arrows always show, and the one with nowhere to go is dimmed. Each carousel repeats its four items once, so there's something to scroll through.
   - The SEO text is left aligned, in a box the height of the image (284px; 320px on phones) that scrolls. Its scrollbar follows the XD: a 10px `#e5e5e5` track and a `#c3c3c3` thumb with rounded ends, 30px from the text.
 
 The Filters button opens a 400px drawer from the right (Web 1920 – 2/3/4). It has one accordion per live filter group (Brand, Product Type, Clothing Size, Colour, Main Style, Band, Range, Bottoms Size, Dress Size), with the live options and counts. Ticked values show as chips at the top of the drawer. Filters apply when you press See Results or close the drawer. The page URL keeps the live site's parameters (`brand[brand][]=50`, `order_by_sort=price-asc`, `limit=48`), so a filtered or sorted view can be shared or reloaded.
@@ -152,6 +152,8 @@ Changes from the live page:
 5. **Images:** `images/gallery` has web-sized copies (480 / 840, plus 1000 for the banner) of the live CDN photos. The style tiles are only 250px on the live site, so ask for larger originals.
 6. **Prices:** the live gallery shows no prices, so neither does this. Add price and stock from the product API to the Products Used list if you want them.
 7. **Search engines:** the page has the same `noindex` tag as the other pages, plus a canonical link to the live gallery URL.
+
+Product photos: eight of the shots in `images/products` had a thin light-grey frame baked in from the live site (both sizes of each): the Banned Morena dress and Heartbreaker top, the Ragged Priest jeans and jorts, the Pierce The Veil and System Of A Down BYOB tees, and two hinged segment rings. The frame has been trimmed off the image files (cropped 2px, 3px on the 840 copies, and scaled back to size), so the homepage cards lose it too. Photos fetched from the live CDN may still have it.
 
 ## Changes from the XD
 

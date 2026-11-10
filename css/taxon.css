@@ -381,7 +381,8 @@
   margin: 12px 0 18px;
   background: var(--bb-button-light);
 }
-.pager__fill { display: block; height: 100%; background: var(--bb-ink); transition: width .4s var(--ease-out); }
+/* Fills slowly: from empty when the pager first scrolls into view, then a step further after each Load More */
+.pager__fill { display: block; height: 100%; background: var(--bb-ink); transition: width 1.6s var(--ease-out); }
 .pager__more { min-width: 124px; }
 .pager__more[hidden] { display: none; }
 .pager__more.is-loading { pointer-events: none; opacity: .6; }
@@ -472,8 +473,11 @@
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 
-/* ---------- XD carousel arrows: 55px black squares with a thin white chevron, just outside the cards ---------- */
+/* ---------- XD carousel arrows: 55px black squares with a thin white chevron.
+   They sit 20px outside the first and last card, vertically centred on the cards.
+   The carousel is kept 110px narrower than its section so the arrows always fit on screen. ---------- */
 .scroller--xd .scroller__btn {
+  top: 50%;
   width: 55px;
   height: 55px;
   margin-top: -27.5px;
@@ -481,16 +485,15 @@
 }
 .scroller--xd .scroller__btn:hover { background: var(--bb-ink); }
 .scroller--xd .scroller__btn .icon { width: 13px; height: 24px; }
-.scroller--xd .scroller__btn--prev { left: -20px; }
-.scroller--xd .scroller__btn--next { right: -20px; }
+.scroller--xd .scroller__btn--prev { left: -75px; }
+.scroller--xd .scroller__btn--next { right: -75px; }
 /* Both arrows always show, as in the XD; the one with nowhere to go is dimmed */
 .scroller--xd .scroller__btn[disabled] { opacity: .3; pointer-events: none; }
 .no-js .scroller--xd .scroller__btn { display: none; }
-.scroller--posts .scroller__btn { top: 85px; margin-top: -27.5px; }
 
 /* ---------- Related Posts ---------- */
 .posts { padding: 92px var(--taxon-pad) 80px; }
-.scroller--posts { width: min(1462px, 100%); margin: 50px auto 0; }
+.scroller--posts { width: min(1462px, 100% - 110px); margin: 50px auto 0; }
 .scroller--posts .scroller__track { --n: 4; --gap: 34px; }
 @container (max-width: 1180px) { .scroller--posts .scroller__track { --n: 3; --gap: 24px; } }
 @container (max-width: 820px)  { .scroller--posts .scroller__track { --n: 2; --gap: 20px; } }
@@ -523,7 +526,7 @@
 .insta { padding: 80px var(--taxon-pad) 90px; background: var(--bb-panel); }
 .insta__handle { margin-top: 14px; font-size: 14px; text-align: center; }
 .insta__handle a:hover { text-decoration: underline; text-underline-offset: 3px; }
-.scroller--insta { width: min(1180px, 100%); margin: 40px auto 0; }
+.scroller--insta { width: min(1180px, 100% - 110px); margin: 40px auto 0; }
 .scroller--insta .scroller__track { --n: 4; --gap: 20px; }
 @container (max-width: 900px) { .scroller--insta .scroller__track { --n: 3; } }
 @container (max-width: 620px) { .scroller--insta .scroller__track { --n: 2; --gap: 12px; } }
@@ -732,12 +735,7 @@
 
   .posts { padding: 64px var(--taxon-pad) 64px; }
   .scroller--posts,
-  .scroller--insta { width: 280px; margin-top: 30px; }
-  .scroller--posts .scroller__btn--prev,
-  .scroller--insta .scroller__btn--prev { left: -75px; }
-  .scroller--posts .scroller__btn--next,
-  .scroller--insta .scroller__btn--next { right: -75px; }
-  .scroller--posts .scroller__btn { top: 70px; }
+  .scroller--insta { width: min(280px, 100% - 110px); margin-top: 30px; }
   .scroller--posts .scroller__track,
   .scroller--insta .scroller__track { --n: 1; --gap: 20px; }
 
