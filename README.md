@@ -16,12 +16,15 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `index.html` | Page markup: header and mega menus, banners, product rows, Summer blocks, newsletter, footer, cart drawer |
 | `cart.html` | Cart page: same header and footer as the homepage, cart lines, order summary, "You May Also Like" |
 | `taxon.html` | Taxon (product list) page for Alternative Clothing: same header, footer and cart drawer as the homepage |
+| `style-inspo.html` | Style Gallery page: the live style-inspo gallery rebuilt in the new style, with a Shop The Look panel |
 | `css/styles.css` | All styles. Brand colours from the XD document library are variables at the top |
 | `css/cart.css` | Cart page styles, built on the tokens and components in `styles.css` |
 | `css/taxon.css` | Taxon page styles, built on the tokens and components in `styles.css` |
+| `css/gallery.css` | Style Gallery styles, built on the tokens and components in `styles.css` |
 | `js/main.js` | Mega menu, mobile menu, search bar, scrollers, cart drawer, newsletter check, footer accordion |
 | `js/cart.js` | Cart page: quantities, remove/undo, free delivery meter, discount code, totals, mobile checkout bar |
 | `js/taxon.js` | Taxon page: filters drawer, filter chips, Sort By and View menus, Load More, SEO Read More |
+| `js/gallery.js` | Style Gallery: Shop The Look panel, Load More |
 | `images/` | Web-sized copies of the artwork. The `Assets` folder is untouched |
 
 ## How it behaves
@@ -115,6 +118,38 @@ Changes from the XD:
 7. **Related Posts:** fill this from the blog. Two of the XD's posts have no live URL ("Gothic Gift Guide" and "Black Friday is Here Early!"). They point at the blog index and are marked `data-todo-url`.
 8. **Instagram:** the four photos are static copies from the XD. Connect the block to the Instagram feed.
 9. **Search engines:** the page has the same `noindex` tag as the other pages, plus a canonical link to the live taxon URL.
+
+## Style Gallery page (`style-inspo.html`)
+
+A rebuild of [bluebanana.com/en_GB/gallery/style-inspo](https://www.bluebanana.com/en_GB/gallery/style-inspo) using the homepage components. There's no XD for this page. The looks, brands and "Products Used" lists were copied from the live page on 10 Nov 2026. On every page, the header's Style Gallery link, "Explore The Style Gallery" and the Browse By Aesthetic "View All" link open it.
+
+From top to bottom:
+- Breadcrumbs, the title and a short intro.
+- Browse The Styles: the eight style sub-galleries (Witchy, Gothic, Vintage, Alt Festival, Band Merch, Pop Culture, Dr Martens, New Rock) as square tiles. All eight fit on desktop; phones swipe them.
+- Featured Looks: the homepage feature block. The square banner is the Band Merch Festival look and the other 12 featured looks sit in the two-row scroller.
+- Latest Additions: the 20 latest looks, 12 at a time with Load More.
+- Style Inspo Videos: a product row of the 12 newest videos, with a Watch On TikTok button.
+- Brand Profiles: the live banner, then a button for each brand in the gallery.
+- A short SEO text block.
+- Get Featured: the newsletter block over a wall of gallery photos, with Work With Us, Follow On Instagram and the social links.
+
+Every look opens **Shop The Look**: a panel with the photo, the brand, the products used (each links to its product page) and More From [Brand]. Arrows, or the arrow keys, move through the looks in the same section. The address changes to `#look-<id>`, so a look can be shared. On phones the panel is full screen. Without JavaScript, the looks link to the full-size photo, as on the live page.
+
+Changes from the live page:
+- Each look opens Shop The Look, with its brand and products, instead of linking to the full-size photo.
+- In the live page's HTML, the 50 Style Inspo Videos cards have placeholder thumbnails and `#` links. Here the 12 newest are dark title cards (date, title, views and likes) that link to TikTok.
+- The intro and SEO copy are new and shorter. The Want To Be Part Of The Team? text is now the Get Featured block.
+- The brand banner is joined by buttons for the 13 brands used in the gallery.
+
+### Before the style gallery goes live
+
+1. **Gallery data:** the 33 looks are written into `style-inspo.html`, and their details are the JSON in `#looks-data`. Feed both from the gallery CMS. Load More runs in the browser; page it from the server instead.
+2. **Untagged looks:** four looks have no products (Third Identity Rosalie Jumper, both Bleeding Heart dresses and the Hell Bunny Love-A-Lot Skirt). Their panel says so and points at the brand instead. Tag the products in the CMS.
+3. **Brands without a profile:** H&R London and Twilight have no brand profile on the live site, so their panels show the name without a link.
+4. **Videos:** the cards link to the TikTok profile and are marked `data-todo-url`. Connect the row to the TikTok or Instagram feed, with real thumbnails and video links. The dates have no year because the live page doesn't give one.
+5. **Images:** `images/gallery` has web-sized copies (480 / 840, plus 1000 for the banner) of the live CDN photos. The style tiles are only 250px on the live site, so ask for larger originals.
+6. **Prices:** the live gallery shows no prices, so neither does this. Add price and stock from the product API to the Products Used list if you want them.
+7. **Search engines:** the page has the same `noindex` tag as the other pages, plus a canonical link to the live gallery URL.
 
 ## Changes from the XD
 

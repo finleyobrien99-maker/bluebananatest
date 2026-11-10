@@ -1,0 +1,558 @@
+/* ==========================================================================
+   Blue Banana Style Gallery (style-inspo.html)
+   A rebuild of bluebanana.com/en_GB/gallery/style-inspo in the upgraded style.
+   Uses the tokens and components in styles.css: header, footer, scrollers,
+   product cards, the feature block, the product row and the newsletter block.
+   ========================================================================== */
+
+:root {
+  --gallery-w: 1240px;
+  --gallery-pad: 20px;
+  --bb-notice: #fdf6d9;       /* notice background, with a yellow left border */
+}
+@media (min-width: 768px) {
+  :root { --gallery-pad: 40px; }
+}
+
+.gallery-page { overflow-x: clip; }
+
+.gallery-head,
+.styles,
+.look-grid,
+.brands {
+  width: min(var(--gallery-w), 100% - 2 * var(--gallery-pad));
+  margin-inline: auto;
+}
+
+/* ---------- Breadcrumbs (same as the taxon page) ---------- */
+.crumbs { padding-top: 34px; }
+.crumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+.crumbs__list li { display: flex; align-items: center; }
+.crumbs__list li + li::before { content: ">"; padding: 0 12px; }
+.crumbs__list a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.crumbs__list a[aria-current] { text-decoration: none; cursor: default; }
+.crumbs__home { display: inline-grid; place-items: center; min-width: 24px; min-height: 24px; margin: -4px 0; }
+.crumbs__home .icon { width: 14px; height: 14px; }
+
+/* ---------- Title + intro ---------- */
+.gallery-title {
+  margin-top: 20px;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 36px;
+  letter-spacing: -.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.gallery-intro {
+  max-width: 760px;
+  margin: 14px auto 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  text-align: center;
+}
+.gallery-intro a { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.gallery-intro a:hover { text-decoration-thickness: 2px; }
+
+/* ==========================================================================
+   Browse The Styles: eight square tiles, labels underneath
+   ========================================================================== */
+.styles { margin-top: 30px; }
+
+.scroller--styles .scroller__track { --n: 8; --gap: 20px; }
+@container (max-width: 1000px) {
+  .scroller--styles .scroller__track { --n: 6; }
+  .scroller--styles .scroller__btn { top: calc((100cqw - 100px) / 12); }
+}
+/* Phones and small tablets: part of the next tile shows, so it's clear the row swipes */
+@container (max-width: 700px) {
+  .scroller--styles .scroller__track { --n: 4.4; --gap: 12px; }
+  .scroller--styles .scroller__btn { display: none; }
+}
+@container (max-width: 440px) {
+  .scroller--styles .scroller__track { --n: 3.3; }
+}
+
+.style-tile { min-width: 0; scroll-snap-align: start; }
+.style-tile__link { display: block; text-align: center; }
+.style-tile__link:focus-visible { outline-offset: 3px; }
+.style-tile__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bb-block);
+}
+.style-tile__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease-out);
+}
+.style-tile__link:hover .style-tile__media img { transform: scale(1.05); }
+.style-tile__label {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+.style-tile__link:hover .style-tile__label { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ==========================================================================
+   Look sections: Featured Looks (feature block) and Latest Additions (grid)
+   ========================================================================== */
+.looks { margin-top: 60px; }
+.looks__head { margin-bottom: 30px; padding: 0 var(--gallery-pad); text-align: center; }
+.looks__sub { margin-top: 7px; font-size: 14px; line-height: 18px; }
+
+/* Look card: a product card with a brand line and "Shop The Look" in place of the price */
+.look-card[hidden] { display: none; }
+.look-card.is-new { animation: look-in .4s var(--ease-out) both; }
+@keyframes look-in { from { opacity: 0; transform: translateY(8px); } }
+
+.look-card__brand {
+  display: block;
+  margin-top: 12px;
+  overflow: hidden;
+  color: var(--bb-menu);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: .08em;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.look-card .card__name { margin-top: 4px; }
+/* Look titles are longer than product names, so the wide cards keep two lines */
+.look-card.card--wide .card__name { min-height: 36px; -webkit-line-clamp: 2; }
+.look-card__cta {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+.look-card__cta::after { content: " \203A"; }
+
+/* The featured banner opens the first look */
+.feature__banner { overflow: hidden; }
+.feature__banner img { transition: transform .6s var(--ease-out); }
+.feature__banner:hover img { transform: scale(1.03); }
+
+/* Latest Additions grid: 4 across, 3 on tablets, 2 on phones */
+.look-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 34px 20px;
+}
+.look-grid .card__name { font-size: 13px; }
+
+/* ---------- Load More (same as the taxon page) ---------- */
+.pager {
+  display: grid;
+  justify-items: center;
+  margin: 50px 0 0;
+  padding: 0 var(--gallery-pad);
+  text-align: center;
+}
+.pager[hidden] { display: none; }
+.pager__status { font-size: 14px; font-weight: 500; line-height: 16px; }
+.pager__bar {
+  width: 200px;
+  height: 2px;
+  margin: 12px 0 18px;
+  background: var(--bb-button-light);
+}
+.pager__fill { display: block; height: 100%; background: var(--bb-ink); transition: width .4s var(--ease-out); }
+.pager__more { min-width: 160px; }
+.pager__more[hidden] { display: none; }
+
+/* ==========================================================================
+   Style Inspo Videos: a product row of reel cards on the grey block
+   ========================================================================== */
+.reels { margin-top: 70px; background: var(--bb-block); }
+.reels .product-row__intro .btn { margin-top: 30px; }
+
+.reel { min-width: 0; scroll-snap-align: start; }
+.reel__link {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 4 / 5;
+  padding: 14px;
+  overflow: hidden;
+  background: var(--bb-ink);
+  color: #fff;
+  transition: background-color .2s;
+}
+.reel__link:hover { background: #000; }
+.reel__link:focus-visible { outline-offset: 3px; }
+.reel__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.reel__date {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .7;
+}
+.reel__play {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 38px;
+  height: 37px;
+  background: var(--bb-yellow);
+  color: var(--bb-ink);
+  transition: background-color .2s;
+}
+.reel__play .icon { width: 14px; height: 14px; }
+.reel__link:hover .reel__play { background: #ffd62b; }
+.reel__title {
+  display: -webkit-box;
+  margin-top: auto;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 20px;
+  letter-spacing: -.05em;
+  text-transform: uppercase;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+.reel__stats {
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 14px;
+  opacity: .7;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Brand Profiles: the banner, then one button per brand in the gallery
+   ========================================================================== */
+.brands { margin-top: 70px; }
+.brands__banner { display: block; overflow: hidden; background: var(--bb-ink); }
+.brands__banner img { width: 100%; transition: opacity .2s; }
+.brands__banner:hover img { opacity: .88; }
+
+.brands__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 20px;
+  background: var(--bb-button-light);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  white-space: nowrap;
+  transition: background-color .2s, color .2s;
+}
+.pill:hover { background: var(--bb-ink); color: #fff; }
+.pill--dark { background: var(--bb-ink); color: #fff; }
+.pill--dark:hover { background: var(--bb-button-light); color: var(--bb-ink); }
+
+/* ==========================================================================
+   SEO copy
+   ========================================================================== */
+.gallery-copy {
+  width: min(860px, 100% - 2 * var(--gallery-pad));
+  margin: 70px auto 0;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+}
+.gallery-copy h2 { margin-top: 22px; font-size: 14px; font-weight: 700; line-height: 22px; }
+.gallery-copy h2:first-child { margin-top: 0; }
+.gallery-copy a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ==========================================================================
+   Get Featured: the newsletter block, over a wall of gallery photos
+   ========================================================================== */
+.get-featured { margin-top: 70px; }
+.get-featured .newsletter__bg {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-content: center;
+  overflow: hidden;
+}
+/* 35% black wash over the wall so the box stays the focus */
+.get-featured .newsletter__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .35);
+}
+.get-featured .newsletter__bg img {
+  position: static;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.get-featured__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 30px;
+  margin-top: 30px;
+}
+.get-featured__actions .btn { min-width: 215px; }
+.get-featured__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 26px;
+}
+.get-featured__social a {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  min-height: 24px;
+  opacity: .7;
+  transition: opacity .2s;
+}
+.get-featured__social a:hover { opacity: 1; }
+
+/* ==========================================================================
+   Shop The Look panel: image left, products right. Full screen on phones.
+   ========================================================================== */
+.look-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, .5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s, visibility 0s linear .25s;
+}
+.look-backdrop.is-open { opacity: 1; visibility: visible; transition-delay: 0s; }
+
+.look-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 201;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  width: min(1040px, 100% - 60px);
+  max-height: calc(100% - 60px);
+  background: #fff;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, calc(-50% + 14px));
+  transition: opacity .25s var(--ease-out), transform .32s var(--ease-out), visibility 0s linear .32s;
+}
+.look-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
+  transition-delay: 0s;
+}
+.look-panel [hidden] { display: none !important; }
+
+.look-panel__close {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  z-index: 3;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+}
+.look-panel__close:hover { background: var(--bb-block); }
+
+.look-panel__media { position: relative; min-height: 0; background: var(--bb-block); }
+.look-panel__media img {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 60px);
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.look-panel__prev { left: 12px; }
+.look-panel__next { right: 12px; }
+
+.look-panel__info {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 50px 40px 36px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.look-panel__count {
+  color: var(--bb-menu);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.look-panel__brand {
+  align-self: flex-start;
+  margin-top: 22px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.look-panel__brand[href]:hover { text-decoration: underline; text-underline-offset: 3px; }
+.look-panel__title { margin-top: 6px; font-size: 21px; font-weight: 700; line-height: 26px; }
+
+.look-panel__label {
+  margin-top: 28px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--bb-ink);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.look-product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--bb-rule);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+.look-product:focus-visible { outline-offset: -2px; }
+.look-product:hover .look-product__name { text-decoration: underline; text-underline-offset: 3px; }
+.look-product__shop {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.look-product__shop .icon { width: 10px; height: 10px; }
+
+.look-panel__note {
+  margin-top: 28px;
+  padding: 12px 16px;
+  border-left: 4px solid var(--bb-yellow);
+  background: var(--bb-notice);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+.look-panel__actions { display: grid; gap: 14px; margin-top: auto; padding-top: 30px; }
+.look-panel__full {
+  justify-self: center;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: .7;
+}
+.look-panel__full:hover { opacity: 1; }
+
+/* ==========================================================================
+   Breakpoints
+   ========================================================================== */
+@media (max-width: 1023.98px) {
+  .look-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767.98px) {
+  .looks { margin-top: 48px; }
+  .looks__head { margin-bottom: 24px; }
+  .feature__products { padding-top: 26px; }
+
+  /* Shop The Look goes full screen and scrolls as one page */
+  .look-panel {
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateY(24px);
+  }
+  .look-panel.is-open { transform: none; }
+  .look-panel__close { position: fixed; top: 0; right: 0; }
+  .look-panel__media img { height: auto; max-height: none; }
+  .look-panel__info { min-height: 0; padding: 24px 20px 32px; overflow: visible; }
+  .look-panel__brand { margin-top: 14px; }
+}
+
+@media (max-width: 599.98px) {
+  .crumbs { padding-top: 26px; }
+  .gallery-title { margin-top: 18px; font-size: 30px; line-height: 34px; }
+  .gallery-intro { margin-top: 12px; }
+  .styles { margin-top: 24px; }
+  .style-tile__label { font-size: 12px; line-height: 15px; }
+
+  .look-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 10px; }
+  .look-grid .card__name { font-size: 11px; }
+  .look-card__brand { margin-top: 10px; font-size: 10px; }
+  .pager { margin-top: 40px; }
+
+  .reels,
+  .brands,
+  .gallery-copy,
+  .get-featured { margin-top: 50px; }
+  .reel__title { font-size: 18px; line-height: 18px; }
+
+  /* Brand buttons become one swipeable line that runs off the right edge */
+  .brands__list {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-right: calc(-1 * var(--gallery-pad));
+    padding-right: var(--gallery-pad);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .brands__list::-webkit-scrollbar { display: none; }
+  .brands__list li { flex: none; }
+
+  .get-featured .newsletter__bg { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .get-featured__actions { gap: 14px; }
+  .get-featured__actions .btn { min-width: 0; width: 100%; max-width: 318px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .look-card.is-new { animation: none; }
+  .style-tile__media img,
+  .feature__banner img { transition: none; }
+}
