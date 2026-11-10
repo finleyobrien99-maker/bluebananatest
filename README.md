@@ -90,7 +90,7 @@ From top to bottom:
 - Applied filters as chips with a Reset chip (Web 1920 – 5).
 - The product grid: three 400px tiles at 1920, three on tablets, two on phones. Each tile can show a Selling Fast!, Promo Code or Back Print badge.
 - The promotion tile (a red-tinted photo with "Sale up to 90% off") keeps the 5th place in the grid, whatever the sort or filters. That puts it in row 2 on desktop and row 3 on phones, as in the XD.
-- "Viewing 24 of 386 Products", a progress line and Load More. The progress line starts empty and fills slowly to the share of products viewed once it scrolls into view, then grows again after each Load More.
+- "Viewing 24 of 386 Products", a progress line and Load More. Load More adds the next chunk of products at the size chosen in the View menu (24, 48 or 120). The progress line under the text is filled to the share of the taxon's products shown on the page.
 - Customer Reviews, Related Posts, Styled By Us Worn By You, and the SEO Text Block.
   - Related Posts and Styled By Us scroll with the XD's arrow buttons: 55px black squares with a thin white chevron, 20px outside the first and last card and vertically centred on the cards. Both arrows always show, and the one with nowhere to go is dimmed. Each carousel repeats its four items once, so there's something to scroll through.
   - The SEO text is left aligned, in a box the height of the image (284px; 320px on phones) that scrolls. Its scrollbar follows the XD: a 10px `#e5e5e5` track and a `#c3c3c3` thumb with rounded ends, 30px from the text.

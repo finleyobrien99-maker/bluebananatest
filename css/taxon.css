@@ -381,8 +381,8 @@
   margin: 12px 0 18px;
   background: var(--bb-button-light);
 }
-/* Fills slowly: from empty when the pager first scrolls into view, then a step further after each Load More */
-.pager__fill { display: block; height: 100%; background: var(--bb-ink); transition: width 1.6s var(--ease-out); }
+/* Filled to the share of products shown on the page (set in js/taxon.js) */
+.pager__fill { display: block; height: 100%; background: var(--bb-ink); transition: width .4s var(--ease-out); }
 .pager__more { min-width: 124px; }
 .pager__more[hidden] { display: none; }
 .pager__more.is-loading { pointer-events: none; opacity: .6; }
