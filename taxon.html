@@ -40,6 +40,7 @@
   <symbol id="i-tick" viewBox="96 128 448 416"><path d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"/></symbol>
   <symbol id="i-xmark" viewBox="128 128 384 384"><path d="M183.1 137.4C170.6 124.9 150.3 124.9 137.8 137.4C125.3 149.9 125.3 170.2 137.8 182.7L275.2 320L137.9 457.4C125.4 469.9 125.4 490.2 137.9 502.7C150.4 515.2 170.7 515.2 183.2 502.7L320.5 365.3L457.9 502.6C470.4 515.1 490.7 515.1 503.2 502.6C515.7 490.1 515.7 469.8 503.2 457.3L365.8 320L503.1 182.6C515.6 170.1 515.6 149.8 503.1 137.3C490.6 124.8 470.3 124.8 457.8 137.3L320.5 274.7L183.1 137.4z"/></symbol>
   <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M3 6h9M18 6h3M3 12h3M12 12h9M3 18h11M20 18h1" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="12" y="3" width="6" height="6" rx="1.2"/><rect x="6" y="9" width="6" height="6" rx="1.2"/><rect x="14" y="15" width="6" height="6" rx="1.2"/></symbol>
+  <symbol id="i-arrow-thin" viewBox="0 0 13 24"><path d="M1.5 1.5 11.5 12l-10 10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-verified" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7 12.4l3.2 3.1L17 8.7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
@@ -783,11 +784,11 @@
     <p class="taxon-intro">Welcome to Blue Banana&rsquo;s <em>alternative clothing</em> range; our hub of all things fashion! We&rsquo;ve been at the alt fashion game since &rsquo;97, catering to a huge variety of styles from Gothic to vintage and from Steampunk to kawaii; we&rsquo;ve got it covered. Keep topped up on all the latest fashion trends and crazes with our eclectic selection of <strong>alternative clothes</strong>. Use our filters to search through dresses, t shirts, skinny jeans and more! Discover attire that you won&rsquo;t find at your regular high-street store.</p>
   </header>
 
-  <!-- Sub Taxon Button Scroller: the child taxons. It runs off the right edge of the screen and scrolls sideways. -->
+  <!-- Sub Taxon Button Scroller: the child taxons. It runs off the right edge of the screen, scrolls sideways
+       (swipe, drag or trackpad) and drifts slowly back and forth on its own until someone interacts with it. -->
   <nav class="subtaxa" aria-label="Alternative clothing categories">
-    <div class="scroller scroller--pills" data-scroller>
-      <button class="scroller__btn scroller__btn--prev" type="button" aria-label="Show previous categories" data-scroller-prev><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
-      <ul class="scroller__track" data-scroller-track>
+    <div class="scroller scroller--pills">
+      <ul class="scroller__track" data-autoscroll>
         <li><a class="pill" href="https://www.bluebanana.com/en_GB/section/jumpers-cardigans">Jumpers &amp; Cardigans</a></li>
         <li><a class="pill" href="https://www.bluebanana.com/en_GB/section/coats-jackets">Coats &amp; Jackets</a></li>
         <li><a class="pill" href="https://www.bluebanana.com/en_GB/section/alternative-hoodies">Alternative Hoodies</a></li>
@@ -797,7 +798,6 @@
         <li><a class="pill" href="https://www.bluebanana.com/en_GB/section/alternative-dresses">Alternative Dresses</a></li>
         <li><a class="pill" href="https://www.bluebanana.com/en_GB/section/alternative-skirts-shorts">Alternative Skirts</a></li>
       </ul>
-      <button class="scroller__btn scroller__btn--next" type="button" aria-label="Show more categories" data-scroller-next><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
     </div>
   </nav>
 
@@ -940,6 +940,31 @@
             <p class="review__text">I ordered White Lunar Eclipse contacts last year and the Red Blood Zombie&hellip;</p>
             <p class="review__by"><strong>Kellie Volk</strong>, 2 days ago</p>
           </li>
+          <!-- Placeholder reviews (not real customers) so the carousel scrolls. The Trustpilot widget replaces this whole list. -->
+          <li class="review">
+            <p class="review__meta"><span class="tp-stars" role="img" aria-label="Rated 5 out of 5"><span></span><span></span><span></span><span></span><span></span></span><span class="review__verified"><svg class="icon" aria-hidden="true"><use href="#i-verified"></use></svg>Verified</span></p>
+            <h3 class="review__title">Love my new dress</h3>
+            <p class="review__text">Fits perfectly and the quality is amazing for the price. Arrived the next day, well packaged too.</p>
+            <p class="review__by"><strong>Sophie</strong>, 3 days ago</p>
+          </li>
+          <li class="review">
+            <p class="review__meta"><span class="tp-stars" role="img" aria-label="Rated 5 out of 5"><span></span><span></span><span></span><span></span><span></span></span><span class="review__verified"><svg class="icon" aria-hidden="true"><use href="#i-verified"></use></svg>Verified</span></p>
+            <h3 class="review__title">Great range of band tees</h3>
+            <p class="review__text">Finally found the Sleep Token tee I wanted. Quick delivery and the print is really good quality.</p>
+            <p class="review__by"><strong>Dan</strong>, 3 days ago</p>
+          </li>
+          <li class="review">
+            <p class="review__meta"><span class="tp-stars" role="img" aria-label="Rated 5 out of 5"><span></span><span></span><span></span><span></span><span></span></span><span class="review__verified"><svg class="icon" aria-hidden="true"><use href="#i-verified"></use></svg>Verified</span></p>
+            <h3 class="review__title">Easy exchange</h3>
+            <p class="review__text">Needed a bigger size and the exchange was really easy. Customer service were lovely and quick to reply.</p>
+            <p class="review__by"><strong>Amy</strong>, 3 days ago</p>
+          </li>
+          <li class="review">
+            <p class="review__meta"><span class="tp-stars" role="img" aria-label="Rated 5 out of 5"><span></span><span></span><span></span><span></span><span></span></span><span class="review__verified"><svg class="icon" aria-hidden="true"><use href="#i-verified"></use></svg>Verified</span></p>
+            <h3 class="review__title">Always my go-to shop</h3>
+            <p class="review__text">Been shopping here for years. Great alternative brands all in one place and the sales are brilliant.</p>
+            <p class="review__by"><strong>Rhys</strong>, 3 days ago</p>
+          </li>
         </ul>
         <button class="scroller__btn scroller__btn--next" type="button" aria-label="Show more reviews" data-scroller-next><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
       </div>
@@ -951,8 +976,8 @@
   <!-- Related Posts (Related Video Block). Hand-off: fill from the blog, newest posts tagged with this taxon. -->
   <section class="posts" aria-labelledby="posts-title">
     <h2 class="section-title" id="posts-title">Related Posts</h2>
-    <div class="scroller scroller--posts" data-scroller>
-      <button class="scroller__btn scroller__btn--prev" type="button" aria-label="Show previous posts" data-scroller-prev><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+    <div class="scroller scroller--posts scroller--xd" data-scroller>
+      <button class="scroller__btn scroller__btn--prev" type="button" aria-label="Show previous posts" data-scroller-prev><svg class="icon" aria-hidden="true"><use href="#i-arrow-thin"></use></svg></button>
       <ul class="scroller__track" data-scroller-track>
         <li class="post">
           <a class="post__link" href="https://www.bluebanana.com/en_GB/blog/fresh-new-year-fits-latest-styling-advice">
@@ -984,8 +1009,39 @@
             <span class="post__body"><span class="post__title">Black Friday is Here Early!</span> <span class="post__text">Get an extra week of Black Friday sale offers! Check out all the details here!</span></span>
           </a>
         </li>
+        <!-- Placeholder: the four items above, repeated so the carousel has something to scroll through. -->
+        <li class="post">
+          <a class="post__link" href="https://www.bluebanana.com/en_GB/blog/fresh-new-year-fits-latest-styling-advice">
+            <img class="post__img" src="images/blog/blog-header-fresh-new-year-fits-680.jpg" width="680" height="340" alt="" loading="lazy" decoding="async">
+            <span class="post__date"><time datetime="2025-12-26">26 Dec 2025</time></span>
+            <span class="post__body"><span class="post__title">Fresh, New Year Fits: Latest Styling Advice</span> <span class="post__text">All the latest about alternative fashion for the New Year.</span></span>
+          </a>
+        </li>
+        <li class="post">
+          <a class="post__link" href="https://www.bluebanana.com/en_GB/blog/blue-banana-wrapped-your-2025-favourites">
+            <img class="post__img" src="images/blog/blog-header-blue-banana-wrapped-680.jpg" width="680" height="340" alt="" loading="lazy" decoding="async">
+            <span class="post__date"><time datetime="2025-12-18">18 Dec 2025</time></span>
+            <span class="post__body"><span class="post__title">Blue Banana Wrapped: Your 2025 Favourites!</span> <span class="post__text">A look back on all your Blue Banana favourites and bestsellers: Blue Banana Wrapped.</span></span>
+          </a>
+        </li>
+        <li class="post">
+          <!-- No live URL found for this post yet; points at the blog index. -->
+          <a class="post__link" href="https://www.bluebanana.com/en_GB/blogs/styling-inspiration" data-todo-url>
+            <img class="post__img" src="images/blog/blog-header-gothic-gift-guide-680.jpg" width="680" height="340" alt="" loading="lazy" decoding="async">
+            <span class="post__date"><time datetime="2025-12-04">4 Dec 2025</time></span>
+            <span class="post__body"><span class="post__title">Gothic Gift Guide</span> <span class="post__text">Our alternative gift guide is here to help you find the perfect Gothic present. Get great gift inspiration from our carefully curated list!</span></span>
+          </a>
+        </li>
+        <li class="post">
+          <!-- No live URL found for this post yet; points at the blog index. -->
+          <a class="post__link" href="https://www.bluebanana.com/en_GB/blogs/styling-inspiration" data-todo-url>
+            <img class="post__img" src="images/blog/blog-header-black-friday-680.jpg" width="680" height="340" alt="" loading="lazy" decoding="async">
+            <span class="post__date"><time datetime="2025-11-20">20 Nov 2025</time></span>
+            <span class="post__body"><span class="post__title">Black Friday is Here Early!</span> <span class="post__text">Get an extra week of Black Friday sale offers! Check out all the details here!</span></span>
+          </a>
+        </li>
       </ul>
-      <button class="scroller__btn scroller__btn--next" type="button" aria-label="Show more posts" data-scroller-next><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+      <button class="scroller__btn scroller__btn--next" type="button" aria-label="Show more posts" data-scroller-next><svg class="icon" aria-hidden="true"><use href="#i-arrow-thin"></use></svg></button>
     </div>
   </section>
 
@@ -993,22 +1049,28 @@
   <section class="insta" aria-labelledby="insta-title">
     <h2 class="section-title" id="insta-title">Styled By Us, Worn By You</h2>
     <p class="insta__handle"><a href="https://instagram.com/bluebananauk" target="_blank" rel="noopener">@bluebananauk</a></p>
-    <div class="scroller scroller--insta" data-scroller>
-      <button class="scroller__btn scroller__btn--prev" type="button" aria-label="Show previous photos" data-scroller-prev><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+    <div class="scroller scroller--insta scroller--xd" data-scroller>
+      <button class="scroller__btn scroller__btn--prev" type="button" aria-label="Show previous photos" data-scroller-prev><svg class="icon" aria-hidden="true"><use href="#i-arrow-thin"></use></svg></button>
       <ul class="scroller__track" data-scroller-track>
         <li><a class="insta__link" href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/instagram/styled-by-us-1-560.jpg" width="560" height="560" alt="Blue Banana customer photo 1 on Instagram" loading="lazy" decoding="async"></a></li>
         <li><a class="insta__link" href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/instagram/styled-by-us-2-560.jpg" width="560" height="560" alt="Blue Banana customer photo 2 on Instagram" loading="lazy" decoding="async"></a></li>
         <li><a class="insta__link" href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/instagram/styled-by-us-3-560.jpg" width="560" height="560" alt="Blue Banana customer photo 3 on Instagram" loading="lazy" decoding="async"></a></li>
         <li><a class="insta__link" href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/instagram/styled-by-us-4-560.jpg" width="560" height="560" alt="Blue Banana customer photo 4 on Instagram" loading="lazy" decoding="async"></a></li>
+        <!-- Placeholder: the four items above, repeated so the carousel has something to scroll through. -->
+        <li><a class="insta__link" href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/instagram/styled-by-us-1-560.jpg" width="560" height="560" alt="Blue Banana customer photo 1 on Instagram" loading="lazy" decoding="async"></a></li>
+        <li><a class="insta__link" href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/instagram/styled-by-us-2-560.jpg" width="560" height="560" alt="Blue Banana customer photo 2 on Instagram" loading="lazy" decoding="async"></a></li>
+        <li><a class="insta__link" href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/instagram/styled-by-us-3-560.jpg" width="560" height="560" alt="Blue Banana customer photo 3 on Instagram" loading="lazy" decoding="async"></a></li>
+        <li><a class="insta__link" href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/instagram/styled-by-us-4-560.jpg" width="560" height="560" alt="Blue Banana customer photo 4 on Instagram" loading="lazy" decoding="async"></a></li>
       </ul>
-      <button class="scroller__btn scroller__btn--next" type="button" aria-label="Show more photos" data-scroller-next><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+      <button class="scroller__btn scroller__btn--next" type="button" aria-label="Show more photos" data-scroller-next><svg class="icon" aria-hidden="true"><use href="#i-arrow-thin"></use></svg></button>
     </div>
   </section>
 
   <!-- SEO Text Block: the taxon's long description, clipped to the image height with Read More. -->
   <section class="seo-block" aria-label="About alternative clothing at Blue Banana">
     <div class="seo-block__inner">
-      <div class="seo-block__copy" id="seo-copy" data-seo-copy>
+      <!-- Scrollable text box (tabindex so keyboard users can scroll it). Scrollbar styling from the XD's SEO Text Block. -->
+      <div class="seo-block__copy" tabindex="0" role="region" aria-label="About alternative clothing">
         <h2>Women&rsquo;s Alternative Clothing</h2>
         <p>If you&rsquo;re searching for women&rsquo;s clothing online and you have alternative taste; Blue Banana is the place to be! With so many options available from dresses to skinny jeans, skirts and tops, there is sure to be something in our collection of <strong>women&rsquo;s alternative clothing</strong> to suit you. We pride ourselves on the number of items we have to offer, with dresses, hoodies and t shirts sitting alongside each other perfectly.</p>
         <p>All of the <strong>alternative women&rsquo;s clothes</strong> in our range are chosen to represent our style and yours, meaning you&rsquo;ll always find something that you love that&rsquo;s slightly quirky and alternative! Our gorgeous range of dresses is at the tip-top of our fashion range with a broad selection of styles. From midi to skater and cocktail to pencil dresses; our collection of dresses will always be topped up with the best range of <strong>alternative fashion brands</strong>.</p>
@@ -1030,7 +1092,6 @@
         <p>Want to visit a real-life Blue Banana store? If you&rsquo;re based in the UK and are looking for your next fashion fix (or even a new piercing!) then make sure to visit one of our UK stores. Use our <a href="https://www.bluebanana.com/en_GB/stores">store locator</a> to find your local piercing studio and alternative fashion shop.</p>
       </div>
       <img class="seo-block__img" src="images/taxon/seo-text-block-350.jpg" width="350" height="350" alt="" loading="lazy" decoding="async">
-      <button class="seo-block__more" type="button" aria-expanded="false" aria-controls="seo-copy" data-seo-more hidden>Read More</button>
     </div>
   </section>
 </main>

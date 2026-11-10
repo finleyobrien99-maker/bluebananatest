@@ -66,7 +66,8 @@
 }
 .taxon-intro strong { font-weight: 700; }
 
-/* ---------- Sub taxon pills: start at the column edge, run off the right of the screen ---------- */
+/* ---------- Sub taxon pills: start at the column edge, run off the right of the screen.
+   Swipe, drag or trackpad-scroll at every width; js/taxon.js drifts them back and forth. ---------- */
 .subtaxa {
   width: min(var(--taxon-w), 100% - 2 * var(--taxon-pad));
   margin: 26px auto 0;
@@ -81,10 +82,12 @@
   gap: 10px;
   scroll-snap-type: none;
   padding-right: var(--taxon-pad);
+  cursor: grab;
 }
 .scroller--pills .scroller__track > li { flex: none; }
-.scroller--pills .scroller__btn--prev { left: -19px; }
-.scroller--pills .scroller__btn--next { right: 20px; }
+.scroller--pills .scroller__track.is-dragging { cursor: grabbing; user-select: none; }
+.scroller--pills .scroller__track.is-dragging .pill { pointer-events: none; }
+.pill { -webkit-user-drag: none; }
 
 .pill {
   display: inline-flex;
@@ -474,6 +477,22 @@
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 
+/* ---------- XD carousel arrows: 55px black squares with a thin white chevron, just outside the cards ---------- */
+.scroller--xd .scroller__btn {
+  width: 55px;
+  height: 55px;
+  margin-top: -27.5px;
+  background: #000;
+}
+.scroller--xd .scroller__btn:hover { background: var(--bb-ink); }
+.scroller--xd .scroller__btn .icon { width: 13px; height: 24px; }
+.scroller--xd .scroller__btn--prev { left: -20px; }
+.scroller--xd .scroller__btn--next { right: -20px; }
+/* Both arrows always show, as in the XD; the one with nowhere to go is dimmed */
+.scroller--xd .scroller__btn[disabled] { opacity: .3; pointer-events: none; }
+.no-js .scroller--xd .scroller__btn { display: none; }
+.scroller--posts .scroller__btn { top: 85px; margin-top: -27.5px; }
+
 /* ---------- Related Posts ---------- */
 .posts { padding: 92px var(--taxon-pad) 80px; }
 .scroller--posts { width: min(1462px, 100%); margin: 50px auto 0; }
@@ -524,17 +543,32 @@
 .seo-block__inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 284px;
-  grid-template-areas: "copy img" "more img";
+  grid-template-areas: "copy img";
   column-gap: 30px;
+  align-items: start;
   width: min(1518px, 100%);
   margin: 0 auto;
 }
+/* Scrollable text box. Scrollbar from the XD: 10px #e5e5e5 track, #c3c3c3 thumb with 5px rounded ends,
+   30px from the text. */
 .seo-block__copy {
-  position: relative;
   grid-area: copy;
+  height: 284px;
+  padding-right: 30px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   font-size: 14px;
   line-height: 22px;
-  text-align: center;
+  text-align: left;
+}
+.seo-block__copy:focus-visible { outline-offset: 4px; }
+.seo-block__copy::-webkit-scrollbar { width: 10px; }
+.seo-block__copy::-webkit-scrollbar-track { background: #e5e5e5; }
+.seo-block__copy::-webkit-scrollbar-thumb { min-height: 50px; border-radius: 5px; background: #c3c3c3; }
+.seo-block__copy::-webkit-scrollbar-thumb:hover { background: #a9a9a9; }
+/* Firefox has no ::-webkit-scrollbar, so it gets the standard properties (in Chrome they would override the above) */
+@supports (-moz-appearance: none) {
+  .seo-block__copy { scrollbar-width: thin; scrollbar-color: #c3c3c3 #e5e5e5; }
 }
 .seo-block__copy h2,
 .seo-block__copy h3 { margin: 22px 0 0; font-size: 14px; font-weight: 700; line-height: 22px; }
@@ -542,27 +576,9 @@
 .seo-block__copy p { margin-top: 22px; }
 .seo-block__copy h2 + p,
 .seo-block__copy h3 + p { margin-top: 0; }
-.seo-block__copy ul { display: inline-block; margin: 22px 0 0; padding-left: 20px; list-style: disc; text-align: left; }
+.seo-block__copy ul { margin: 22px 0 0; padding-left: 20px; list-style: disc; }
 .seo-block__copy a { text-decoration: underline; text-underline-offset: 2px; }
-.js .seo-block__copy.is-clamped { max-height: 284px; overflow: hidden; }
-.js .seo-block__copy.is-clamped::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 88px;
-  background: linear-gradient(rgba(255, 255, 255, 0), #fff);
-}
 .seo-block__img { grid-area: img; width: 284px; height: 284px; object-fit: cover; }
-.seo-block__more {
-  grid-area: more;
-  justify-self: center;
-  margin-top: 16px;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.seo-block__more:hover { text-decoration-thickness: 2px; }
 
 /* ==========================================================================
    Filters drawer (Web 1920 – 2 / 3 / 4): 400px panel on the right
@@ -682,7 +698,7 @@
 @media (max-width: 899.98px) {
   .seo-block__inner {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "img" "copy" "more";
+    grid-template-areas: "img" "copy";
     row-gap: 30px;
     max-width: 700px;
   }
@@ -724,14 +740,16 @@
   .scroller--posts,
   .scroller--insta { width: 280px; margin-top: 30px; }
   .scroller--posts .scroller__btn--prev,
-  .scroller--insta .scroller__btn--prev { left: -48px; }
+  .scroller--insta .scroller__btn--prev { left: -75px; }
   .scroller--posts .scroller__btn--next,
-  .scroller--insta .scroller__btn--next { right: -48px; }
+  .scroller--insta .scroller__btn--next { right: -75px; }
+  .scroller--posts .scroller__btn { top: 70px; }
   .scroller--posts .scroller__track,
   .scroller--insta .scroller__track { --n: 1; --gap: 20px; }
 
   .insta { padding: 64px var(--taxon-pad) 70px; }
   .seo-block { padding: 60px var(--taxon-pad) 64px; }
+  .seo-block__copy { height: 320px; padding-right: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

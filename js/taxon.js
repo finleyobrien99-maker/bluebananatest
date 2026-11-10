@@ -517,20 +517,80 @@
     });
   }
 
-  /* ---------- SEO Text Block: Read More ---------- */
-  const seoCopy = $('[data-seo-copy]');
-  const seoMore = $('[data-seo-more]');
-  if (seoCopy && seoMore) {
-    seoCopy.classList.add('is-clamped');
-    const needsMore = seoCopy.scrollHeight > seoCopy.clientHeight + 4;
-    if (!needsMore) seoCopy.classList.remove('is-clamped');
-    seoMore.hidden = !needsMore;
-    seoMore.addEventListener('click', () => {
-      const open = seoCopy.classList.toggle('is-clamped') === false;
-      seoMore.setAttribute('aria-expanded', String(open));
-      seoMore.textContent = open ? 'Read Less' : 'Read More';
-      if (!open) seoCopy.closest('.seo-block').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+  /* ---------- Sub-taxon buttons: drag to scroll, and a slow back-and-forth drift ----------
+     The drift starts on page load, turns round at each end, pauses while the pointer is over
+     the row or a button in it has focus, and stops for good once someone scrolls it themselves.
+     It doesn't run for people who ask for reduced motion, or while the row is off screen. */
+  const pills = $('[data-autoscroll]');
+  if (pills) {
+    const SPEED = 22; // px per second
+    let pos = 0;
+    let dir = 1;
+    let last = 0;
+    let hovering = false;
+    let stopped = reduceMotion.matches;
+    let onScreen = true;
+    let ownScroll = false;
+
+    const max = () => pills.scrollWidth - pills.clientWidth;
+    const paused = () => hovering || pills.contains(document.activeElement) || !onScreen || document.hidden;
+
+    const step = (now) => {
+      if (stopped) return;
+      const dt = last ? Math.min(now - last, 64) / 1000 : 0;
+      last = now;
+      const end = max();
+      if (end > 1 && !paused()) {
+        pos += dir * SPEED * dt;
+        if (pos >= end) { pos = end; dir = -1; }
+        else if (pos <= 0) { pos = 0; dir = 1; }
+        ownScroll = true;
+        pills.scrollLeft = pos;
+      } else {
+        pos = Math.min(Math.max(pills.scrollLeft, 0), Math.max(end, 0));
+      }
+      window.requestAnimationFrame(step);
+    };
+
+    const stop = () => { stopped = true; };
+    pills.addEventListener('scroll', () => {
+      if (ownScroll) { ownScroll = false; return; }
+      // A scroll we didn't make: someone is using the row, so leave it where they put it.
+      if (Math.abs(pills.scrollLeft - pos) > 2) stop();
+    }, { passive: true });
+    pills.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hovering = true; });
+    pills.addEventListener('pointerleave', () => { hovering = false; });
+    pills.addEventListener('touchstart', stop, { passive: true });
+    pills.addEventListener('wheel', stop, { passive: true });
+    reduceMotion.addEventListener('change', () => { if (reduceMotion.matches) stop(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; }).observe(pills);
+    }
+
+    // Mouse drag, so desktop users can scroll it like a phone
+    let drag = null;
+    pills.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      drag = { x: e.clientX, left: pills.scrollLeft, moved: false };
     });
+    window.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (!drag.moved && Math.abs(dx) < 5) return;
+      if (!drag.moved) { drag.moved = true; stop(); pills.classList.add('is-dragging'); }
+      pills.scrollLeft = drag.left - dx;
+    });
+    window.addEventListener('pointerup', () => {
+      if (!drag) return;
+      const { moved } = drag;
+      drag = null;
+      if (!moved) return;
+      // Buttons ignore the pointer while .is-dragging is on, so the release after a drag
+      // doesn't count as a click. It comes off once that click has been dispatched.
+      window.setTimeout(() => pills.classList.remove('is-dragging'), 0);
+    });
+
+    window.requestAnimationFrame(step);
   }
 
   /* ---------- Start: restore filters, sort and page size from the URL ---------- */

@@ -85,13 +85,15 @@ A build of `20260508_bb_taxon_page_template.xd`: the Web 1920, iPad Pro and iPho
 
 From top to bottom:
 - Breadcrumbs, the taxon title and its short description.
-- The sub-taxon buttons. They start at the column edge and run off the right of the screen. Swipe them on phones; desktop gets scroller arrows.
+- The sub-taxon buttons. They start at the column edge and run off the right of the screen. They scroll sideways at every width: swipe, trackpad, or drag with the mouse. On page load they drift slowly to the right-most button and back. The drift pauses while the mouse is over the row or a button has focus. It stops for good once someone scrolls the row themselves, and it doesn't run for people who ask for reduced motion. At 1920 there's only about 50px to travel, because this taxon has 8 sub-taxons.
 - A product count, then Sort By, View 24 and Filters. Phones hide View, as in the iPhone artboards.
 - Applied filters as chips with a Reset chip (Web 1920 – 5).
 - The product grid: three 400px tiles at 1920, three on tablets, two on phones. Each tile can show a Selling Fast!, Promo Code or Back Print badge.
 - The promotion tile (a red-tinted photo with "Sale up to 90% off") keeps the 5th place in the grid, whatever the sort or filters. That puts it in row 2 on desktop and row 3 on phones, as in the XD.
 - "Viewing 24 of 386 Products", a progress line and Load More.
-- Customer Reviews, Related Posts, Styled By Us Worn By You, and the SEO Text Block. The SEO block is clipped to the image height and has a Read More link.
+- Customer Reviews, Related Posts, Styled By Us Worn By You, and the SEO Text Block.
+  - Related Posts and Styled By Us scroll with the XD's arrow buttons: 55px black squares with a thin white chevron, either side of the row. Both arrows always show, and the one with nowhere to go is dimmed. Each carousel repeats its four items once, so there's something to scroll through.
+  - The SEO text is left aligned, in a box the height of the image (284px; 320px on phones) that scrolls. Its scrollbar follows the XD: a 10px `#e5e5e5` track and a `#c3c3c3` thumb with rounded ends, 30px from the text.
 
 The Filters button opens a 400px drawer from the right (Web 1920 – 2/3/4). It has one accordion per live filter group (Brand, Product Type, Clothing Size, Colour, Main Style, Band, Range, Bottoms Size, Dress Size), with the live options and counts. Ticked values show as chips at the top of the drawer. Filters apply when you press See Results or close the drawer. The page URL keeps the live site's parameters (`brand[brand][]=50`, `order_by_sort=price-asc`, `limit=48`), so a filtered or sorted view can be shared or reloaded.
 
@@ -114,9 +116,9 @@ Changes from the XD:
 3. **Badges:** Selling Fast!, Promo Code: £10 OFF and Back Print are set by hand in `taxon.html`. Drive them from product data: a stock or sales-velocity flag, an active promotion, and a back-print attribute.
 4. **Filter counts:** the counts and options are from the live page on 10 Nov 2026. They need to come from the search index, and update as filters are applied.
 5. **Promotion tile:** make it a CMS slot (image, text, link). The XD uses Gobold, which isn't available as a web font here, so the tile uses Anton from Google Fonts. Swap in a licensed Gobold web font if you have one.
-6. **Trustpilot:** the review cards and "6,168 reviews" are static, copied from the XD. Swap them for the Trustpilot carousel widget. The cart page says 5,706 reviews, so check which figure is current.
-7. **Related Posts:** fill this from the blog. Two of the XD's posts have no live URL ("Gothic Gift Guide" and "Black Friday is Here Early!"). They point at the blog index and are marked `data-todo-url`.
-8. **Instagram:** the four photos are static copies from the XD. Connect the block to the Instagram feed.
+6. **Trustpilot:** the review cards and "6,168 reviews" are static. The first four are copied from the XD. The last four (Sophie, Dan, Amy and Rhys) are made-up placeholders, added so the carousel scrolls; they aren't real customers. Swap the whole list for the Trustpilot carousel widget. The cart page says 5,706 reviews, so check which figure is current.
+7. **Related Posts:** fill this from the blog. The second four posts repeat the first four. Two of the XD's posts have no live URL ("Gothic Gift Guide" and "Black Friday is Here Early!"). They point at the blog index and are marked `data-todo-url`.
+8. **Instagram:** the photos are static copies from the XD; the second four repeat the first four. Connect the block to the Instagram feed.
 9. **Search engines:** the page has the same `noindex` tag as the other pages, plus a canonical link to the live taxon URL.
 
 ## Style Gallery page (`style-inspo.html`)
