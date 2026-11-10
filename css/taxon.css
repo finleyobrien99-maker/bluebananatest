@@ -181,16 +181,7 @@
   font-weight: 500;
   text-align: left;
 }
-.menu__list button::before {
-  content: "";
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border: 1px solid var(--bb-ink);
-  border-radius: 50%;
-}
 .menu__list button[aria-checked="true"] { font-weight: 700; }
-.menu__list button[aria-checked="true"]::before { background: var(--bb-ink); }
 .menu__list button:hover,
 .menu__list button:focus-visible { background: var(--bb-block); outline: none; }
 .no-js .menu { display: none; }
