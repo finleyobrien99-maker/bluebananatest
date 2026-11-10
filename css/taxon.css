@@ -66,22 +66,17 @@
 }
 .taxon-intro strong { font-weight: 700; }
 
-/* ---------- Sub taxon pills: start at the column edge, run off the right of the screen.
-   Swipe, drag or trackpad-scroll at every width; js/taxon.js drifts them back and forth. ---------- */
+/* ---------- Sub taxon pills: kept inside the page column (same edges as the grid), so there's
+   room to scroll even on wide screens. Swipe, drag or trackpad-scroll at every width;
+   js/taxon.js drifts them back and forth. ---------- */
 .subtaxa {
   width: min(var(--taxon-w), 100% - 2 * var(--taxon-pad));
   margin: 26px auto 0;
-}
-.scroller--pills {
-  /* Bleed to the right edge of the viewport */
-  margin-right: calc((100% - 100vw) / 2);
-  margin-right: calc((100% - 100dvw) / 2);
 }
 .scroller--pills .scroller__track {
   display: flex;
   gap: 10px;
   scroll-snap-type: none;
-  padding-right: var(--taxon-pad);
   cursor: grab;
 }
 .scroller--pills .scroller__track > li { flex: none; }
@@ -713,7 +708,6 @@
   .taxon-title { margin-top: 18px; font-size: 30px; line-height: 34px; }
   .taxon-intro { margin-top: 12px; }
   .subtaxa { margin-top: 24px; }
-  .scroller--pills .scroller__btn { display: none; }
 
   .toolbar { margin-top: 30px; }
   .menu--view { display: none; }

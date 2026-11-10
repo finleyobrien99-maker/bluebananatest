@@ -85,7 +85,7 @@ A build of `20260508_bb_taxon_page_template.xd`: the Web 1920, iPad Pro and iPho
 
 From top to bottom:
 - Breadcrumbs, the taxon title and its short description.
-- The sub-taxon buttons. They start at the column edge and run off the right of the screen. They scroll sideways at every width: swipe, trackpad, or drag with the mouse. On page load they drift slowly to the right-most button and back. The drift pauses while the mouse is over the row or a button has focus. It stops for good once someone scrolls the row themselves, and it doesn't run for people who ask for reduced motion. At 1920 there's only about 50px to travel, because this taxon has 8 sub-taxons.
+- The sub-taxon buttons. They sit inside the page column, lined up with the product grid. (The XD runs them off the right of the screen; they were brought in so there is room to scroll on wide screens.) They scroll sideways at every width: swipe, trackpad, or drag with the mouse. On page load they drift slowly to the right-most button and back. The drift pauses while the mouse is over the row or a button has focus. It stops for good once someone scrolls the row themselves, and it doesn't run for people who ask for reduced motion.
 - A product count, then Sort By, View 24 and Filters. Phones hide View, as in the iPhone artboards.
 - Applied filters as chips with a Reset chip (Web 1920 – 5).
 - The product grid: three 400px tiles at 1920, three on tablets, two on phones. Each tile can show a Selling Fast!, Promo Code or Back Print badge.
