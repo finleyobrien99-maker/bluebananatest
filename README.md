@@ -17,14 +17,17 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `cart.html` | Cart page: same header and footer as the homepage, cart lines, order summary, "You May Also Like" |
 | `taxon.html` | Taxon (product list) page for Alternative Clothing: same header, footer and cart drawer as the homepage |
 | `style-inspo.html` | Style Gallery page: the live style-inspo gallery rebuilt in the new style, with a Shop The Look panel |
+| `new-in.html` | New In page: new arrivals as a timeline of drops, with category and brand filters and "New Since Your Visit" |
 | `css/styles.css` | All styles. Brand colours from the XD document library are variables at the top |
 | `css/cart.css` | Cart page styles, built on the tokens and components in `styles.css` |
 | `css/taxon.css` | Taxon page styles, built on the tokens and components in `styles.css` |
 | `css/gallery.css` | Style Gallery styles, built on the tokens and components in `styles.css` |
+| `css/new-in.css` | New In styles. The page also loads `taxon.css` for the product tiles, badges, pills, tool buttons and dropdown menu |
 | `js/main.js` | Mega menu, mobile menu, search bar, scrollers, cart drawer, newsletter check, footer accordion |
 | `js/cart.js` | Cart page: quantities, remove/undo, free delivery meter, discount code, totals, mobile checkout bar |
 | `js/taxon.js` | Taxon page: filters drawer, filter chips, Sort By and View menus, Load More, SEO Read More |
 | `js/gallery.js` | Style Gallery: Shop The Look panel, Load More |
+| `js/new-in.js` | New In: category, brand and "since your visit" filters, Show All, the drop list, last-visit memory |
 | `images/` | Web-sized copies of the artwork. The `Assets` folder is untouched |
 
 ## How it behaves
@@ -154,6 +157,35 @@ Changes from the live page:
 7. **Search engines:** the page has the same `noindex` tag as the other pages, plus a canonical link to the live gallery URL.
 
 Product photos: eight of the shots in `images/products` had a thin light-grey frame baked in from the live site (both sizes of each): the Banned Morena dress and Heartbreaker top, the Ragged Priest jeans and jorts, the Pierce The Veil and System Of A Down BYOB tees, and two hinged segment rings. The frame has been trimmed off the image files (cropped 2px, 3px on the 840 copies, and scaled back to size), so the homepage cards lose it too. Photos fetched from the live CDN may still have it.
+
+## New In page (`new-in.html`)
+
+A New In page built to be checked often, rather than another product list. There's no XD for this page. The products, prices, offers and Selling Fast order were copied from [bluebanana.com/en_GB/section/new-alternative-fashion](https://www.bluebanana.com/en_GB/section/new-alternative-fashion) on 10 Nov 2026: 132 products, newest first. On every page, the header's New In link opens it, and so do the homepage New In "View All Products" button and the cart page's "Shop New In" button.
+
+From top to bottom:
+- **Hero:** the New In title, three counts (new pieces, pieces in the latest drop, brands) and the latest drop's four photos, which link to that drop.
+- **Since your visit:** the hero remembers when you last visited (in this browser) and says how many pieces have landed since, with a Show Me What's New button. Drops that landed since then get a yellow "New Since Your Visit" tag and a yellow marker in the drop list.
+- **Category pills:** All, Clothing, Footwear, Accessories, Band Merch, Piercing Jewellery and Hair Dye, with counts. They stick under the header and filter every drop at once. "New Since Your Visit" joins them when something has landed.
+- **Brand menu:** filters by brand. Its counts follow the chosen category; brands with nothing in it are greyed out.
+- **Drop timeline:** the products grouped into drops, newest first. Each drop has a heading (Today, Yesterday or the date), a count, the brands in it and a 2 x 2 lead tile, then Show All. The latest drop shows nine products, the others five (six on tablets). On desktop a list of drops sits beside the timeline and highlights the one you're scrolling through; on smaller screens it's a row of buttons.
+- **Selling Fast:** the 12 best sellers in New In (the live Bestsellers sort), ranked 1 to 12, between the second and third drops. It hides while a filter is on. The same 12 have a "Selling Fast!" badge in the timeline.
+- **Get New In First:** the newsletter block.
+
+The product tiles are the taxon page tiles, with the live offer badges (Buy 1 Get 1 Free, 10% Off Footwear, 2 For £35, 2 For £65, Multibuy Madness).
+
+Filters are kept in the address, so they can be linked to from menus or emails: `new-in.html?cat=footwear`, `?brand=dr-martens`, `?fresh=1`, or any mix. To see the "since your visit" view, add `?since=2026-11-05`, which treats 5 Nov as the last visit.
+
+Without JavaScript every product shows, the pills and brand menu are hidden, and the drop list still jumps to each drop.
+
+### Before the New In page goes live
+
+1. **Arrival dates (demo data):** the live listing is in Newest order but doesn't publish arrival dates. The products are split into six drops in that order, with illustrative dates from 30 Oct to 10 Nov 2026. Group them by `product_created_at` and render the page from the platform.
+2. **Since your visit:** the last visit is kept in the browser (`localStorage`, key `bb-new-in-visit`), so it's per device. For signed-in customers, store it on the account. Compare it with real arrival times rather than drop dates.
+3. **Product data:** the 132 products are written into `new-in.html`. Feed them, the offer badges and the Selling Fast list from the platform and promotions engine.
+4. **Categories:** the six groups were worked out from the live listing (image alt text and product names). Map them to the real taxons.
+5. **Images:** `images/new-in` has 480 / 840 copies of the live originals. Five piercing-ball photos are only 350px on the live site, so they look soft.
+6. **Name fix:** the live site lists "Banned Nightfall Velvet Skirt (Puple)". It reads "(Purple)" here; fix it on the live site too.
+7. **Search engines:** the page has the same `noindex` tag as the other pages, plus a canonical link to the live New In URL.
 
 ## Changes from the XD
 
