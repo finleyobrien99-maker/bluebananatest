@@ -78,7 +78,7 @@ Changes from the live cart page:
 
 ## Taxon page (`taxon.html`)
 
-A build of `20260508_bb_taxon_page_template.xd`: the Web 1920, iPad Pro and iPhone 14 Pro Max artboards, filled with the Alternative Clothing taxon from the live site. Nothing links to it yet, so open `taxon.html` directly.
+A build of `20260508_bb_taxon_page_template.xd`: the Web 1920, iPad Pro and iPhone 14 Pro Max artboards, filled with the Alternative Clothing taxon from the live site. On every page, the header's Clothing link, "Shop All Clothing" and the two clothing "View All" links open it.
 
 From top to bottom:
 - Breadcrumbs, the taxon title and its short description.
