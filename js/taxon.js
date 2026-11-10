@@ -126,13 +126,21 @@
     return tile;
   }
 
+  // Demo: once the DEMO_MORE products have all been shown, they repeat (marked data-demo-repeat),
+  // so Load More can run all the way to the taxon's total and the progress line can fill.
   function loadFromPool(count) {
-    const items = DEMO_MORE.slice(poolIndex, poolIndex + count);
-    poolIndex += items.length;
-    const tiles = items.map(tileFrom);
+    const room = TOTAL - productTiles().length;
+    const tiles = [];
+    for (let i = 0; i < Math.min(count, room); i++) {
+      const tile = tileFrom(DEMO_MORE[poolIndex % DEMO_MORE.length]);
+      if (poolIndex >= DEMO_MORE.length) tile.dataset.demoRepeat = '';
+      tiles.push(tile);
+      poolIndex++;
+    }
     grid.append(...tiles);
     return tiles;
   }
+  const isRepeat = (tile) => 'demoRepeat' in tile.dataset;
 
   /* ---------- Filter state ---------- */
   const form = $('[data-filters-form]');
@@ -210,13 +218,14 @@
 
     // Demo: filters and sorting cover every demo product, as the server's would cover the
     // whole taxon. Unfiltered, the first pageCount products of the sorted set are shown.
-    if (filtering || sortValue) loadFromPool(DEMO_MORE.length - poolIndex);
+    if (filtering || sortValue) loadFromPool(Math.max(0, DEMO_MORE.length - poolIndex));
     else if (productTiles().length < pageCount) loadFromPool(pageCount - productTiles().length);
 
     sortTiles();
     const visible = [];
     productTiles().forEach((tile) => {
-      const show = filtering ? tileMatches(tile, active) : visible.length < pageCount;
+      // Filtered results leave out the demo repeats, so each product appears once
+      const show = filtering ? !isRepeat(tile) && tileMatches(tile, active) : visible.length < pageCount;
       tile.hidden = !show;
       if (show) visible.push(tile);
     });
@@ -227,8 +236,7 @@
     countEl.textContent = total.toLocaleString('en-GB');
     pagerStatus.textContent = `Viewing ${shown.toLocaleString('en-GB')} of ${total.toLocaleString('en-GB')} Products`;
     pagerFill.style.width = `${total ? Math.min(100, (shown / total) * 100) : 0}%`;
-    const demoTotal = productTiles().length + DEMO_MORE.length - poolIndex;
-    loadMore.hidden = filtering || shown >= demoTotal;
+    loadMore.hidden = filtering || shown >= TOTAL;
     $('[data-pager]').hidden = shown === 0;
     emptyState.hidden = shown !== 0;
 
