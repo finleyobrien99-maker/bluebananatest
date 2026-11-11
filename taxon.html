@@ -784,11 +784,11 @@
     <p class="taxon-intro">Welcome to Blue Banana&rsquo;s <em>alternative clothing</em> range; our hub of all things fashion! We&rsquo;ve been at the alt fashion game since &rsquo;97, catering to a huge variety of styles from Gothic to vintage and from Steampunk to kawaii; we&rsquo;ve got it covered. Keep topped up on all the latest fashion trends and crazes with our eclectic selection of <strong>alternative clothes</strong>. Use our filters to search through dresses, t shirts, skinny jeans and more! Discover attire that you won&rsquo;t find at your regular high-street store.</p>
   </header>
 
-  <!-- Sub Taxon Button Scroller: the child taxons. It sits inside the page column, scrolls sideways
-       (swipe, drag or trackpad) and drifts slowly back and forth on its own until someone interacts with it. -->
+  <!-- Sub Taxon Button Scroller: the child taxons. It sits inside the page column and scrolls sideways
+       (swipe, mouse drag or trackpad). -->
   <nav class="subtaxa" aria-label="Alternative clothing categories">
     <div class="scroller scroller--pills">
-      <ul class="scroller__track" data-autoscroll>
+      <ul class="scroller__track" data-drag-scroll>
         <li><a class="pill" href="https://www.bluebanana.com/en_GB/section/jumpers-cardigans">Jumpers &amp; Cardigans</a></li>
         <li><a class="pill" href="https://www.bluebanana.com/en_GB/section/coats-jackets">Coats &amp; Jackets</a></li>
         <li><a class="pill" href="https://www.bluebanana.com/en_GB/section/alternative-hoodies">Alternative Hoodies</a></li>
@@ -862,16 +862,22 @@
       <li class="tile" data-index="2" data-price="74.99" data-brand="hell-bunny" data-type="dress" data-colour="black" data-style="kawaii" data-dress="xs s m l xl 2xl"><a class="tile__link" href="https://www.bluebanana.com/en_GB/products/hell-bunny-roxi-care-bear-mini-dress-black"><span class="tile__media"><img src="images/taxon/products/hell-bunny-roxi-care-bear-mini-dress-black-480.jpg" srcset="images/taxon/products/hell-bunny-roxi-care-bear-mini-dress-black-480.jpg 480w, images/taxon/products/hell-bunny-roxi-care-bear-mini-dress-black-840.jpg 840w" sizes="(min-width: 1280px) 400px, (min-width: 600px) 31vw, 46vw" width="480" height="480" alt="" fetchpriority="high" decoding="async"></span><span class="tile__name">Hell Bunny X Care Bear Roxi Care Bears Dress (Black)</span><span class="tile__price"><span class="price">£74.99</span></span></a></li>
       <li class="tile" data-index="3" data-price="59.99" data-brand="hell-bunny" data-type="dress" data-colour="black green" data-style="flower" data-dress="xs s m l xl 2xl"><a class="tile__link" href="https://www.bluebanana.com/en_GB/products/hell-bunny-gaia-midi-dress-multicoloured"><span class="tile__media"><img src="images/taxon/products/hell-bunny-gaia-midi-dress-multicoloured-480.jpg" srcset="images/taxon/products/hell-bunny-gaia-midi-dress-multicoloured-480.jpg 480w, images/taxon/products/hell-bunny-gaia-midi-dress-multicoloured-840.jpg 840w" sizes="(min-width: 1280px) 400px, (min-width: 600px) 31vw, 46vw" width="480" height="480" alt="" loading="lazy" decoding="async"></span><span class="tile__name">Hell Bunny Gaia Midi Dress (Black/Green)</span><span class="tile__price"><span class="price">£59.99</span></span></a></li>
       <li class="tile tile--promo" data-promo>
-        <!-- Taxon Product Promotion Block: a CMS slot that sits in the 5th grid position. -->
-        <a class="promo-tile" href="https://www.bluebanana.com/en_GB/section/sale">
-          <img class="promo-tile__img" src="images/taxon/promo-sale-480.jpg" srcset="images/taxon/promo-sale-480.jpg 480w, images/taxon/promo-sale-840.jpg 840w" sizes="(min-width: 1280px) 400px, (min-width: 600px) 31vw, 46vw" width="480" height="559" alt="" loading="lazy" decoding="async">
-          <span class="promo-tile__text">
-            <span class="promo-tile__big">Sale</span>
-            <span class="promo-tile__small">Up to</span>
-            <span class="promo-tile__mid">90% Off</span>
-            <span class="promo-tile__small">Sitewide</span>
-            <span class="promo-tile__cta">Click Here</span>
+        <!-- Taxon Product Promotion Block: a CMS slot that sits in the 5th grid position. The image is the same
+             height as the product images, with two lines of promo text under it in the product name and price
+             styles. On phones it spans both columns. -->
+        <a class="tile__link promo-tile" href="https://www.bluebanana.com/en_GB/section/sale">
+          <span class="tile__media promo-tile__media">
+            <img class="promo-tile__img" src="images/taxon/promo-sale-480.jpg" srcset="images/taxon/promo-sale-480.jpg 480w, images/taxon/promo-sale-840.jpg 840w" sizes="(min-width: 1280px) 400px, (min-width: 600px) 31vw, 94vw" width="480" height="559" alt="" loading="lazy" decoding="async">
+            <span class="promo-tile__text" aria-hidden="true">
+              <span class="promo-tile__big">Sale</span>
+              <span class="promo-tile__small">Up to</span>
+              <span class="promo-tile__mid">90% Off</span>
+              <span class="promo-tile__small">Sitewide</span>
+              <span class="promo-tile__cta">Click Here</span>
+            </span>
           </span>
+          <span class="tile__name">Sale: Up to 90% Off Sitewide</span>
+          <span class="tile__price">Shop the Sale</span>
         </a>
       </li>
       <li class="tile" data-index="4" data-price="54.99" data-brand="hell-bunny" data-type="trousers" data-colour="black" data-style="alternative" data-bottoms="xs s m l xl"><a class="tile__link" href="https://www.bluebanana.com/en_GB/products/hell-bunny-cameron-denim-jeans"><span class="tile__media"><img src="images/taxon/products/hell-bunny-cameron-denim-jeans-480.jpg" srcset="images/taxon/products/hell-bunny-cameron-denim-jeans-480.jpg 480w, images/taxon/products/hell-bunny-cameron-denim-jeans-840.jpg 840w" sizes="(min-width: 1280px) 400px, (min-width: 600px) 31vw, 46vw" width="480" height="480" alt="" loading="lazy" decoding="async"></span><span class="tile__name">Hell Bunny Cameron Denim Jeans (Black)</span><span class="tile__price"><span class="price price--sale"><span class="sr-only">Now </span>£54.99</span> <s class="price price--was"><span class="sr-only">was </span>£59.99</s></span></a></li>

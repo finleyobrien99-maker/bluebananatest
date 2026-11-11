@@ -526,57 +526,10 @@
     });
   }
 
-  /* ---------- Sub-taxon buttons: drag to scroll, and a slow back-and-forth drift ----------
-     The drift starts on page load, turns round at each end, pauses while the pointer is over
-     the row or a button in it has focus, and stops for good once someone scrolls it themselves.
-     It doesn't run for people who ask for reduced motion, or while the row is off screen. */
-  const pills = $('[data-autoscroll]');
+  /* ---------- Sub-taxon buttons: mouse drag to scroll ----------
+     Touch and trackpads scroll the row natively; this lets desktop mouse users drag it too. */
+  const pills = $('[data-drag-scroll]');
   if (pills) {
-    const SPEED = 22; // px per second
-    let pos = 0;
-    let dir = 1;
-    let last = 0;
-    let hovering = false;
-    let stopped = reduceMotion.matches;
-    let onScreen = true;
-    let ownScroll = false;
-
-    const max = () => pills.scrollWidth - pills.clientWidth;
-    const paused = () => hovering || pills.contains(document.activeElement) || !onScreen || document.hidden;
-
-    const step = (now) => {
-      if (stopped) return;
-      const dt = last ? Math.min(now - last, 64) / 1000 : 0;
-      last = now;
-      const end = max();
-      if (end > 1 && !paused()) {
-        pos += dir * SPEED * dt;
-        if (pos >= end) { pos = end; dir = -1; }
-        else if (pos <= 0) { pos = 0; dir = 1; }
-        ownScroll = true;
-        pills.scrollLeft = pos;
-      } else {
-        pos = Math.min(Math.max(pills.scrollLeft, 0), Math.max(end, 0));
-      }
-      window.requestAnimationFrame(step);
-    };
-
-    const stop = () => { stopped = true; };
-    pills.addEventListener('scroll', () => {
-      if (ownScroll) { ownScroll = false; return; }
-      // A scroll we didn't make: someone is using the row, so leave it where they put it.
-      if (Math.abs(pills.scrollLeft - pos) > 2) stop();
-    }, { passive: true });
-    pills.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hovering = true; });
-    pills.addEventListener('pointerleave', () => { hovering = false; });
-    pills.addEventListener('touchstart', stop, { passive: true });
-    pills.addEventListener('wheel', stop, { passive: true });
-    reduceMotion.addEventListener('change', () => { if (reduceMotion.matches) stop(); });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; }).observe(pills);
-    }
-
-    // Mouse drag, so desktop users can scroll it like a phone
     let drag = null;
     pills.addEventListener('pointerdown', (e) => {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
@@ -586,7 +539,7 @@
       if (!drag) return;
       const dx = e.clientX - drag.x;
       if (!drag.moved && Math.abs(dx) < 5) return;
-      if (!drag.moved) { drag.moved = true; stop(); pills.classList.add('is-dragging'); }
+      if (!drag.moved) { drag.moved = true; pills.classList.add('is-dragging'); }
       pills.scrollLeft = drag.left - dx;
     });
     window.addEventListener('pointerup', () => {
@@ -598,8 +551,6 @@
       // doesn't count as a click. It comes off once that click has been dispatched.
       window.setTimeout(() => pills.classList.remove('is-dragging'), 0);
     });
-
-    window.requestAnimationFrame(step);
   }
 
   /* ---------- Start: restore filters, sort and page size from the URL ---------- */

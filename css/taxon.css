@@ -67,8 +67,7 @@
 .taxon-intro strong { font-weight: 700; }
 
 /* ---------- Sub taxon pills: kept inside the page column (same edges as the grid), so there's
-   room to scroll even on wide screens. Swipe, drag or trackpad-scroll at every width;
-   js/taxon.js drifts them back and forth. ---------- */
+   room to scroll even on wide screens. Swipe, drag or trackpad-scroll at every width. ---------- */
 .subtaxa {
   width: min(var(--taxon-w), 100% - 2 * var(--taxon-pad));
   margin: 26px auto 0;
@@ -263,7 +262,6 @@
 
 /* Web 1920 – 7 alternative: portrait (4:5) tiles. Add .taxon-grid--portrait to the grid. */
 .taxon-grid--portrait .tile__media { aspect-ratio: 4 / 5; }
-.taxon-grid--portrait .promo-tile { min-height: 0; }
 
 /* Badges: Selling Fast / Promo Code (top left), Back Print (bottom left) */
 .tile__badges {
@@ -295,53 +293,41 @@
 .badge__icon { width: 11px; height: 13px; fill: currentColor; }
 .badge__icon--shirt { width: 16px; height: 13px; }
 
-/* ---------- Taxon Product Promotion Block (in-grid tile) ---------- */
+/* ---------- Taxon Product Promotion Block (in-grid tile) ----------
+   The image is the same size as a product image (.tile__media), and the two lines under it use the
+   product name and price styles. The overlay type is sized in --u: 1% of the image height. */
 .tile--promo { container-type: inline-size; }
-.promo-tile {
-  position: relative;
-  display: grid;
-  place-items: center;
-  height: 100%;
-  min-height: calc(100cqw * 466 / 400);
-  overflow: hidden;
-  color: #fff;
-  text-align: center;
-}
-.promo-tile__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .6s var(--ease-out);
-}
-.promo-tile::after {
+.promo-tile { --u: 1cqw; }
+.taxon-grid--portrait .promo-tile { --u: 1.1cqw; }
+.promo-tile__media { color: #fff; text-align: center; }
+.promo-tile__media::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(213, 51, 51, .9);
   transition: background-color .3s;
 }
-.promo-tile:hover .promo-tile__img { transform: scale(1.04); }
-.promo-tile:hover::after { background: rgba(213, 51, 51, .82); }
+.promo-tile:hover .promo-tile__media::after { background: rgba(213, 51, 51, .82); }
 .promo-tile__text {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   font-family: var(--font-promo);
   font-weight: 400;
   line-height: .9;
   text-transform: uppercase;
 }
-.promo-tile__big { font-size: 37cqw; letter-spacing: -.02em; }
-.promo-tile__mid { font-size: 19.5cqw; letter-spacing: -.02em; }
-.promo-tile__small { margin: 1.5cqw 0; font-size: 6.5cqw; letter-spacing: .22em; padding-left: .22em; }
+.promo-tile__big { font-size: calc(33 * var(--u)); letter-spacing: -.02em; }
+.promo-tile__mid { font-size: calc(17.5 * var(--u)); letter-spacing: -.02em; }
+.promo-tile__small { margin: calc(1.4 * var(--u)) 0; font-size: calc(6 * var(--u)); letter-spacing: .22em; padding-left: .22em; }
 .promo-tile__cta {
-  margin-top: 4cqw;
+  margin-top: calc(3.6 * var(--u));
   font-family: var(--font-body);
-  font-size: max(9px, 3.5cqw);
+  font-size: max(9px, calc(3.4 * var(--u)));
   font-weight: 700;
   line-height: 1.4;
   text-transform: none;
@@ -707,6 +693,13 @@
   .menu--view { display: none; }
 
   .taxon-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 10px; }
+  /* The promo tile spans both columns. Its image keeps a product image's height: half the row,
+     less the 10px gap (x 5/4 for portrait tiles). */
+  .tile--promo { grid-column: 1 / -1; }
+  .promo-tile { --h: calc((100cqw - 10px) / 2); --u: calc(var(--h) / 100); }
+  .taxon-grid--portrait .promo-tile { --h: calc((100cqw - 10px) / 2 * 1.25); }
+  .promo-tile__media,
+  .taxon-grid--portrait .promo-tile__media { aspect-ratio: auto; height: var(--h); }
   .tile__name { margin-top: 10px; font-size: 11px; line-height: 16px; }
   .tile__price { margin-top: 8px; font-size: 11px; line-height: 18px; }
 
@@ -738,7 +731,7 @@
 @media (prefers-reduced-motion: reduce) {
   .tile.is-new { animation: none; }
   .tile__media img,
-  .promo-tile__img,
+  .promo-tile__media::after,
   .insta__link img { transition: none; }
   .filters,
   .filters-backdrop,
