@@ -215,6 +215,36 @@
     closeNav({ returnFocus: false });
   });
 
+  /* ---------- Online / In-store menu switch ----------
+     Tabs at the top of the mobile menu, a switch at the left of the desktop menu bar.
+     The choice is kept for the visit, so the next page opens on the same menu
+     (the inline script in <head> reads it before the page paints). */
+  const MENU_MODE_KEY = 'bb-menu-mode';
+  const modeButtons = $$('[data-menu-mode]', nav);
+  const modeFlip = $('[data-menu-mode-flip]', nav);
+
+  function getMenuMode() {
+    return document.documentElement.classList.contains('menu-instore') ? 'instore' : 'online';
+  }
+
+  function setMenuMode(mode) {
+    if (mode === getMenuMode()) return;
+    closeMega();
+    document.documentElement.classList.toggle('menu-instore', mode === 'instore');
+    modeButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.menuMode === mode)));
+    nav.scrollTop = 0;
+    try { sessionStorage.setItem(MENU_MODE_KEY, mode); } catch (err) { /* private mode: the switch still works on this page */ }
+  }
+
+  if (modeButtons.length) {
+    const startMode = getMenuMode();
+    modeButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.menuMode === startMode));
+      button.addEventListener('click', () => setMenuMode(button.dataset.menuMode));
+    });
+    if (modeFlip) modeFlip.addEventListener('click', () => setMenuMode(getMenuMode() === 'instore' ? 'online' : 'instore'));
+  }
+
   /* ---------- Search bar ---------- */
   const search = $('[data-search]');
   const searchToggle = $('[data-search-toggle]');
@@ -519,13 +549,13 @@
   }
   $$('[data-scroller]').forEach(initScroller);
 
-  /* ---------- Newsletter ----------
+  /* ---------- Newsletter forms (the homepage block and the menu's "Stay In The Loop") ----------
      Hand-off: swap the redirect for a request to the mailing-list provider. */
-  const newsletter = $('[data-newsletter]');
-  if (newsletter) {
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  $$('[data-newsletter]').forEach((newsletter) => {
     const input = $('input[type="email"]', newsletter);
+    const consent = $('input[type="checkbox"][required]', newsletter);
     const message = $('[data-newsletter-msg]', newsletter);
-    const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     const setMessage = (text, isError) => {
       message.textContent = text;
@@ -542,6 +572,12 @@
         return;
       }
       input.removeAttribute('aria-invalid');
+      if (consent && !consent.checked) {
+        consent.setAttribute('aria-invalid', 'true');
+        setMessage('Please tick the box to sign up to offers & updates.', true);
+        consent.focus();
+        return;
+      }
       setMessage('Nearly there! Taking you to our sign-up page to confirm your details…', false);
       setTimeout(() => { window.location.href = newsletter.action; }, 1200);
     });
@@ -551,7 +587,14 @@
       input.removeAttribute('aria-invalid');
       setMessage('', false);
     });
-  }
+    if (consent) {
+      consent.addEventListener('change', () => {
+        if (!consent.hasAttribute('aria-invalid')) return;
+        consent.removeAttribute('aria-invalid');
+        setMessage('', false);
+      });
+    }
+  });
 
   /* ---------- Global keyboard + outside-click handling ---------- */
   document.addEventListener('keydown', (e) => {

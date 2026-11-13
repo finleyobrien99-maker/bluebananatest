@@ -18,11 +18,11 @@
   <link rel="stylesheet" href="css/taxon.css">
   <link rel="stylesheet" href="css/new-in.css">
   <link rel="canonical" href="https://www.bluebanana.com/en_GB/section/new-alternative-fashion">
-  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <script>document.documentElement.classList.replace('no-js', 'js');try{if(sessionStorage.getItem('bb-menu-mode')==='instore')document.documentElement.classList.add('menu-instore')}catch(e){}</script>
   <script src="js/main.js" defer></script>
   <script src="js/new-in.js" defer></script>
 </head>
-<body><!-- Icon sprite. Search, user, bag and house glyphs:
+<body><!-- Icon sprite. Search, user, bag, house and star glyphs:
      Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com
      License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc. -->
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -32,6 +32,7 @@
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
   <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M8.5 4.5 16 12l-7.5 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-burger" viewBox="0 0 27 23"><path d="M2 2.5h23M2 11.5h23M2 20.5h23" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="i-star" viewBox="44 30 554 532"><path d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"/></symbol>
   <symbol id="i-house" viewBox="64 64 512 512"><path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336L112 512C112 547.3 140.7 576 176 576L464 576C499.3 576 528 547.3 528 512L528 336L544 336C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384L336 384C362.5 384 384 405.5 384 432L384 528L256 528L256 432C256 405.5 277.5 384 304 384z"/></symbol>
   <symbol id="i-fire" viewBox="96 30 448 546"><path d="M256.5 37.6C265.8 29.8 279.5 30.1 288.4 38.5C300.7 50.1 311.7 62.9 322.3 75.9C335.8 92.4 352 114.2 367.6 140.1C372.8 133.3 377.6 127.3 381.8 122.2C382.9 120.9 384 119.5 385.1 118.1C393 108.3 402.8 96 415.9 96C429.3 96 438.7 107.9 446.7 118.1C448 119.8 449.3 121.4 450.6 122.9C460.9 135.3 474.6 153.2 488.3 175.3C515.5 219.2 543.9 281.7 543.9 351.9C543.9 475.6 443.6 575.9 319.9 575.9C196.2 575.9 96 475.7 96 352C96 260.9 137.1 182 176.5 127C196.4 99.3 216.2 77.1 231.1 61.9C239.3 53.5 247.6 45.2 256.6 37.7zM321.7 480C347 480 369.4 473 390.5 459C432.6 429.6 443.9 370.8 418.6 324.6C414.1 315.6 402.6 315 396.1 322.6L370.9 351.9C364.3 359.5 352.4 359.3 346.2 351.4C328.9 329.3 297.1 289 280.9 268.4C275.5 261.5 265.7 260.4 259.4 266.5C241.1 284.3 207.9 323.3 207.9 370.8C207.9 439.4 258.5 480 321.6 480z"/></symbol>
   <symbol id="i-chevron-down" viewBox="96 224 448 256"><path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z"/></symbol>
@@ -87,14 +88,27 @@
   <!-- One nav for every screen size: a hover mega menu on desktop, a slide-in accordion on mobile. -->
   <nav class="site-nav" id="site-nav" aria-label="Main">
     <div class="site-nav__head">
-      <p class="site-nav__title">Menu</p>
+      <a class="site-nav__account" href="https://www.bluebanana.com/en_GB/login">
+        <svg class="icon icon--user" aria-hidden="true"><use href="#i-user"></use></svg>
+        <span>Login</span>
+      </a>
       <button class="icon-btn" type="button" data-nav-close>
         <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"></use></svg>
         <span class="sr-only">Close menu</span>
       </button>
     </div>
 
-    <ul class="site-nav__list">
+    <!-- Online / In-store switch: swaps the whole menu between the shop and the piercing studios.
+         Phones and tablets: two tabs at the top of the menu (iPhone 14 Pro Max – 7 / 8).
+         Desktop: a switch at the left of the menu bar. The choice lasts for the visit (sessionStorage). -->
+    <div class="menu-mode" role="group" aria-label="Choose a menu">
+      <button class="menu-mode__btn" type="button" aria-pressed="true" aria-controls="menu-online" data-menu-mode="online">Online</button>
+      <span class="menu-mode__track" aria-hidden="true" data-menu-mode-flip></span>
+      <button class="menu-mode__btn" type="button" aria-pressed="false" aria-controls="menu-instore" data-menu-mode="instore">In-store</button>
+    </div>
+
+    <!-- ============ ONLINE MENU ============ -->
+    <ul class="site-nav__list" id="menu-online" data-menu-panel="online">
       <li class="site-nav__item">
         <a class="site-nav__link" href="new-in.html" aria-current="true">New In</a>
       </li>
@@ -732,7 +746,283 @@
       </li>
     </ul>
 
+    <!-- ============ IN-STORE MENU ============
+         Phones and tablets: plain links, then the booking banner and the studio reviews (iPhone 14 Pro Max – 8).
+         Desktop: each heading opens a mega menu, with the same reviews and booking banner on the right. -->
+    <ul class="site-nav__list site-nav__list--instore" id="menu-instore" data-menu-panel="instore">
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/body-piercing-information">Piercing Info</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-instore-info">
+          <span class="site-nav__toggle-label">Piercing Info<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-instore-info">
+          <div class="mega__inner">
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Piercing Information</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information">Age Restrictions</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/cms/first-piercings">First Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information" data-todo-url>Inserting &amp; Changing Jewellery</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information" data-todo-url>Jewellery Size Guides</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/blog/which-piercings-hurt-the-most-or-least">Pain Guide</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information">Piercing Prices</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/body-piercing-information">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Piercing FAQs</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/piercing-migration">Piercing Migration FAQs</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/piercing-rejection">Piercing Rejection</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information" data-todo-url>Re-Piercing FAQs</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information" data-todo-url>UK Piercing Laws</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/blue-banana-piercing">About Blue Banana Piercing</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos">
+              <div class="studio-reviews studio-reviews--card">
+                <p class="studio-reviews__title">Piercing Studio Reviews</p>
+                <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
+                <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
+              </div>
+              <a class="mega-promo" href="https://piercing.bluebanana.com/">
+                <img src="images/menu/menu-piercing-booking.jpg" width="195" height="267" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Book Online</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/stores">Store Locator</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-instore-stores">
+          <span class="site-nav__toggle-label">Store Locator<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-instore-stores">
+          <div class="mega__inner">
+            <div class="mega__col mega__col--span3">
+              <div class="mega__group">
+                <h3 class="mega__heading">Stores &amp; Piercing Studios</h3>
+                <ul class="mega__links mega__links--columns">
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/birmingham">Birmingham</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/bristol">Bristol</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/cardiff">Cardiff</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/coventry">Coventry</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/exeter">Exeter</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/leeds">Leeds</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/leicester">Leicester</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/liverpool">Liverpool</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/manchester">Manchester</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/newport">Newport</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/nottingham">Nottingham</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/plymouth">Plymouth</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/reading">Reading</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/sheffield">Sheffield</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/stoke">Stoke-on-Trent</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/swansea">Swansea</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/swindon">Swindon</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/wolverhampton">Wolverhampton</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/stores">Store Locator</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos">
+              <div class="studio-reviews studio-reviews--card">
+                <p class="studio-reviews__title">Piercing Studio Reviews</p>
+                <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
+                <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
+              </div>
+              <a class="mega-promo" href="https://piercing.bluebanana.com/">
+                <img src="images/menu/menu-piercing-booking.jpg" width="195" height="267" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Book Online</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/cms/piercing-aftercare-cms">Aftercare Info</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-instore-aftercare">
+          <span class="site-nav__toggle-label">Aftercare Info<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-instore-aftercare">
+          <div class="mega__inner">
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Aftercare Guides</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/piercing-aftercare-guides">Aftercare Guide</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/ear-piercing-aftercare">Ear Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/genital-piercing-aftercare">Genital Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/microdermal-piercing-aftercare">Microdermal Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/nose-piercing-aftercare">Nose Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/oral-piercing-aftercare">Oral Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/surface-piercing-aftercare">Surface Piercing Aftercare</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/piercing-aftercare-cms">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Aftercare Products</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/piercing-aftercare" data-todo-url>Piercing Care Solution</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/piercing-aftercare">Shop Aftercare</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos">
+              <div class="studio-reviews studio-reviews--card">
+                <p class="studio-reviews__title">Piercing Studio Reviews</p>
+                <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
+                <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
+              </div>
+              <a class="mega-promo" href="https://piercing.bluebanana.com/">
+                <img src="images/menu/menu-piercing-booking.jpg" width="195" height="267" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Book Online</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/cms/medi-daith-cms">Medi-Daith Info</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-instore-medi-daith">
+          <span class="site-nav__toggle-label">Medi-Daith Info<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-instore-medi-daith">
+          <div class="mega__inner">
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Medi-Daith Information</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/an-introduction-to-medi-daiths">Intro To Medi-Daiths</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/medi-daith-piercing-faqs">Medi-Daith Piercing FAQs</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/about-migraines">About Migraines</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores">Find A Studio</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/medi-daith-cms">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">The Research</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/about-the-study">About The Study</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/about-the-london-migraine-clinic">About LMC</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/medi-daith-for-migraine-headaches-at-blue-banana" data-todo-url>Existing Migraine Research</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos">
+              <div class="studio-reviews studio-reviews--card">
+                <p class="studio-reviews__title">Piercing Studio Reviews</p>
+                <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
+                <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
+              </div>
+              <a class="mega-promo" href="https://piercing.bluebanana.com/">
+                <img src="images/menu/menu-piercing-booking.jpg" width="195" height="267" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Book Online</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery">Piercing Gallery</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-instore-gallery">
+          <span class="site-nav__toggle-label">Piercing Gallery<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-instore-gallery">
+          <div class="mega__inner">
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">By Placement</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/ear-piercing-styling-ideas">Ear Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/nose-piercing-styling-ideas">Nose Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/mouth-lip-piercing-styling-ideas">Lip/Mouth Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/body-piercing-styling-ideas">Body Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/add-on-piercing-styling-ideas">Add-On Piercings</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">By Jewellery</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/gold-piercing-styling-ideas">Gold Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/lab-diamonds-piercing-styling-ideas">Lab Diamond Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/threadless-piercing-styling-ideas">Threadless Piercings</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos">
+              <div class="studio-reviews studio-reviews--card">
+                <p class="studio-reviews__title">Piercing Studio Reviews</p>
+                <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
+                <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
+              </div>
+              <a class="mega-promo" href="https://piercing.bluebanana.com/">
+                <img src="images/menu/menu-piercing-booking.jpg" width="195" height="267" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Book Online</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Desktop only: on phones the booking banner below does this job -->
+      <li class="site-nav__item site-nav__item--book">
+        <a class="site-nav__link site-nav__link--book" href="https://piercing.bluebanana.com/">Book Online</a>
+      </li>
+    </ul>
+
+    <!-- Phones and tablets only (iPhone 14 Pro Max – 8) -->
+    <div class="instore-extras" data-menu-panel="instore">
+      <a class="instore-promo" href="https://piercing.bluebanana.com/">
+        <img src="images/menu/menu-piercing-booking-wide.jpg" width="340" height="180" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+        <span class="instore-promo__label">Book Online</span>
+      </a>
+      <div class="studio-reviews">
+        <p class="studio-reviews__title">Piercing Studio Reviews</p>
+        <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
+        <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
+      </div>
+    </div>
+
     <div class="site-nav__foot">
+      <!-- Hand-off: point this form at the real mailing-list endpoint, as with the newsletter block. -->
+      <form class="nav-signup" action="https://www.bluebanana.com/en_GB/form/mailing-list-signup" method="post" novalidate data-newsletter>
+        <p class="nav-signup__title" id="nav-signup-title">Stay In The Loop, Sign Up</p>
+        <div class="nav-signup__row">
+          <label class="sr-only" for="nav-signup-email">Email address</label>
+          <input class="nav-signup__input" id="nav-signup-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+          <button class="nav-signup__btn" type="submit">
+            <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            <span class="sr-only">Sign up</span>
+          </button>
+        </div>
+        <label class="nav-signup__consent">
+          <input type="checkbox" name="marketing_consent" value="1" required>
+          <span>Sign me up to offers &amp; updates. Opt-out at any time.</span>
+        </label>
+        <p class="nav-signup__msg" role="status" aria-live="polite" data-newsletter-msg></p>
+      </form>
       <a class="site-nav__loyalty" href="loyalty/">Loyalty Scheme</a>
       <a href="https://www.bluebanana.com/en_GB/login">Sign In / Register</a>
       <a href="https://www.bluebanana.com/en_GB/tracking">Track My Order</a>

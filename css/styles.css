@@ -403,6 +403,112 @@ input { font: inherit; }
 }
 .mega-promo:hover .mega-promo__label { text-decoration: underline; text-underline-offset: 3px; }
 
+/* ==========================================================================
+   Online / In-store menus
+   Only one menu shows at a time. html.menu-instore is set by the switch, and by
+   the inline script in <head> so the chosen menu shows straight away on the next
+   page. Without JavaScript only the online menu shows (Get Pierced has the same links).
+   ========================================================================== */
+.js:not(.menu-instore) [data-menu-panel="instore"],
+.menu-instore [data-menu-panel="online"],
+.no-js [data-menu-panel="instore"],
+.no-js .menu-mode { display: none !important; }
+
+/* Desktop: a switch at the left of the menu bar, "Online (o ) In-store",
+   drawn from switch-button.png in the XD assets */
+.menu-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.menu-mode__btn {
+  color: rgba(29, 28, 27, .45);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color .15s;
+}
+.menu-mode__btn:hover,
+.menu-mode__btn[aria-pressed="true"] { color: var(--bb-ink); }
+.menu-mode__track {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  background: #5c5b5b;
+  cursor: pointer;
+}
+.menu-mode__track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f9f9f9;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+  transition: transform .2s var(--ease-out);
+}
+.menu-instore .menu-mode__track::after { transform: translateX(20px); }
+
+/* "Book Online" sits at the end of the in-store bar with a yellow bar under it */
+.site-nav__link--book::after { background: var(--bb-yellow); transform: scaleX(1); }
+.site-nav__link--book:hover::after { background: var(--bb-ink); }
+
+.instore-extras { display: none; }
+
+/* Piercing Studio Reviews: a dark block in the in-store menu (iPhone 14 Pro Max – 8),
+   and a card beside the booking banner in the desktop in-store mega menus */
+.studio-reviews {
+  background: var(--bb-ink);
+  color: #fff;
+  font-size: 12px;
+  line-height: 16px;
+}
+.studio-reviews__title {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 22px;
+}
+.studio-reviews__rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 6px;
+  margin-top: 8px;
+}
+.studio-reviews strong { font-weight: 700; }
+.studio-reviews__count { margin-top: 4px; }
+.stars { display: inline-flex; gap: 10px; color: var(--bb-yellow); }
+.stars .icon { width: 11px; height: 11px; }
+
+.studio-reviews--card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+  width: 195px;
+  height: 267px;
+  padding: 22px 20px 24px;
+  text-align: left;
+}
+.studio-reviews--card .studio-reviews__title { font-size: 20px; line-height: 24px; }
+.studio-reviews--card .studio-reviews__rating { margin-top: auto; }
+.studio-reviews--card .studio-reviews__count { margin-top: 10px; }
+.studio-reviews--card .stars { gap: 6px; }
+.studio-reviews--card .stars .icon { width: 14px; height: 14px; }
+
+/* Store Locator: 18 studios in three columns */
+.mega__col--span3 { grid-column: span 3; }
+.mega__links--columns { columns: 3; column-gap: 100px; }
+.mega__links--columns li { break-inside: avoid; }
+
 /* ---------- Search bar (Web 1920 – 2) ---------- */
 .site-search {
   position: absolute;
@@ -970,6 +1076,29 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     max-height: calc(100vh - var(--bar-h) - var(--nav-h));
     overflow-y: auto;
   }
+
+  /* Menu bar: the Online / In-store switch on the left, the categories centred in the
+     1200px column. On narrower desktops the categories start just right of the switch. */
+  .site-nav {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) minmax(0, var(--content)) minmax(0, 1fr);
+    column-gap: 32px;
+    padding: 0 var(--gutter);
+  }
+  .menu-mode { grid-column: 1; grid-row: 1; justify-self: start; height: 18px; }
+  .site-nav__list { grid-column: 2; grid-row: 1; max-width: none; margin: 0; }
+  .site-nav__list--instore { justify-content: center; gap: min(56px, 3.5vw); }
+}
+
+/* Room for the switch on narrower desktops: a smaller switch and category text */
+@media (min-width: 1180px) and (max-width: 1399.98px) {
+  .site-nav { column-gap: 20px; padding: 0 20px; }
+  .site-nav__link { font-size: 12px; }
+  .menu-mode { gap: 6px; }
+  .menu-mode__btn { font-size: 10px; letter-spacing: .03em; }
+  .menu-mode__track { width: 32px; height: 18px; border-radius: 9px; }
+  .menu-mode__track::after { width: 14px; height: 14px; }
+  .menu-instore .menu-mode__track::after { transform: translateX(14px); }
 }
 
 /* ==========================================================================
@@ -1033,14 +1162,76 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     padding: 0 8px 0 20px;
     border-bottom: 1px solid var(--bb-ink);
   }
-  .site-nav__title {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -.06em;
-    text-transform: uppercase;
+  .site-nav__account {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    font-size: 14px;
+    font-weight: 700;
   }
+  .site-nav__account:hover span { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Online / In-store tabs (iPhone 14 Pro Max – 7 / 8): the chosen tab is black with a pointer under it */
+  .menu-mode {
+    display: grid;
+    grid-template-columns: 61fr 39fr;
+    flex-shrink: 0;
+    gap: 0;
+    border-bottom: 1px solid var(--bb-ink);
+  }
+  .menu-mode__track { display: none; }
+  .menu-mode__btn {
+    position: relative;
+    min-height: 58px;
+    padding: 0 12px;
+    background: #fff;
+    color: var(--bb-ink);
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .menu-mode__btn:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .menu-mode__btn[aria-pressed="true"] { background: var(--bb-ink); color: #fff; text-decoration: none; }
+  .menu-mode__btn[aria-pressed="true"]::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    z-index: 1;
+    width: 12px;
+    height: 12px;
+    background: var(--bb-ink);
+    transform: translateX(-50%) rotate(45deg);
+  }
+  .menu-mode__btn:focus-visible { outline-offset: -4px; }
+
+  /* In-store menu: plain links on phones and tablets, as in the XD */
+  .site-nav__list--instore .has-mega > .site-nav__link { display: flex; }
+  .site-nav__list--instore .site-nav__toggle,
+  .site-nav__list--instore .site-nav__item .mega,
+  .site-nav__list--instore .site-nav__item--book { display: none; }
+
+  .instore-extras { display: block; padding: 30px 20px; }
+  .instore-promo { display: block; }
+  .instore-promo img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 340 / 180;
+    object-fit: cover;
+    transition: opacity .2s;
+  }
+  .instore-promo:hover img { opacity: .85; }
+  .instore-promo__label {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+  }
+  .instore-promo:hover .instore-promo__label { text-decoration: underline; text-underline-offset: 3px; }
+  .instore-extras .studio-reviews { margin-top: 14px; padding: 24px 25px 22px; }
 
   .site-nav__list { display: block; max-width: none; height: auto; margin: 0; }
   .site-nav__item { display: block; border-bottom: 1px solid var(--bb-rule); }
@@ -1173,6 +1364,58 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   }
   .site-nav__foot a:hover { text-decoration: underline; }
   .site-nav__locale { margin-top: 10px; font-size: 12px; opacity: .75; }
+
+  /* "Stay In The Loop, Sign Up" at the top of the menu footer */
+  .nav-signup {
+    margin-bottom: 18px;
+    padding: 10px 0 24px;
+    border-bottom: 1px solid #404040;
+  }
+  .nav-signup__title { margin-bottom: 14px; font-size: 14px; font-weight: 800; line-height: 18px; }
+  .nav-signup__row { display: flex; height: 50px; }
+  .nav-signup__input {
+    flex: 1;
+    min-width: 0;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    color: var(--bb-ink);
+    font-size: 16px; /* 16px stops iOS zooming in on focus */
+  }
+  .nav-signup__input::placeholder { color: #a8a8a8; font-size: 12px; }
+  .nav-signup__input[aria-invalid="true"] { box-shadow: inset 0 0 0 2px var(--bb-sale); }
+  .nav-signup__btn {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 57px;
+    background: var(--bb-yellow);
+    color: #000;
+    transition: background .15s;
+  }
+  .nav-signup__btn:hover { background: #dcb00a; }
+  .nav-signup__btn .icon { width: 16px; height: 16px; }
+  .nav-signup__consent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    font-size: 10px;
+    line-height: 14px;
+    cursor: pointer;
+  }
+  .nav-signup__consent input {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--bb-yellow);
+  }
+  .nav-signup__consent input[aria-invalid="true"] { outline: 2px solid var(--bb-sale); outline-offset: 1px; }
+  .nav-signup__msg { margin-top: 10px; font-size: 12px; line-height: 16px; }
+  .nav-signup__msg:empty { display: none; }
+  .nav-signup__msg.is-error { color: #ffb3b3; }
 
   /* Without JavaScript, show the menu inline so every link stays reachable */
   .no-js .site-nav { position: static; width: auto; visibility: visible; transform: none; }
