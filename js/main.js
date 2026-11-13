@@ -215,13 +215,11 @@
     closeNav({ returnFocus: false });
   });
 
-  /* ---------- Online / In-store menu switch ----------
-     Tabs at the top of the mobile menu, a switch at the left of the desktop menu bar.
+  /* ---------- Online / In-store tabs (mobile menu) ----------
      The choice is kept for the visit, so the next page opens on the same menu
      (the inline script in <head> reads it before the page paints). */
   const MENU_MODE_KEY = 'bb-menu-mode';
   const modeButtons = $$('[data-menu-mode]', nav);
-  const modeFlip = $('[data-menu-mode-flip]', nav);
 
   function getMenuMode() {
     return document.documentElement.classList.contains('menu-instore') ? 'instore' : 'online';
@@ -242,7 +240,46 @@
       button.setAttribute('aria-pressed', String(button.dataset.menuMode === startMode));
       button.addEventListener('click', () => setMenuMode(button.dataset.menuMode));
     });
-    if (modeFlip) modeFlip.addEventListener('click', () => setMenuMode(getMenuMode() === 'instore' ? 'online' : 'instore'));
+  }
+
+  /* ---------- In-Store side panel (desktop) ---------- */
+  const instorePanel = $('#instore-panel');
+  const instoreOpenBtn = $('[data-instore-open]');
+  const instoreBackdrop = $('.panel-backdrop');
+  let instoreIsOpen = false;
+
+  function openInstore() {
+    if (instoreIsOpen || !instorePanel) return;
+    instoreIsOpen = true;
+    closeMega();
+    closeSearch();
+    closeLocale();
+    instorePanel.inert = false;
+    instorePanel.classList.add('is-open');
+    instoreBackdrop.classList.add('is-open');
+    instoreOpenBtn.setAttribute('aria-expanded', 'true');
+    // Move focus into the panel before the header (and the button) becomes inert.
+    $('[data-instore-close]', instorePanel).focus({ preventScroll: true });
+    setPageInert(true, 'cart');
+    lockScroll();
+  }
+
+  function closeInstore({ returnFocus = true } = {}) {
+    if (!instoreIsOpen) return;
+    instoreIsOpen = false;
+    instorePanel.classList.remove('is-open');
+    instoreBackdrop.classList.remove('is-open');
+    instoreOpenBtn.setAttribute('aria-expanded', 'false');
+    instorePanel.inert = true;
+    setPageInert(false, 'cart');
+    unlockScroll();
+    if (returnFocus) instoreOpenBtn.focus();
+  }
+
+  if (instorePanel && instoreOpenBtn) {
+    instoreOpenBtn.addEventListener('click', openInstore);
+    $$('[data-instore-close]').forEach((node) => node.addEventListener('click', () => closeInstore()));
+    desktopMQ.addEventListener('change', () => closeInstore({ returnFocus: false }));
   }
 
   /* ---------- Search bar ---------- */
@@ -600,11 +637,13 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Tab') {
       if (cartIsOpen) trapFocus(drawer, e);
+      else if (instoreIsOpen) trapFocus(instorePanel, e);
       else if (navIsOpen) trapFocus(nav, e);
       return;
     }
     if (e.key !== 'Escape') return;
     if (cartIsOpen) closeCart();
+    else if (instoreIsOpen) closeInstore();
     else if (navIsOpen) closeNav();
     else if (searchIsOpen) closeSearch({ returnFocus: true });
     else if (localeIsOpen) closeLocale({ returnFocus: true });

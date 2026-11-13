@@ -23,7 +23,7 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `css/taxon.css` | Taxon page styles, built on the tokens and components in `styles.css` |
 | `css/gallery.css` | Style Gallery styles, built on the tokens and components in `styles.css` |
 | `css/new-in.css` | New In styles. The page also loads `taxon.css` for the product tiles, badges, pills, tool buttons and dropdown menu |
-| `js/main.js` | Mega menu, mobile menu, Online / In-store switch, search bar, scrollers, cart drawer, newsletter check, footer accordion |
+| `js/main.js` | Mega menu, mobile menu, Online / In-store tabs, In-Store side panel, search bar, scrollers, cart drawer, newsletter check, footer accordion |
 | `js/cart.js` | Cart page: quantities, remove/undo, free delivery meter, discount code, totals, mobile checkout bar |
 | `js/taxon.js` | Taxon page: filters drawer, filter chips, Sort By and View menus, Load More, SEO Read More |
 | `js/gallery.js` | Style Gallery: Shop The Look panel, Load More |
@@ -42,17 +42,17 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 
 ## Online / In-store menu
 
-The menu has two versions: **Online** (the shop categories) and **In-store** (the piercing studios). Every page with the homepage header has it (homepage, cart, taxon, style gallery and New In; the loyalty pages have their own header and are unchanged).
+The menu has two versions: **Online** (the shop categories) and **In-store** (the piercing studios). On phones and tablets they're tabs in the burger menu; on desktop the in-store menu opens in a side panel. Every page with the homepage header has it (homepage, cart, taxon, style gallery and New In; the loyalty pages have their own header and are unchanged).
 
 - **Phones and tablets (below 1180px):** the burger menu follows iPhone 14 Pro Max – 7 and 8 in the XD.
   - The menu opens with Login at the top, then two tabs, Online and In-store. The chosen tab is black with a small pointer under it.
   - In-store lists Piercing Info, Store Locator, Aftercare Info, Medi-Daith Info and Piercing Gallery as plain links. Under them are the Book Online banner (`images/menu/menu-piercing-booking-wide.jpg`, the XD's `20260909_menu_large_piercing_booking_mobile.jpg`) and the Piercing Studio Reviews block.
   - The menu footer now starts with "Stay In The Loop, Sign Up": an email field, a yellow arrow button and an opt-in tick box.
-- **Desktop (1180px and wider):** there's no XD for this, so it uses the switch from the XD assets (`switch-button.png`). The switch sits at the left of the menu bar: "Online ( ) In-store". Turning it on swaps the menu bar for the in-store menu.
-  - The in-store menu bar has Piercing Info, Store Locator, Aftercare Info, Medi-Daith Info, Piercing Gallery and Book Online. Book Online has a yellow bar under it.
-  - Each in-store heading except Book Online opens a mega menu. It shows the links from Get Pierced, regrouped, plus a Piercing Studio Reviews card and the Book Online banner on the right. Store Locator lists all 18 studios in three columns.
-  - At 1920 the categories stay centred, as in the XD. Between 1180 and 1399px the switch and the category text are a little smaller so everything fits.
-- **Remembering the choice:** the choice lasts for the visit (`sessionStorage`, key `bb-menu-mode`), so the next page opens on the same menu. A small script in each page's `<head>` applies it before the page appears, so the menu doesn't flash. A new visit starts on Online.
+- **Desktop (1180px and wider):** follows the "Blue Banana Homepage Changes" Word document (13 Nov 2026).
+  - An In-Store Services button sits at the left of the menu bar. It's dark, like the site's other buttons, with the shop icon from the XD assets.
+  - It opens an In-Store panel from the left, built to the screenshot in the document. The panel has the same links, Book Online banner and Piercing Studio Reviews block as the mobile In-store tab. The heading, links, Book Online label and reviews title are in capitals. Close it with the cross, the dark backdrop or Esc.
+  - At 1920 the categories stay centred, as in the XD. Between 1180 and 1399px the button and the category text are a little smaller so everything fits.
+- **Remembering the choice (phones and tablets):** the tab choice lasts for the visit (`sessionStorage`, key `bb-menu-mode`), so the next page opens on the same menu. A small script in each page's `<head>` applies it before the page appears, so the menu doesn't flash. A new visit starts on Online.
 - **Without JavaScript:** only the Online menu shows. Get Pierced has the same links.
 
 Changes from the XD:
@@ -60,12 +60,16 @@ Changes from the XD:
 - In the menu, Login and Sign In / Register both go to the login page. The XD shows both.
 - The menu sign-up asks people to tick the opt-in box before it sends them on.
 
+## Loyalty link
+
+The yellow Loyalty button has gone from the header (as asked in the Word document). Loyalty Scheme is now a link at the bottom of the footer's Online Order Help column, on every page with the homepage footer. The yellow Loyalty Scheme button in the mobile menu is still there.
+
 ## Before this goes live
 
 1. **Cart drawer:** it runs on demo data (`DEMO_CART` / `DEMO_UPSELL` in `js/main.js`) and needs connecting to the basket API. "Checkout" points at `/en_GB/checkout/`, the Sylius default, so confirm that URL.
 2. **Newsletter forms:** the homepage block and the menu's "Stay In The Loop" sign-up both check the email address, then send people to `/en_GB/form/mailing-list-signup`. The menu form also needs its opt-in box ticked; it's sent as `marketing_consent`. Both need connecting to the real mailing-list service.
-3. **Piercing Studio Reviews:** the figures (4.96 average, 71,282 reviews, 18 studios) are copied from the XD. They appear in the mobile In-store menu and in each desktop in-store mega menu, so they need to come from the studios' review source. The block doesn't link anywhere yet. Point it at a reviews page if there is one.
-4. **Get Pierced links:** six of them have no page on the live site yet. They're marked `data-todo-url` (in Get Pierced and again in the in-store menus) and point at the closest existing page for now:
+3. **Piercing Studio Reviews:** the figures (4.96 average, 71,282 reviews, 18 studios) are copied from the XD. They appear in the mobile In-store menu and the desktop In-Store panel, so they need to come from the studios' review source. The block doesn't link anywhere yet. Point it at a reviews page if there is one.
+4. **Get Pierced links:** six of them have no page on the live site yet. They're marked `data-todo-url` in Get Pierced and point at the closest existing page for now:
    - Inserting & Changing Jewellery
    - Jewellery Size Guides
    - Piercing Care Solution

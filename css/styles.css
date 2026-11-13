@@ -165,21 +165,6 @@ input { font: inherit; }
 .header-link:hover .header-link__label,
 .locale__btn:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-/* Loyalty scheme shortcut: a flat yellow block in the header, square like the rest of the site */
-.header-link--loyalty {
-  gap: 0;
-  min-height: 32px;
-  padding: 0 16px;
-  background: var(--bb-yellow);
-  color: var(--bb-ink);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  transition: background .15s;
-}
-.header-link--loyalty:hover { background: #ffd62b; text-decoration: none; }
-
 /* Glyph boxes match the XD icon frames (user 16.5x20, search 20x20, bag 17.5x20) */
 .icon--user { width: 16.5px; height: 20px; }
 .icon--search { width: 20px; height: 20px; }
@@ -404,67 +389,67 @@ input { font: inherit; }
 .mega-promo:hover .mega-promo__label { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ==========================================================================
-   Online / In-store menus
-   Only one menu shows at a time. html.menu-instore is set by the switch, and by
-   the inline script in <head> so the chosen menu shows straight away on the next
-   page. Without JavaScript only the online menu shows (Get Pierced has the same links).
+   In-store menu
+   Phones and tablets: Online / In-store tabs in the burger menu, and only one
+   menu shows at a time. html.menu-instore is set by the tabs, and by the inline
+   script in <head> so the chosen menu shows straight away on the next page.
+   Desktop: an In-Store Services button at the left of the menu bar opens a side panel.
+   Without JavaScript only the online menu shows (Get Pierced has the same links).
    ========================================================================== */
-.js:not(.menu-instore) [data-menu-panel="instore"],
-.menu-instore [data-menu-panel="online"],
+@media (max-width: 1179.98px) {
+  .js:not(.menu-instore) [data-menu-panel="instore"],
+  .menu-instore [data-menu-panel="online"] { display: none !important; }
+}
+.menu-mode,
+.instore-extras,
 .no-js [data-menu-panel="instore"],
-.no-js .menu-mode { display: none !important; }
+.no-js .menu-mode,
+.no-js .instore-btn { display: none; }
 
-/* Desktop: a switch at the left of the menu bar, "Online (o ) In-store",
-   drawn from switch-button.png in the XD assets */
-.menu-mode {
-  display: flex;
+/* Desktop button: dark, like the site's other buttons, with the shop icon from the XD assets */
+.instore-btn {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-}
-.menu-mode__btn {
-  color: rgba(29, 28, 27, .45);
+  height: 26px;
+  padding: 0 12px;
+  background: var(--bb-ink);
+  color: #fff;
   font-size: 11px;
   font-weight: 700;
-  line-height: 16px;
+  line-height: 1;
   letter-spacing: .06em;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: color .15s;
+  transition: background-color .2s, color .2s;
 }
-.menu-mode__btn:hover,
-.menu-mode__btn[aria-pressed="true"] { color: var(--bb-ink); }
-.menu-mode__track {
-  position: relative;
-  flex-shrink: 0;
-  width: 40px;
-  height: 20px;
-  border-radius: 10px;
-  background: #5c5b5b;
-  cursor: pointer;
+.instore-btn:hover,
+.instore-btn[aria-expanded="true"] { background: var(--bb-button-light); color: var(--bb-ink); }
+.icon--shop { width: 15px; height: 13px; }
+
+/* Book Online banner (mobile In-store menu and the desktop panel) */
+.instore-promo { display: block; }
+.instore-promo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 340 / 180;
+  object-fit: cover;
+  transition: opacity .2s;
 }
-.menu-mode__track::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #f9f9f9;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
-  transition: transform .2s var(--ease-out);
+.instore-promo:hover img { opacity: .85; }
+.instore-promo__label {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
 }
-.menu-instore .menu-mode__track::after { transform: translateX(20px); }
+.instore-promo:hover .instore-promo__label { text-decoration: underline; text-underline-offset: 3px; }
 
-/* "Book Online" sits at the end of the in-store bar with a yellow bar under it */
-.site-nav__link--book::after { background: var(--bb-yellow); transform: scaleX(1); }
-.site-nav__link--book:hover::after { background: var(--bb-ink); }
-
-.instore-extras { display: none; }
-
-/* Piercing Studio Reviews: a dark block in the in-store menu (iPhone 14 Pro Max – 8),
-   and a card beside the booking banner in the desktop in-store mega menus */
+/* Piercing Studio Reviews block */
 .studio-reviews {
+  margin-top: 14px;
+  padding: 24px 25px 22px;
   background: var(--bb-ink);
   color: #fff;
   font-size: 12px;
@@ -488,26 +473,70 @@ input { font: inherit; }
 .stars { display: inline-flex; gap: 10px; color: var(--bb-yellow); }
 .stars .icon { width: 11px; height: 11px; }
 
-.studio-reviews--card {
+/* ---------- In-Store side panel (desktop), slides in from the left ---------- */
+.panel-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, .5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s, visibility 0s linear .25s;
+}
+.panel-backdrop.is-open { opacity: 1; visibility: visible; transition-delay: 0s; }
+
+.instore-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 201;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex-shrink: 0;
-  width: 195px;
-  height: 267px;
-  padding: 22px 20px 24px;
-  text-align: left;
+  width: min(400px, 100%);
+  background: #fff;
+  visibility: hidden;
+  transform: translateX(-100%);
+  transition: transform .32s var(--ease-out), visibility 0s linear .32s;
 }
-.studio-reviews--card .studio-reviews__title { font-size: 20px; line-height: 24px; }
-.studio-reviews--card .studio-reviews__rating { margin-top: auto; }
-.studio-reviews--card .studio-reviews__count { margin-top: 10px; }
-.studio-reviews--card .stars { gap: 6px; }
-.studio-reviews--card .stars .icon { width: 14px; height: 14px; }
-
-/* Store Locator: 18 studios in three columns */
-.mega__col--span3 { grid-column: span 3; }
-.mega__links--columns { columns: 3; column-gap: 100px; }
-.mega__links--columns li { break-inside: avoid; }
+.instore-panel.is-open {
+  visibility: visible;
+  transform: none;
+  box-shadow: 0 0 40px rgba(0, 0, 0, .25);
+  transition-delay: 0s;
+}
+.instore-panel__head {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  padding: 0 6px 0 30px;
+  border-bottom: 1px solid var(--bb-ink);
+}
+.instore-panel__title {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.instore-panel__body { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
+.instore-panel__list a {
+  display: flex;
+  align-items: center;
+  min-height: 58px;
+  padding: 0 30px;
+  border-bottom: 1px solid var(--bb-rule);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 18px;
+  text-transform: uppercase;
+  transition: background-color .15s;
+}
+.instore-panel__list a:hover { background: var(--bb-block); }
+.instore-panel__extras { padding: 30px; }
+.instore-panel .instore-promo__label { font-size: 13px; text-transform: uppercase; }
+.instore-panel .studio-reviews__title { text-transform: uppercase; }
 
 /* ---------- Search bar (Web 1920 – 2) ---------- */
 .site-search {
@@ -1077,28 +1106,24 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     overflow-y: auto;
   }
 
-  /* Menu bar: the Online / In-store switch on the left, the categories centred in the
-     1200px column. On narrower desktops the categories start just right of the switch. */
+  /* Menu bar: the In-Store Services button on the left, the categories centred in the
+     1200px column. On narrower desktops the categories start just right of the button. */
   .site-nav {
     display: grid;
     grid-template-columns: minmax(max-content, 1fr) minmax(0, var(--content)) minmax(0, 1fr);
     column-gap: 32px;
     padding: 0 var(--gutter);
   }
-  .menu-mode { grid-column: 1; grid-row: 1; justify-self: start; height: 18px; }
+  .instore-btn { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; margin-top: -4px; }
   .site-nav__list { grid-column: 2; grid-row: 1; max-width: none; margin: 0; }
-  .site-nav__list--instore { justify-content: center; gap: min(56px, 3.5vw); }
+  .site-nav__list--instore { display: none; } /* desktop uses the side panel instead */
 }
 
-/* Room for the switch on narrower desktops: a smaller switch and category text */
+/* Room for the button on narrower desktops: a smaller button and category text */
 @media (min-width: 1180px) and (max-width: 1399.98px) {
   .site-nav { column-gap: 20px; padding: 0 20px; }
   .site-nav__link { font-size: 12px; }
-  .menu-mode { gap: 6px; }
-  .menu-mode__btn { font-size: 10px; letter-spacing: .03em; }
-  .menu-mode__track { width: 32px; height: 18px; border-radius: 9px; }
-  .menu-mode__track::after { width: 14px; height: 14px; }
-  .menu-instore .menu-mode__track::after { transform: translateX(14px); }
+  .instore-btn { gap: 6px; padding: 0 10px; font-size: 10px; letter-spacing: .03em; }
 }
 
 /* ==========================================================================
@@ -1112,7 +1137,6 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   .nav-open { display: inline-grid; }
   .header-link { justify-content: center; min-width: 44px; gap: 0; }
   .header-link__label,
-  .header-link--loyalty,
   .locale { display: none; }
   .site-logo img { width: clamp(150px, 44vw, 240px); }
   .bag-count { top: 4px; right: 1px; }
@@ -1180,7 +1204,6 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     gap: 0;
     border-bottom: 1px solid var(--bb-ink);
   }
-  .menu-mode__track { display: none; }
   .menu-mode__btn {
     position: relative;
     min-height: 58px;
@@ -1188,9 +1211,9 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     background: #fff;
     color: var(--bb-ink);
     font-size: 14px;
+    font-weight: 700;
     line-height: 18px;
-    letter-spacing: 0;
-    text-transform: none;
+    white-space: nowrap;
   }
   .menu-mode__btn:hover { text-decoration: underline; text-underline-offset: 3px; }
   .menu-mode__btn[aria-pressed="true"] { background: var(--bb-ink); color: #fff; text-decoration: none; }
@@ -1207,31 +1230,9 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   }
   .menu-mode__btn:focus-visible { outline-offset: -4px; }
 
-  /* In-store menu: plain links on phones and tablets, as in the XD */
-  .site-nav__list--instore .has-mega > .site-nav__link { display: flex; }
-  .site-nav__list--instore .site-nav__toggle,
-  .site-nav__list--instore .site-nav__item .mega,
-  .site-nav__list--instore .site-nav__item--book { display: none; }
-
+  /* In-store menu: plain links, then the booking banner and reviews (the desktop button is hidden) */
+  .instore-btn { display: none; }
   .instore-extras { display: block; padding: 30px 20px; }
-  .instore-promo { display: block; }
-  .instore-promo img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 340 / 180;
-    object-fit: cover;
-    transition: opacity .2s;
-  }
-  .instore-promo:hover img { opacity: .85; }
-  .instore-promo__label {
-    display: block;
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 18px;
-  }
-  .instore-promo:hover .instore-promo__label { text-decoration: underline; text-underline-offset: 3px; }
-  .instore-extras .studio-reviews { margin-top: 14px; padding: 24px 25px 22px; }
 
   .site-nav__list { display: block; max-width: none; height: auto; margin: 0; }
   .site-nav__item { display: block; border-bottom: 1px solid var(--bb-rule); }
