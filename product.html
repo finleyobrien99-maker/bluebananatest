@@ -884,7 +884,8 @@
 
   <div class="pdp">
 
-    <!-- ---------- Gallery: thumbnails, main image with arrows and hover zoom (Web 1920 – 3), swipe + dots on phones ---------- -->
+    <!-- ---------- Gallery: thumbnails, main image with arrows, swipe + dots on phones.
+         Clicking an image opens the full-screen viewer (#image-viewer); without JavaScript the link opens the large image. ---------- -->
     <section class="pdp-gallery" aria-label="Product images" data-gallery>
       <ul class="pdp-gallery__thumbs" role="list">
         <li><button class="pdp-thumb is-active" type="button" aria-current="true" data-gallery-thumb="0"><img src="images/product/plasma-gold-hinged-segment-ring-gold-160.jpg" width="160" height="160" alt=""><span class="sr-only">Show image 1: gold</span></button></li>
@@ -893,10 +894,14 @@
       <div class="pdp-gallery__stage">
         <ul class="pdp-gallery__track" role="list" data-gallery-track tabindex="0" aria-label="Product images, scroll sideways for more">
           <li class="pdp-slide" data-gallery-slide>
+            <a class="pdp-slide__open" href="images/product/plasma-gold-hinged-segment-ring-gold-1000.jpg" data-viewer-open="0" aria-label="View image 1 full screen">
             <img class="pdp-slide__img" src="images/product/plasma-gold-hinged-segment-ring-gold-1000.jpg" srcset="images/product/plasma-gold-hinged-segment-ring-gold-480.jpg 480w, images/product/plasma-gold-hinged-segment-ring-gold-1000.jpg 1000w" sizes="(min-width: 1280px) 640px, (min-width: 900px) 50vw, 100vw" width="1000" height="1000" alt="Blue Banana Plasma Gold 1.2mm Hinged Segment Ring in gold" fetchpriority="high">
+            </a>
           </li>
           <li class="pdp-slide" data-gallery-slide>
+            <a class="pdp-slide__open" href="images/product/plasma-gold-hinged-segment-ring-silver-1000.jpg" data-viewer-open="1" aria-label="View image 2 full screen">
             <img class="pdp-slide__img" src="images/product/plasma-gold-hinged-segment-ring-silver-1000.jpg" srcset="images/product/plasma-gold-hinged-segment-ring-silver-480.jpg 480w, images/product/plasma-gold-hinged-segment-ring-silver-1000.jpg 1000w" sizes="(min-width: 1280px) 640px, (min-width: 900px) 50vw, 100vw" width="1000" height="1000" alt="The same hinged segment ring in silver" loading="lazy" decoding="async">
+            </a>
           </li>
         </ul>
         <button class="pdp-gallery__btn pdp-gallery__btn--prev" type="button" aria-label="Previous image" data-gallery-prev><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
@@ -1520,6 +1525,26 @@
 
 <!-- ============================== PRODUCT POP-UPS ==============================
      Native <dialog> elements: they trap focus, close on Esc and keep the page behind them inert. -->
+
+<!-- Full-screen image viewer (from the test site): opens from a click on the gallery image.
+     Double-click, scroll or the + / - buttons zoom; drag to move around; arrows (or the arrow keys) change image.
+     On touch screens: pinch or double-tap to zoom, swipe to change image.
+     Hand-off: feed it 2000px originals (data-full on each gallery link) so zoomed images stay sharp. -->
+<dialog class="pdp-viewer" id="image-viewer" aria-labelledby="viewer-title">
+  <h2 class="sr-only" id="viewer-title">Product images</h2>
+  <p class="pdp-viewer__count" data-viewer-count aria-live="polite"></p>
+  <button class="icon-btn pdp-viewer__close" type="button" data-dialog-close><svg class="icon icon--close" aria-hidden="true"><use href="#i-close"></use></svg><span class="sr-only">Close full-screen images</span></button>
+  <button class="pdp-viewer__btn pdp-viewer__btn--prev" type="button" aria-label="Previous image" data-viewer-prev><svg class="icon" aria-hidden="true"><use href="#i-arrow-thin"></use></svg></button>
+  <div class="pdp-viewer__stage" data-viewer-stage>
+    <img class="pdp-viewer__img" data-viewer-img src="" alt="" draggable="false">
+  </div>
+  <button class="pdp-viewer__btn pdp-viewer__btn--next" type="button" aria-label="Next image" data-viewer-next><svg class="icon" aria-hidden="true"><use href="#i-arrow-thin"></use></svg></button>
+  <div class="pdp-viewer__tools">
+    <button class="pdp-viewer__zoom" type="button" aria-label="Zoom out" data-viewer-zoom="-1">&minus;</button>
+    <p class="pdp-viewer__hint" data-viewer-hint>Double-click or scroll to zoom</p>
+    <button class="pdp-viewer__zoom" type="button" aria-label="Zoom in" data-viewer-zoom="1">+</button>
+  </div>
+</dialog>
 
 <!-- Size Guide Pop Up (Web 1920 - Size Guide Pop Up). The XD shows the footwear version; this is the piercing version.
      Hand-off: each product type (piercing, footwear, apparel) gets its own size guide content. -->

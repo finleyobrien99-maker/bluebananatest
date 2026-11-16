@@ -29,7 +29,7 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `js/cart.js` | Cart page: quantities, remove/undo, free delivery meter, discount code, totals, mobile checkout bar |
 | `js/taxon.js` | Taxon page: filters drawer, filter chips, Sort By and View menus, Load More, SEO Read More |
 | `js/gallery.js` | Style Gallery: Shop The Look panel, Load More |
-| `js/product.js` | Product page: gallery and hover zoom, colour swatches, size checks and stock badge, quantity, Klarna message, Add to Cart, "Added to Cart" panel, pop-ups, sticky bar and size sheet, delivery countdown and Shipping Options |
+| `js/product.js` | Product page: gallery and full-screen image viewer, colour swatches, size checks and stock badge, quantity, Klarna message, Add to Cart, "Added to Cart" panel, pop-ups, sticky bar and size sheet, delivery countdown and Shipping Options |
 | `js/new-in.js` | New In: category, brand and "since your visit" filters, Show All, the drop list, last-visit memory |
 | `images/` | Web-sized copies of the artwork. The `Assets` folder is untouched |
 
@@ -221,7 +221,7 @@ Built from `20260810_bb_product_page_template_piercings.xd` (the newest of the t
 
 From top to bottom:
 - **Breadcrumbs:** left aligned with `|` dividers, as in the XD. On phones they stay on one line and scroll sideways.
-- **Gallery:** thumbnails on the left and the main image with arrows. On desktop the image zooms to 2x under the mouse (Web 1920 – 3) and the gallery stays in view while you scroll the details. On phones and tablets it's full width, swipes, and has dots instead of thumbnails.
+- **Gallery:** thumbnails on the left and the main image with arrows. Clicking the image opens it full screen (like the test site): a dark backdrop with the image in the middle, arrows at the screen edges to go through the images, and a 1 / 2 counter. Double-click or scroll to zoom (up to 4x), drag to move around, or use the + and - buttons; the arrow keys, + / - and 0 work too, and Esc or a click on the dark area closes it. On phones and tablets it's pinch or double-tap to zoom and swipe to change image. On desktop the gallery stays in view while you scroll the details. On phones and tablets it's full width, swipes, and has dots instead of thumbnails.
 - **Details column:** title and brand logo, sale price, a red "Only X Left In Stock" badge (from the chosen size's stock), Gauge and Size drop-downs with Size Guide links, What Our Piercers Say, colour swatches, quantity and Add to Cart, then Apple Pay and PayPal with their More Information pop-ups.
 - **Offers:** two grey offer blocks. The (i) opens the offer's terms underneath.
 - **Next-day countdown:** "Order within hh:mm:ss for next-day delivery by …". (View Options) opens the Shipping Options list (Web 1920 – 2) with expected dates worked out from today.
@@ -257,8 +257,9 @@ The pop-ups use the browser's own `<dialog>`, so they keep focus inside, close o
 11. **Product Scales:** the hair dye scales block is in the page but hidden (`hidden` on `section.scales`). Show it and fill its values on hair dye products.
 12. **Find Your Size helper:** the body parts, piercings and recommended sizes in `GUIDES` (`js/product.js`) are the mockup's placeholder figures. Replace them with the piercers' sizes from the system. Set `data-guide` from the product type. "Shop 1.6mm Lip Jewellery" and similar links go to the body jewellery section for now (`SHOP_URL`, marked `data-todo-url`); point them at the right gauge and piercing listing.
 13. **Studio reviews strip:** 4.96 and 71,606 reviews are from the mockup. The In-Store menu panel still says 71,282 (from the homepage XD). Feed both from the studios' review source.
-14. **Black Friday banner:** the XD has a campaign banner under the menu. It's left out because it's a sitewide campaign slot, not part of the product template.
-15. **Search engines:** the page has the same `noindex` tag as the other pages, a canonical link to the live product URL, and Product structured data (JSON-LD) to generate from the feed.
+14. **Full-screen images:** the viewer shows the 1000px gallery images, so they go soft at high zoom. Add `data-full` (a 2000px original) to each gallery link and the viewer uses that instead.
+15. **Black Friday banner:** the XD has a campaign banner under the menu. It's left out because it's a sitewide campaign slot, not part of the product template.
+16. **Search engines:** the page has the same `noindex` tag as the other pages, a canonical link to the live product URL, and Product structured data (JSON-LD) to generate from the feed.
 
 ## Changes from the XD
 

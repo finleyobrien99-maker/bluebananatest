@@ -1,5 +1,5 @@
 /* Blue Banana product page
-   Gallery (thumbnails, arrows, swipe, dots, hover zoom), colour swatches, size selects with stock badge,
+   Gallery (thumbnails, arrows, swipe, dots) and the full-screen image viewer, colour swatches, size selects with stock badge,
    quantity, Klarna message, Add to Cart (into the shared cart from main.js) with the "Added to Cart" panel,
    the mobile sticky bar and size sheet, pop-ups, offers, and the next-day countdown with Shipping Options.
    Everything marked DEMO is sample data; the rest is ready to be fed by the platform. */
@@ -10,7 +10,6 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' });
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const fineHover = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 900px)');
 
   /* Hand-off: these come from the product feed and the store's settings. */
   const PRODUCT = {
@@ -102,21 +101,166 @@
   prevBtn.disabled = true;
   nextBtn.disabled = slides.length < 2;
 
-  // Hover zoom: the image follows the pointer at 2x (Web 1920 – 3)
-  slides.forEach((slide) => {
-    const move = (e) => {
-      const box = slide.getBoundingClientRect();
-      slide.style.setProperty('--zx', `${((e.clientX - box.left) / box.width) * 100}%`);
-      slide.style.setProperty('--zy', `${((e.clientY - box.top) / box.height) * 100}%`);
-    };
-    slide.addEventListener('pointerenter', (e) => {
-      if (!fineHover.matches || e.pointerType !== 'mouse') return;
-      move(e);
-      slide.classList.add('is-zooming');
-    });
-    slide.addEventListener('pointermove', (e) => { if (slide.classList.contains('is-zooming')) move(e); });
-    slide.addEventListener('pointerleave', () => slide.classList.remove('is-zooming'));
+  /* ---------- Full-screen image viewer ----------
+     Click a gallery image to open it. Zoom: double-click / double-tap, scroll wheel, pinch, + and - (buttons or keys).
+     Drag to move around a zoomed image. Arrows, arrow keys or a swipe (when not zoomed) change image. */
+  const viewer = $('#image-viewer');
+  const stage = $('[data-viewer-stage]', viewer);
+  const viewerImg = $('[data-viewer-img]', viewer);
+  const viewerCount = $('[data-viewer-count]', viewer);
+  const viewerPrev = $('[data-viewer-prev]', viewer);
+  const viewerNext = $('[data-viewer-next]', viewer);
+  const zoomBtns = $$('[data-viewer-zoom]', viewer);
+  const images = slides.map((slide) => {
+    const link = $('[data-viewer-open]', slide);
+    return { src: link.dataset.full || link.getAttribute('href'), alt: $('img', slide).alt };
   });
+  const MAX_ZOOM = 4;
+  const STEP = 1.6;            // + / - zoom factor per step
+  let vIndex = 0;
+  let zoom = 1;
+  let tx = 0;
+  let ty = 0;
+
+  viewer.classList.toggle('is-single', images.length < 2);
+  if (window.matchMedia('(pointer: coarse)').matches) $('[data-viewer-hint]', viewer).textContent = 'Double-tap or pinch to zoom';
+
+  // The image is drawn at translate(tx, ty) scale(zoom) from its top-left corner; keep it covering the box.
+  function applyZoom(live = false) {
+    const box = stage.clientWidth;
+    tx = Math.min(0, Math.max(box - box * zoom, tx));
+    ty = Math.min(0, Math.max(box - box * zoom, ty));
+    stage.classList.toggle('is-live', live);
+    stage.classList.toggle('is-zoomed', zoom > 1.001);
+    viewerImg.style.transform = `translate(${tx}px, ${ty}px) scale(${zoom})`;
+    zoomBtns[0].disabled = zoom <= 1.001;
+    zoomBtns[1].disabled = zoom >= MAX_ZOOM - 0.001;
+  }
+  // Zoom to `next`, keeping the point (x, y) inside the box where it is
+  function zoomAt(next, x, y, live = false) {
+    const z = Math.min(MAX_ZOOM, Math.max(1, next));
+    tx = x - ((x - tx) / zoom) * z;
+    ty = y - ((y - ty) / zoom) * z;
+    zoom = z;
+    applyZoom(live);
+  }
+  const centre = () => stage.clientWidth / 2;
+  function resetZoom() { zoom = 1; tx = 0; ty = 0; applyZoom(); }
+
+  function showImage(i) {
+    vIndex = Math.max(0, Math.min(images.length - 1, i));
+    viewerImg.src = images[vIndex].src;
+    viewerImg.alt = images[vIndex].alt;
+    viewerCount.textContent = `${vIndex + 1} / ${images.length}`;
+    viewerPrev.disabled = vIndex === 0;
+    viewerNext.disabled = vIndex === images.length - 1;
+    resetZoom();
+    // Keep the gallery behind in step, and hand focus back to this image's link on close
+    if (viewer.open) {
+      goTo(vIndex, false);
+      opener.set(viewer, $('[data-viewer-open]', slides[vIndex]));
+    }
+  }
+
+  $$('[data-viewer-open]', gallery).forEach((link) => link.addEventListener('click', (e) => {
+    e.preventDefault();
+    showImage(Number(link.dataset.viewerOpen));
+    openDialog('image-viewer', link);
+  }));
+  viewerPrev.addEventListener('click', () => showImage(vIndex - 1));
+  viewerNext.addEventListener('click', () => showImage(vIndex + 1));
+  zoomBtns.forEach((btn) => btn.addEventListener('click', () => {
+    zoomAt(Number(btn.dataset.viewerZoom) > 0 ? zoom * STEP : zoom / STEP, centre(), centre());
+  }));
+
+  viewer.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); showImage(vIndex - 1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); showImage(vIndex + 1); }
+    else if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomAt(zoom * STEP, centre(), centre()); }
+    else if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomAt(zoom / STEP, centre(), centre()); }
+    else if (e.key === '0') { e.preventDefault(); resetZoom(); }
+  });
+
+  const local = (e) => {
+    const box = stage.getBoundingClientRect();
+    return { x: e.clientX - box.left, y: e.clientY - box.top };
+  };
+
+  // Scroll wheel / trackpad
+  let wheelTimer = 0;
+  stage.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const p = local(e);
+    const delta = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+    zoomAt(zoom * Math.exp(-delta * 0.002), p.x, p.y, true);
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => stage.classList.remove('is-live'), 120);
+  }, { passive: false });
+
+  // Double-click (mouse) toggles between fitted and 2.5x at the pointer
+  const toggleZoom = (p) => (zoom > 1.001 ? resetZoom() : zoomAt(2.5, p.x, p.y));
+  stage.addEventListener('dblclick', (e) => { e.preventDefault(); toggleZoom(local(e)); });
+
+  // Pointers: drag to pan, two fingers to pinch, double-tap and swipe on touch
+  const pointers = new Map();
+  let drag = null;
+  let pinch = null;
+  let lastTap = 0;
+
+  stage.addEventListener('pointerdown', (e) => {
+    stage.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, local(e));
+    if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      pinch = { dist: Math.hypot(a.x - b.x, a.y - b.y), zoom };
+      drag = null;
+    } else if (pointers.size === 1) {
+      drag = { start: local(e), tx, ty, moved: false };
+    }
+  });
+  stage.addEventListener('pointermove', (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    const p = local(e);
+    pointers.set(e.pointerId, p);
+    if (pinch && pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const dist = Math.hypot(a.x - b.x, a.y - b.y);
+      zoomAt(pinch.zoom * (dist / pinch.dist), (a.x + b.x) / 2, (a.y + b.y) / 2, true);
+    } else if (drag) {
+      const dx = p.x - drag.start.x;
+      const dy = p.y - drag.start.y;
+      if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true;
+      if (zoom > 1.001 && drag.moved) {
+        stage.classList.add('is-dragging');
+        tx = drag.tx + dx;
+        ty = drag.ty + dy;
+        applyZoom(true);
+      }
+    }
+  });
+  const endPointer = (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    const p = local(e);
+    pointers.delete(e.pointerId);
+    stage.classList.remove('is-dragging', 'is-live');
+    if (pinch) {
+      if (pointers.size < 2) pinch = null;
+      drag = null;
+      return;
+    }
+    if (!drag) return;
+    const dx = p.x - drag.start.x;
+    if (zoom <= 1.001 && drag.moved && Math.abs(dx) > 50 && e.pointerType !== 'mouse') {
+      showImage(vIndex + (dx < 0 ? 1 : -1)); // swipe
+    } else if (!drag.moved && e.pointerType !== 'mouse') {
+      const now = Date.now();
+      if (now - lastTap < 300) { toggleZoom(p); lastTap = 0; } else lastTap = now; // double-tap
+    }
+    drag = null;
+  };
+  stage.addEventListener('pointerup', endPointer);
+  stage.addEventListener('pointercancel', endPointer);
+  if ('ResizeObserver' in window) new ResizeObserver(() => { if (viewer.open) resetZoom(); }).observe(stage);
 
   /* ---------- Colour swatches ----------
      Each swatch is a link to its own product page. DEMO: here the page updates in place. */
@@ -291,7 +435,7 @@
     released(dialog);
   }
 
-  $$('.pdp-dialog').forEach((dialog) => {
+  $$('.pdp-dialog, .pdp-viewer').forEach((dialog) => {
     dialog.addEventListener('close', () => released(dialog));
     dialog.addEventListener('cancel', (e) => { e.preventDefault(); closeDialog(dialog); }); // Esc
     // Click on the dark backdrop closes it

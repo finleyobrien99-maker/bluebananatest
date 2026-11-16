@@ -85,18 +85,9 @@
 .pdp-gallery__track::-webkit-scrollbar { display: none; }
 .pdp-gallery__track:focus-visible { outline-offset: -2px; }
 .pdp-slide { position: relative; overflow: hidden; scroll-snap-align: start; aspect-ratio: 1; }
-.pdp-slide__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform-origin: var(--zx, 50%) var(--zy, 50%);
-  transition: transform .25s var(--ease-out);
-}
-/* Hover zoom (Web 1920 – 3): mouse and trackpad only */
-@media (hover: hover) and (pointer: fine) {
-  .js .pdp-slide { cursor: zoom-in; }
-  .pdp-slide.is-zooming .pdp-slide__img { transform: scale(2); }
-}
+.pdp-slide__open { display: block; width: 100%; height: 100%; cursor: zoom-in; }
+.pdp-slide__open:focus-visible { outline-offset: -2px; }
+.pdp-slide__img { width: 100%; height: 100%; object-fit: cover; }
 
 .pdp-gallery__btn {
   position: absolute;
@@ -405,6 +396,107 @@
 
 /* ---------- SEO block without the image ---------- */
 .seo-block--text .seo-block__inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy"; width: min(var(--pdp-w), 100%); }
+
+/* ==========================================================================
+   Full-screen image viewer (dark backdrop, image box in the middle, arrows at the screen edges)
+   ========================================================================== */
+.pdp-viewer {
+  --box: min(800px, 100vw - 180px, 100dvh - 150px);
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+}
+.pdp-viewer[open] { display: grid; place-items: center; animation: pdp-fade .2s var(--ease-out); }
+.pdp-viewer::backdrop { background: rgba(0, 0, 0, .88); }
+.pdp-viewer[open]::backdrop { animation: pdp-fade .2s; }
+
+.pdp-viewer__stage {
+  position: relative;
+  width: var(--box);
+  height: var(--box);
+  overflow: hidden;
+  background: #f2f2f2;
+  cursor: zoom-in;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.pdp-viewer__stage.is-zoomed { cursor: grab; }
+.pdp-viewer__stage.is-dragging { cursor: grabbing; }
+.pdp-viewer__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: 0 0;
+  transition: transform .2s var(--ease-out);
+  will-change: transform;
+  -webkit-user-drag: none;
+}
+.pdp-viewer__stage.is-live .pdp-viewer__img { transition: none; }
+
+.pdp-viewer__close { position: fixed; top: 12px; right: 12px; width: 48px; height: 48px; color: #fff; }
+.pdp-viewer__close .icon--close { width: 22px; height: 22px; }
+.pdp-viewer__close:hover { color: var(--bb-yellow); }
+
+.pdp-viewer__btn {
+  position: fixed;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 72px;
+  margin-top: -36px;
+  color: #fff;
+  transition: color .2s, opacity .2s;
+}
+.pdp-viewer__btn .icon { width: 15px; height: 28px; }
+.pdp-viewer__btn:hover { color: var(--bb-yellow); }
+.pdp-viewer__btn--prev { left: 16px; }
+.pdp-viewer__btn--prev .icon { transform: scaleX(-1); }
+.pdp-viewer__btn--next { right: 16px; }
+.pdp-viewer__btn:disabled { opacity: .25; cursor: default; color: #fff; }
+.pdp-viewer.is-single .pdp-viewer__btn,
+.pdp-viewer.is-single .pdp-viewer__count { display: none; }
+
+.pdp-viewer__count { position: fixed; top: 24px; left: 24px; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pdp-viewer__tools { position: fixed; bottom: 18px; left: 50%; display: flex; align-items: center; gap: 14px; transform: translateX(-50%); }
+.pdp-viewer__hint { color: rgba(255, 255, 255, .75); font-size: 13px; white-space: nowrap; }
+.pdp-viewer__zoom {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, .6);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  transition: background-color .2s, color .2s, opacity .2s;
+}
+.pdp-viewer__zoom:hover { background: #fff; color: var(--bb-ink); }
+.pdp-viewer__zoom:disabled { opacity: .3; cursor: default; background: none; color: #fff; }
+
+@media (max-width: 599.98px) {
+  .pdp-viewer { --box: min(100vw, 100dvh - 150px); }
+  .pdp-viewer__btn { top: auto; bottom: 8px; margin-top: 0; width: 48px; height: 52px; }
+  .pdp-viewer__btn--prev { left: 4px; }
+  .pdp-viewer__btn--next { right: 4px; }
+  .pdp-viewer__tools { bottom: 16px; }
+  .pdp-viewer__hint { font-size: 12px; }
+  .pdp-viewer__count { top: 26px; left: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdp-viewer__img { transition: none; }
+  .pdp-viewer[open],
+  .pdp-viewer[open]::backdrop { animation: none; }
+}
 
 /* ==========================================================================
    Find Your Size (size guide block + What's My Gauge? helper + studio reviews strip)
