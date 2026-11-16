@@ -189,10 +189,15 @@
     else select.removeAttribute('aria-invalid');
   }
 
+  // The "Selected from size helper" tick: set by the Find Your Size helper, cleared when the shopper changes size themselves
+  const quizApplied = $('[data-quiz-applied]');
+  let applyingHelper = false;
+
   variantSelects.forEach((select) => {
     markEmpty(select);
     select.addEventListener('change', () => {
       markEmpty(select);
+      if (!applyingHelper) quizApplied.hidden = true;
       if (select === sizeSelect) {
         updateStock();
         syncQty();
@@ -467,6 +472,152 @@
           add));
     }));
   }
+
+  /* ---------- Find Your Size: What's My Gauge? helper ----------
+     Pick a body part, then a piercing: the helper shows the recommended gauge and, if this product comes in it,
+     selects that gauge and the nearest size in the drop-downs above.
+     PLACEHOLDER figures from the size guide mockup. Hand-off: replace GUIDES with the piercers' sizes from the system. */
+  const GUIDES = {
+    ring: {
+      sizeWord: 'diameter',
+      piercings: [
+        { name: 'Ear Lobe', area: 'Ear', g: 1.2, s: 10 }, { name: 'Helix', area: 'Ear', g: 1.2, s: 8 },
+        { name: 'Tragus', area: 'Ear', g: 1.2, s: 8 }, { name: 'Daith', area: 'Ear', g: 1.2, s: 8 },
+        { name: 'Conch', area: 'Ear', g: 1.2, s: 10 }, { name: 'Nose', area: 'Nose', g: 0.8, s: 8 },
+        { name: 'Septum', area: 'Nose', g: 1.2, s: 10 }, { name: 'Lip', area: 'Mouth', g: 1.6, s: 10 },
+      ],
+    },
+    bar: {
+      sizeWord: 'length',
+      piercings: [
+        { name: 'Industrial', area: 'Ear', g: 1.6, s: 38 }, { name: 'Tragus', area: 'Ear', g: 1.2, s: 6 },
+        { name: 'Helix', area: 'Ear', g: 1.2, s: 6 }, { name: 'Rook', area: 'Ear', g: 1.2, s: 8 },
+        { name: 'Eyebrow', area: 'Face', g: 1.2, s: 8 }, { name: 'Tongue', area: 'Mouth', g: 1.6, s: 16 },
+        { name: 'Navel', area: 'Body', g: 1.6, s: 10 }, { name: 'Nipple', area: 'Body', g: 1.6, s: 14 },
+      ],
+    },
+  };
+  const AREA_ORDER = ['Ear', 'Nose', 'Face', 'Mouth', 'Body'];
+  const SHOP_URL = 'https://www.bluebanana.com/en_GB/section/body-jewellery'; // Hand-off: link to the gauge + piercing type listing
+
+  const fys = $('#find-your-size');
+  const guideType = GUIDES[fys.dataset.guide] ? fys.dataset.guide : 'ring';
+  const guide = GUIDES[guideType];
+  const helper = $('[data-gauge-helper]', fys);
+  const areaSelect = $('[data-fys-area]', fys);
+  const piercingSelect = $('[data-fys-piercing]', fys);
+  const result = $('[data-fys-result]', fys);
+  const mm = (n) => n.toFixed(1);
+
+  $$('[data-guide-show]', fys).forEach((node) => { node.hidden = node.dataset.guideShow !== guideType; });
+  helper.hidden = false;
+
+  const option = (value, text, attrs = {}) => el('option', { value, ...attrs }, text);
+  function resetHelper() {
+    const areas = AREA_ORDER.filter((a) => guide.piercings.some((p) => p.area === a));
+    areaSelect.replaceChildren(option('', 'Select a body part', { selected: true }), ...areas.map((a) => option(a, a)));
+    fillPiercings('');
+    result.hidden = true;
+    result.replaceChildren();
+    markEmpty(areaSelect);
+  }
+  function fillPiercings(area) {
+    if (!area) {
+      piercingSelect.replaceChildren(option('', 'Choose a body part first', { selected: true }));
+      piercingSelect.disabled = true;
+    } else {
+      piercingSelect.replaceChildren(option('', 'Select a piercing', { selected: true }),
+        ...guide.piercings.map((p, i) => (p.area === area ? option(String(i), p.name) : null)).filter(Boolean));
+      piercingSelect.disabled = false;
+    }
+    markEmpty(piercingSelect);
+  }
+
+  // Options this product can actually be bought in, as numbers
+  const choices = (select) => Array.from(select.options)
+    .filter((o) => o.value && !o.disabled)
+    .map((o) => ({ value: o.value, n: parseFloat(o.value) }));
+
+  function flash(select) {
+    select.classList.remove('is-flash');
+    void select.offsetWidth;
+    select.classList.add('is-flash');
+    setTimeout(() => select.classList.remove('is-flash'), 1600);
+  }
+  function setVariant(select, value) {
+    applyingHelper = true;
+    select.value = value;
+    select.dispatchEvent(new Event('change'));
+    applyingHelper = false;
+    flash(select);
+  }
+
+  function recommend(piercing) {
+    const gauge = choices(gaugeSelect).find((c) => c.n === piercing.g);
+    const sizes = choices(sizeSelect);
+    let status;
+    let actions;
+    if (gauge && sizes.length) {
+      // Exact size if stocked, otherwise the nearest (the larger one on a tie)
+      const pick = sizes.reduce((best, c) => {
+        const d = Math.abs(c.n - piercing.s);
+        const bd = Math.abs(best.n - piercing.s);
+        return d < bd || (d === bd && c.n > best.n) ? c : best;
+      });
+      setVariant(gaugeSelect, gauge.value);
+      setVariant(sizeSelect, pick.value);
+      quizApplied.hidden = false;
+      const size = `${mm(piercing.g)} x ${pick.n}mm`;
+      status = el('div', { class: 'fys__status fys__status--ok' }, icon('i-tick'),
+        el('span', {}, 'We’ve selected ', el('strong', { text: size }),
+          pick.n === piercing.s ? ' in the size options above.' : `, the closest ${guide.sizeWord} we stock in this gauge.`));
+      const go = el('button', { class: 'btn btn--yellow', type: 'button' }, 'Continue To Add To Cart');
+      go.addEventListener('click', () => {
+        $('[data-buy]').scrollIntoView({ block: 'center', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+        $('[data-add-main]').focus({ preventScroll: true });
+      });
+      actions = [go];
+      announce(`Recommended gauge ${mm(piercing.g)}mm. ${size} selected.`);
+    } else {
+      quizApplied.hidden = true;
+      status = el('div', { class: 'fys__status fys__status--warn' },
+        el('span', {}, `This item isn’t available in ${mm(piercing.g)}mm. Try our ${piercing.name.toLowerCase()} jewellery instead.`));
+      actions = [el('a', { class: 'btn btn--yellow', href: SHOP_URL, 'data-todo-url': true }, `Shop ${mm(piercing.g)}mm ${piercing.name} Jewellery`)];
+      announce(`Recommended gauge ${mm(piercing.g)}mm. This item isn’t available in that gauge.`);
+    }
+    const reset = el('button', { class: 'fys__reset', type: 'button', text: 'Start Again' });
+    reset.addEventListener('click', () => {
+      resetHelper();
+      areaSelect.focus();
+    });
+    result.replaceChildren(
+      el('p', { class: 'fys__result-k', text: piercing.name }),
+      el('p', { class: 'fys__result-big' }, 'Your recommended gauge is ', el('strong', { text: `${mm(piercing.g)}mm` })),
+      status,
+      el('div', { class: 'fys__actions' }, ...actions, reset));
+    result.hidden = false;
+  }
+
+  areaSelect.addEventListener('change', () => {
+    markEmpty(areaSelect);
+    fillPiercings(areaSelect.value);
+    result.hidden = true;
+  });
+  piercingSelect.addEventListener('change', () => {
+    markEmpty(piercingSelect);
+    if (piercingSelect.value !== '') recommend(guide.piercings[Number(piercingSelect.value)]);
+  });
+  resetHelper();
+
+  // "I don't know my size": scroll to the block, pulse the helper and put focus on its first question
+  $('[data-find-size]').addEventListener('click', (e) => {
+    e.preventDefault();
+    fys.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    fys.classList.remove('is-pulse');
+    void fys.offsetWidth;
+    fys.classList.add('is-pulse');
+    areaSelect.focus({ preventScroll: true });
+  });
 
   /* ---------- Next-day countdown + Shipping Options ----------
      Hand-off: bank holidays aren't handled; the platform should supply the cut-off and delivery dates. */

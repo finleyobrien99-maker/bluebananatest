@@ -951,6 +951,11 @@
             <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
           </div>
           <p class="pdp-error" id="pdp-size-error" data-size-error hidden>Please choose your size</p>
+          <!-- Jumps to the Find Your Size block. The tick shows when the gauge helper has picked the size above. -->
+          <p class="pdp-sizehelp">
+            <a class="pdp-link" href="#find-your-size" data-find-size>I don&rsquo;t know my size</a>
+            <span class="pdp-sizehelp__applied" data-quiz-applied hidden><svg class="icon" aria-hidden="true"><use href="#i-tick"></use></svg>Selected from size helper</span>
+          </p>
         </div>
 
         <section class="pdp-quote" aria-labelledby="pdp-quote-title">
@@ -1128,6 +1133,102 @@
     <p class="pdp-sticky__price"><span class="price price--sale"><span class="sr-only">Now </span>£5.99</span> <s class="price price--was"><span class="sr-only">was </span>£8.99</s></p>
     <button class="btn btn--dark pdp-sticky__btn" type="button" data-sticky-add>Add to Cart</button>
   </div>
+
+  <!-- Find Your Size (size guide block, from the "Size Guide Block Mockup" artifact).
+       data-guide="ring" or "bar" picks the diagram, the copy and the helper's sizes (js/product.js, GUIDES).
+       This product is a ring; the bar version is the one in the mockup screenshot. -->
+  <section class="fys" id="find-your-size" aria-labelledby="fys-title" data-guide="ring">
+    <div class="fys__inner">
+      <p class="fys__eyebrow">Size Guide</p>
+      <h2 class="fys__title" id="fys-title">Find Your Size</h2>
+      <div class="fys__grid">
+
+        <div class="fys__guide">
+          <div class="fys__diagram" data-guide-show="ring">
+            <svg viewBox="0 0 220 230" role="img" aria-labelledby="fys-ring-svg">
+              <title id="fys-ring-svg">Piercing ring: the diameter is measured across the inside of the ring, the gauge is the thickness of the ring</title>
+              <path d="M 64 40 A 84 84 0 0 1 156 40" fill="none" stroke="#444" stroke-width="26"/>
+              <path d="M 168 48 A 84 84 0 1 1 52 48" fill="none" stroke="#444" stroke-width="26"/>
+              <g class="fys__measure" stroke-width="5" fill="none"><line x1="52" y1="112" x2="168" y2="112"/><line x1="52" y1="102" x2="52" y2="122"/><line x1="168" y1="102" x2="168" y2="122"/></g>
+              <text class="fys__measure-label" x="110" y="98" text-anchor="middle">Diameter</text>
+              <g class="fys__measure-fill"><rect x="98" y="158" width="24" height="5"/><rect x="107" y="140" width="6" height="20"/><rect x="98" y="201" width="24" height="5"/><rect x="107" y="204" width="6" height="22"/></g>
+              <text class="fys__measure-label" x="126" y="225">Gauge</text>
+            </svg>
+          </div>
+          <div class="fys__diagram" data-guide-show="bar" hidden>
+            <svg viewBox="0 0 220 260" role="img" aria-labelledby="fys-bar-svg">
+              <title id="fys-bar-svg">Piercing bar: the length is measured between the balls, the gauge is the thickness of the bar</title>
+              <path d="M 98 58 C 76 110, 76 160, 98 196" fill="none" stroke="#444" stroke-width="12" stroke-linecap="round"/>
+              <circle cx="100" cy="46" r="20" fill="#444"/>
+              <circle cx="100" cy="214" r="30" fill="#444"/>
+              <g class="fys__measure" stroke-width="5" fill="none"><line x1="150" y1="66" x2="150" y2="184"/><line x1="140" y1="66" x2="160" y2="66"/><line x1="140" y1="184" x2="160" y2="184"/></g>
+              <text class="fys__measure-label" transform="translate(178 125) rotate(90)" text-anchor="middle">Length</text>
+              <g class="fys__measure-fill"><rect x="20" y="114" width="5" height="24"/><rect x="22" y="123" width="40" height="6"/></g>
+              <text class="fys__measure-label" x="14" y="160">Gauge</text>
+            </svg>
+          </div>
+
+          <div class="fys__copy pdp-copy" data-guide-show="ring">
+            <h3 class="fys__guide-title">Piercing Ring Size Guides</h3>
+            <p>Here are the key measurements you&rsquo;ll need to know for piercing rings:</p>
+            <ul>
+              <li><strong>Gauge</strong> - the thickness of the ring, can be measured in (g) or (mm). For ease, we use (mm).</li>
+              <li><strong>Diameter</strong> - the internal diameter; measured from the inner edges of the ring.</li>
+            </ul>
+            <p>When choosing a size (e.g. 1.2 x 8mm), the first number refers to gauge and the second refers to diameter.</p>
+            <p>If you have a new piercing, we recommend a ring with a larger internal diameter, to allow room for potential swelling. Once the piercing has fully healed you could look at choosing a ring with a smaller diameter.</p>
+            <p>Please check the size that you require for your piercing and ensure that you add the size that you need to your cart. This cannot be changed after checkout.</p>
+            <p>To find out more about sizes and measurements, read our guide <button class="fys__inline-link" type="button" data-dialog-open="size-guide">here</button>.</p>
+          </div>
+          <div class="fys__copy pdp-copy" data-guide-show="bar" hidden>
+            <h3 class="fys__guide-title">Piercing Bar Size Guides</h3>
+            <p>Here are the key measurements you&rsquo;ll need to know for piercing bars:</p>
+            <ul>
+              <li><strong>Gauge</strong> - the thickness of the bar, can be measured in (g) or (mm). For ease, we use (mm).</li>
+              <li><strong>Length</strong> - the wearable length of the bar; measured between the balls, not including them.</li>
+            </ul>
+            <p>We always pierce with specific sized jewellery to help promote comfort and healing. Find this information on your Blue Banana booking confirmation. Alternatively, use our <strong>What&rsquo;s My Gauge</strong> helper here, or <a href="https://piercing.bluebanana.com/" target="_blank" rel="noopener">Book a Consultation</a> with one of our expert piercers for sizing help.</p>
+            <p>To find out more about sizes and measurements, read our guide <button class="fys__inline-link" type="button" data-dialog-open="size-guide">here</button>.</p>
+          </div>
+        </div>
+
+        <!-- What's My Gauge? helper. Without JavaScript it's hidden and the guide copy still shows. -->
+        <div class="fys__quiz" data-gauge-helper hidden>
+          <h3 class="fys__quiz-title">What&rsquo;s My Gauge?</h3>
+          <p class="fys__quiz-sub">Tell us where you&rsquo;re wearing it and we&rsquo;ll find your size.</p>
+          <div class="pdp-field">
+            <label class="fys__q" for="fys-area">Which body part is this for?</label>
+            <div class="pdp-select">
+              <select id="fys-area" data-fys-area></select>
+              <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+            </div>
+          </div>
+          <div class="pdp-field">
+            <label class="fys__q" for="fys-piercing">Which piercing is this for?</label>
+            <div class="pdp-select">
+              <select id="fys-piercing" data-fys-piercing disabled></select>
+              <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+            </div>
+          </div>
+          <div class="fys__result" data-fys-result role="status" aria-live="polite" hidden></div>
+          <p class="fys__fine">Recommendations are based on the most common piercing sizes used by our expert in-store body piercers. Sizes may vary depending on your anatomy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nationwide Piercing Studio Reviews strip. Hand-off: figures come from the studios' review source
+         (the mockup says 71,606; the menu's In-Store panel still says 71,282 from the homepage XD). -->
+    <div class="fys-reviews">
+      <div class="fys-reviews__inner">
+        <p class="fys-reviews__title">Nationwide Piercing Studio Reviews</p>
+        <p class="fys-reviews__meta">
+          <span>Studio Average Rating: <strong>4.96</strong></span>
+          <span class="stars fys-reviews__stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span>
+          <span><strong>71,606</strong> Total Reviews</span>
+        </p>
+      </div>
+    </div>
+  </section>
 
   <!-- Customer Reviews (Sub Header Block 04). Hand-off: replace the list with the Trustpilot carousel widget. -->
   <section class="reviews" aria-labelledby="reviews-title">

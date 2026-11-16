@@ -226,6 +226,7 @@ From top to bottom:
 - **Offers:** two grey offer blocks. The (i) opens the offer's terms underneath.
 - **Next-day countdown:** "Order within hh:mm:ss for next-day delivery by …". (View Options) opens the Shipping Options list (Web 1920 – 2) with expected dates worked out from today.
 - **Accordions:** Related Products (a scroller), Features, Description, Specifications and Product Reviews. All open to start with, as in the XD.
+- **Find Your Size:** the size guide block from the "Size Guide Block Mockup" artifact. A diagram and guide copy on the left, and the **What's My Gauge?** helper on the right: pick a body part, then a piercing, and it shows the recommended gauge. If this product comes in that gauge, it selects the gauge and the nearest size in the drop-downs above (they flash blue, and "Selected from size helper" appears under the Size box). If not, it says so and links to jewellery in that gauge. "I don't know my size" under the Size box jumps down to the helper. Underneath is the Nationwide Piercing Studio Reviews strip. The block has a ring version and a bar version (`data-guide="ring"` or `"bar"` on `section#find-your-size`); this ring product uses the ring version, and the bar version is the one in the mockup screenshot.
 - **Below the product:** Customer Reviews, Plasma Gold range block ("Featured Range Information", from the screenshot), Related Posts, Styled By Us, Worn By You, and the SEO text. These reuse the taxon page blocks.
 
 What happens when you add to cart:
@@ -254,8 +255,10 @@ The pop-ups use the browser's own `<dialog>`, so they keep focus inside, close o
 9. **Product Reviews:** the 4.7 / 37 rating and both reviews (Jess and Sam) are made-up placeholders. Swap the block for the Trustpilot product reviews widget for this SKU.
 10. **Express checkout and Klarna:** Apple Pay and PayPal are styled links to checkout; swap them for the SDK buttons and only show Apple Pay where `ApplePaySession` exists. The Klarna line should become Klarna's on-site messaging. Check the £30 minimum with Klarna.
 11. **Product Scales:** the hair dye scales block is in the page but hidden (`hidden` on `section.scales`). Show it and fill its values on hair dye products.
-12. **Black Friday banner:** the XD has a campaign banner under the menu. It's left out because it's a sitewide campaign slot, not part of the product template.
-13. **Search engines:** the page has the same `noindex` tag as the other pages, a canonical link to the live product URL, and Product structured data (JSON-LD) to generate from the feed.
+12. **Find Your Size helper:** the body parts, piercings and recommended sizes in `GUIDES` (`js/product.js`) are the mockup's placeholder figures. Replace them with the piercers' sizes from the system. Set `data-guide` from the product type. "Shop 1.6mm Lip Jewellery" and similar links go to the body jewellery section for now (`SHOP_URL`, marked `data-todo-url`); point them at the right gauge and piercing listing.
+13. **Studio reviews strip:** 4.96 and 71,606 reviews are from the mockup. The In-Store menu panel still says 71,282 (from the homepage XD). Feed both from the studios' review source.
+14. **Black Friday banner:** the XD has a campaign banner under the menu. It's left out because it's a sitewide campaign slot, not part of the product template.
+15. **Search engines:** the page has the same `noindex` tag as the other pages, a canonical link to the live product URL, and Product structured data (JSON-LD) to generate from the feed.
 
 ## Changes from the XD
 

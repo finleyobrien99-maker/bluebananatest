@@ -407,6 +407,129 @@
 .seo-block--text .seo-block__inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy"; width: min(var(--pdp-w), 100%); }
 
 /* ==========================================================================
+   Find Your Size (size guide block + What's My Gauge? helper + studio reviews strip)
+   From the "Size Guide Block Mockup" artifact, in the site's type and colours.
+   ========================================================================== */
+/* "I don't know my size" under the Size drop-down */
+.pdp-sizehelp { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; margin-top: 8px; }
+.pdp-sizehelp__applied { display: inline-flex; align-items: center; gap: 6px; color: #2f8f46; font-size: 13px; font-weight: 700; }
+.pdp-sizehelp__applied[hidden] { display: none; }
+.pdp-sizehelp__applied .icon { width: 12px; height: 12px; }
+.pdp-select select { transition: border-color .3s, box-shadow .3s; }
+.pdp-select select.is-flash { border-color: var(--bb-blue); box-shadow: 0 0 0 4px rgba(54, 125, 176, .25); }
+
+.fys { border-top: 1px solid var(--bb-rule); scroll-margin-top: calc(var(--bar-h) + var(--nav-h)); }
+.fys__inner { width: min(var(--pdp-w), 100% - 2 * var(--taxon-pad)); margin: 0 auto; padding: 56px 0 64px; }
+.fys__eyebrow { color: #444; font-size: 13px; line-height: 18px; letter-spacing: .08em; text-transform: uppercase; }
+.fys__title {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 36px;
+  letter-spacing: -.06em;
+  text-transform: uppercase;
+}
+.fys__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: start; margin-top: 32px; }
+
+.fys__guide { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.fys__diagram svg { display: block; width: 100%; height: auto; }
+.fys__measure { stroke: var(--bb-blue); }
+.fys__measure-fill { fill: var(--bb-blue); }
+.fys__measure-label { fill: var(--bb-blue); font-family: var(--font-body); font-size: 15px; font-style: italic; font-weight: 700; }
+.fys__guide-title { margin-bottom: 12px; font-size: 19px; font-weight: 700; line-height: 24px; }
+.fys__copy ul { margin-top: 14px; padding-left: 22px; list-style: disc; }
+.fys__copy li + li { margin-top: 4px; }
+.fys__copy ul + p { margin-top: 14px; }
+.fys__copy a,
+.fys__inline-link { color: var(--bb-blue); text-decoration: underline; text-underline-offset: 2px; }
+.fys__copy a:hover,
+.fys__inline-link:hover { color: var(--bb-ink); }
+.fys__inline-link { font: inherit; }
+
+.fys__quiz { padding: 28px; border-top: 5px solid var(--bb-yellow); background: var(--bb-block); }
+.fys__quiz[hidden] { display: none; }
+.fys.is-pulse .fys__quiz { animation: fys-pulse 1.4s var(--ease-out); }
+@keyframes fys-pulse { from { box-shadow: 0 0 0 0 rgba(241, 195, 15, .7); } to { box-shadow: 0 0 0 18px rgba(241, 195, 15, 0); } }
+.fys__quiz-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 30px;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+}
+.fys__quiz-sub { margin-top: 4px; color: #444; font-size: 14px; line-height: 20px; }
+.fys__quiz .pdp-field { margin-top: 20px; }
+.fys__q { display: block; margin-bottom: 10px; font-size: 14px; font-weight: 700; line-height: 20px; }
+.fys__quiz select:disabled { border-color: #d9d9d9; background: #fafafa; color: #767676; cursor: not-allowed; }
+.fys__quiz .pdp-select:has(select:disabled) .icon { opacity: .4; }
+
+.fys__result { margin-top: 22px; padding: 22px; border: 1px solid #d9d9d9; background: #fff; animation: fys-in .3s var(--ease-out); }
+.fys__result[hidden] { display: none; }
+@keyframes fys-in { from { opacity: 0; transform: translateY(6px); } }
+.fys__result-k { color: #6b6b6b; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+.fys__result-big { margin-top: 4px; font-size: 20px; font-weight: 700; line-height: 28px; }
+.fys__result-big strong {
+  display: inline-block;
+  margin-left: 2px;
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  vertical-align: -2px;
+}
+.fys__status { display: flex; gap: 10px; align-items: flex-start; margin-top: 12px; padding: 12px 14px; border-left: 4px solid; font-size: 14px; line-height: 20px; }
+.fys__status .icon { width: 14px; height: 14px; margin-top: 3px; }
+.fys__status--ok { border-color: #2f8f46; background: #eaf5ed; }
+.fys__status--ok .icon { color: #2f8f46; }
+.fys__status--warn { border-color: var(--bb-yellow); background: #fdf6d9; }
+.fys__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 16px; }
+.fys__actions .btn { min-height: 44px; font-size: 15px; }
+.fys__reset { font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.fys__reset:hover { color: var(--bb-blue); }
+.fys__fine { margin-top: 16px; color: #6b6b6b; font-size: 12px; line-height: 18px; }
+
+.fys-reviews { border-top: 1px solid var(--bb-rule); border-bottom: 1px solid var(--bb-rule); }
+.fys-reviews__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+  width: min(var(--pdp-w), 100% - 2 * var(--taxon-pad));
+  margin: 0 auto;
+  padding: 18px 0;
+}
+.fys-reviews__title { font-family: var(--font-display); font-size: 21px; font-weight: 800; line-height: 24px; letter-spacing: -.03em; text-transform: uppercase; }
+.fys-reviews__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; font-size: 15px; }
+.fys-reviews__meta strong { font-weight: 800; }
+.fys-reviews__stars { gap: 8px; }
+.fys-reviews__stars .icon { width: 20px; height: 20px; }
+
+@media (max-width: 1079.98px) {
+  .fys__grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 899.98px) {
+  .fys__inner { padding: 44px 0 48px; }
+  .fys__guide { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .fys__diagram { max-width: 180px; }
+}
+@media (max-width: 599.98px) {
+  .fys__title { font-size: 32px; line-height: 31px; }
+  .fys__grid { margin-top: 24px; gap: 32px; }
+  .fys__quiz { padding: 20px 16px; }
+  .fys__quiz-title { font-size: 24px; line-height: 26px; }
+  .fys-reviews__title { font-size: 18px; line-height: 22px; }
+  .fys-reviews__meta { gap: 6px 14px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fys.is-pulse .fys__quiz,
+  .fys__result { animation: none; }
+  .pdp-select select { transition: none; }
+}
+
+/* ==========================================================================
    Pop-ups: native <dialog>
    ========================================================================== */
 .pdp-dialog {
