@@ -1148,9 +1148,13 @@
       <div class="fys__grid">
 
         <div class="fys__guide">
-          <!-- Hand-off: 635 x 200 supplied. Swap in a 1270 x 400 version (and add it to srcset) so it's sharp on high-density screens. -->
+          <!-- Phones (under 600px) get a taller crop with larger labels; wider screens get the banner.
+               Hand-off: both are 635px wide. Add 1270px versions (2x) to each srcset so they're sharp on high-density screens. -->
           <figure class="fys__photo" data-guide-show="ring">
-            <img src="images/product/find-your-size-ring-635.jpg" width="635" height="200" loading="lazy" decoding="async" alt="Customer wearing ear piercings, beside a ring diagram: the diameter is measured across the inside of the ring and the gauge is the thickness of the ring">
+            <picture>
+              <source media="(max-width: 599.98px)" srcset="images/product/find-your-size-ring-mobile-635.jpg" width="635" height="446">
+              <img src="images/product/find-your-size-ring-635.jpg" width="635" height="200" loading="lazy" decoding="async" alt="Customer wearing ear piercings, beside a ring diagram: the diameter is measured across the inside of the ring and the gauge is the thickness of the ring">
+            </picture>
           </figure>
           <div class="fys__diagram" data-guide-show="bar" hidden>
             <svg viewBox="0 0 220 260" role="img" aria-labelledby="fys-bar-svg">
