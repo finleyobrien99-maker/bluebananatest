@@ -383,8 +383,8 @@
   const DEMO_CART = [
     { id: 'killstar-chapel-iris-dress', name: 'Killstar Chapel Iris Dress (Black)', variant: 'S', price: 67.99, qty: 1 },
     { id: 'dr-martens-vegan-1460-black-boots', name: 'Dr Martens Vegan 1460 Boots (Black Felix Rub Off)', variant: 'UK 6', price: 124.99, was: 127.99, qty: 1 },
-    // No longer listed on the live site, so this one links to the jewellery section.
-    { id: 'plasma-gold-hinged-segment-ring', name: 'Blue Banana Plasma Gold 1.2mm Hinged Segment Ring (Gold)', variant: '1.2mm', price: 5.99, was: 8.99, qty: 1, url: 'https://www.bluebanana.com/en_GB/section/body-jewellery' },
+    // No longer listed on the live site, so this one links to the product page template (product.html).
+    { id: 'plasma-gold-hinged-segment-ring', name: 'Blue Banana Plasma Gold 1.2mm Hinged Segment Ring (Gold)', variant: '1.2mm', price: 5.99, was: 8.99, qty: 1, url: 'product.html' },
     { id: 'pro-pierce-ultimate-advanced-aftercare-solution', name: 'Pro Pierce Ultimate Advanced Aftercare Solution', variant: '100ml', price: 7.99, qty: 1 },
   ];
 
@@ -461,7 +461,7 @@
 
     const row = el('li', { class: 'cart-item' },
       el('a', { class: 'cart-item__media', href: urlFor(item), tabindex: '-1', 'aria-hidden': 'true' },
-        el('img', { src: imageFor(item.id), alt: '', width: '146', height: '146', loading: 'lazy', decoding: 'async' })),
+        el('img', { src: item.image || imageFor(item.id), alt: '', width: '146', height: '146', loading: 'lazy', decoding: 'async' })),
       el('div', { class: 'cart-item__info' },
         el('a', { class: 'cart-item__name', href: urlFor(item), text: item.name }),
         item.variant ? el('p', { class: 'cart-item__variant', text: item.variant }) : null,
@@ -488,25 +488,28 @@
     remove.addEventListener('click', () => {
       const target = row.nextElementSibling || row.previousElementSibling;
       cart.splice(cart.indexOf(item), 1);
-      rows.delete(item.id);
+      rows.delete(keyOf(item));
       row.remove();
       updateTotals();
       announce(`${item.name} removed from your cart`);
       (target ? $('.cart-item__remove', target) : $('.cart-drawer__close')).focus();
     });
 
-    rows.set(item.id, { row, sync });
+    rows.set(keyOf(item), { row, sync });
     sync();
     return row;
   }
 
-  function addToCart(product) {
-    const existing = cart.find((item) => item.id === product.id);
+  // A product's size/colour can be a separate line, so lines are keyed by `key` when one is given.
+  const keyOf = (item) => item.key || item.id;
+
+  function addToCart(product, qty = 1) {
+    const existing = cart.find((item) => keyOf(item) === keyOf(product));
     if (existing) {
-      existing.qty = Math.min(MAX_QTY, existing.qty + 1);
-      rows.get(existing.id).sync();
+      existing.qty = Math.min(MAX_QTY, existing.qty + qty);
+      rows.get(keyOf(existing)).sync();
     } else {
-      const item = { ...product, qty: 1 };
+      const item = { ...product, qty: Math.min(MAX_QTY, qty) };
       cart.push(item);
       cartList.append(createRow(item));
     }
@@ -583,6 +586,29 @@
     cartList.replaceChildren(...cart.map(createRow));
     renderUpsell();
     updateTotals();
+
+    // Used by the product page (js/product.js) for its Add to Cart button and "Added to Cart" panel.
+    // Hand-off: these become calls to the basket API along with the rest of the drawer.
+    window.bbCart = {
+      add: addToCart,
+      setQty(key, qty) {
+        const item = cart.find((line) => keyOf(line) === key);
+        if (!item) return;
+        item.qty = Math.min(MAX_QTY, Math.max(1, qty));
+        rows.get(key).sync();
+        updateTotals();
+      },
+      remove(key) {
+        const item = cart.find((line) => keyOf(line) === key);
+        if (!item) return;
+        cart.splice(cart.indexOf(item), 1);
+        rows.get(key).row.remove();
+        rows.delete(key);
+        updateTotals();
+      },
+      open: openCart,
+      maxQty: MAX_QTY,
+    };
   }
   $$('[data-scroller]').forEach(initScroller);
 

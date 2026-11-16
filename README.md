@@ -18,15 +18,18 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `taxon.html` | Taxon (product list) page for Alternative Clothing: same header, footer and cart drawer as the homepage |
 | `style-inspo.html` | Style Gallery page: the live style-inspo gallery rebuilt in the new style, with a Shop The Look panel |
 | `new-in.html` | New In page: new arrivals as a timeline of drops, with category and brand filters and "New Since Your Visit" |
+| `product.html` | Product page for a piercing product: gallery, sizes, Add to Cart with an "Added to Cart" panel, pop-ups, accordions, reviews, range block |
 | `css/styles.css` | All styles. Brand colours from the XD document library are variables at the top |
 | `css/cart.css` | Cart page styles, built on the tokens and components in `styles.css` |
 | `css/taxon.css` | Taxon page styles, built on the tokens and components in `styles.css` |
 | `css/gallery.css` | Style Gallery styles, built on the tokens and components in `styles.css` |
+| `css/product.css` | Product page styles. The page also loads `taxon.css` for the Customer Reviews, Related Posts, Instagram and SEO blocks |
 | `css/new-in.css` | New In styles. The page also loads `taxon.css` for the product tiles, badges, pills, tool buttons and dropdown menu |
 | `js/main.js` | Mega menu, mobile menu, Online / In-store tabs, In-Store side panel, search bar, scrollers, cart drawer, newsletter check, footer accordion |
 | `js/cart.js` | Cart page: quantities, remove/undo, free delivery meter, discount code, totals, mobile checkout bar |
 | `js/taxon.js` | Taxon page: filters drawer, filter chips, Sort By and View menus, Load More, SEO Read More |
 | `js/gallery.js` | Style Gallery: Shop The Look panel, Load More |
+| `js/product.js` | Product page: gallery and hover zoom, colour swatches, size checks and stock badge, quantity, Klarna message, Add to Cart, "Added to Cart" panel, pop-ups, sticky bar and size sheet, delivery countdown and Shipping Options |
 | `js/new-in.js` | New In: category, brand and "since your visit" filters, Show All, the drop list, last-visit memory |
 | `images/` | Web-sized copies of the artwork. The `Assets` folder is untouched |
 
@@ -211,6 +214,48 @@ Without JavaScript every product shows, the pills and brand menu are hidden, and
 5. **Images:** `images/new-in` has 480 / 840 copies of the live originals. Five piercing-ball photos are only 350px on the live site, so they look soft.
 6. **Name fix:** the live site lists "Banned Nightfall Velvet Skirt (Puple)". It reads "(Purple)" here; fix it on the live site too.
 7. **Search engines:** the page has the same `noindex` tag as the other pages, plus a canonical link to the live New In URL.
+
+## Product page (`product.html`)
+
+Built from `20260810_bb_product_page_template_piercings.xd` (the newest of the three product page XDs: Web 1920 – 1 to 3, the iPad and iPhone artboards, and the Size Guide, Apple Pay, PayPal, Add To Cart Size Select and Add to Basket Side Menu pop-ups), plus the product page screenshot. The demo product is the XD's: Blue Banana Plasma Gold 1.2mm Hinged Segment Ring (Gold), £5.99, was £8.99. The cart drawer's demo ring now links here.
+
+From top to bottom:
+- **Breadcrumbs:** left aligned with `|` dividers, as in the XD. On phones they stay on one line and scroll sideways.
+- **Gallery:** thumbnails on the left and the main image with arrows. On desktop the image zooms to 2x under the mouse (Web 1920 – 3) and the gallery stays in view while you scroll the details. On phones and tablets it's full width, swipes, and has dots instead of thumbnails.
+- **Details column:** title and brand logo, sale price, a red "Only X Left In Stock" badge (from the chosen size's stock), Gauge and Size drop-downs with Size Guide links, What Our Piercers Say, colour swatches, quantity and Add to Cart, then Apple Pay and PayPal with their More Information pop-ups.
+- **Offers:** two grey offer blocks. The (i) opens the offer's terms underneath.
+- **Next-day countdown:** "Order within hh:mm:ss for next-day delivery by …". (View Options) opens the Shipping Options list (Web 1920 – 2) with expected dates worked out from today.
+- **Accordions:** Related Products (a scroller), Features, Description, Specifications and Product Reviews. All open to start with, as in the XD.
+- **Below the product:** Customer Reviews, Plasma Gold range block ("Featured Range Information", from the screenshot), Related Posts, Styled By Us, Worn By You, and the SEO text. These reuse the taxon page blocks.
+
+What happens when you add to cart:
+- With no size chosen, the Size box turns red and says "Please choose your size".
+- Otherwise the ring goes into the shared cart (the bag count goes up and the line shows in the cart drawer) and the **Added to Cart** panel slides in from the right. It shows the line with its own quantity and Remove, then "Have you thought about these?" with three add-ons. Continue Shopping closes it, Go to Cart opens `cart.html`.
+- You can't order more than the chosen size has in stock (the 8mm has 1 left in the demo).
+- **Phones and tablets:** an Add to Cart bar sticks to the bottom of the screen while the main button is out of view. If no size is chosen it opens a Choose Your Size sheet (iPhone "Add To Cart Pop Up Size Select").
+- **Klarna:** "Or 3 payments of …" appears once the price x quantity reaches £30 (set 6 or more to see it).
+
+Colour swatches are links to each colour's product page. In the demo the page changes in place (title, breadcrumb, colour, image) and the address becomes `product.html?colour=silver`, so that link works too.
+
+The pop-ups use the browser's own `<dialog>`, so they keep focus inside, close on Esc or a click on the dark background, and hand focus back when they close.
+
+`js/main.js` now shares the cart with other scripts through `window.bbCart` (`add`, `setQty`, `remove`, `open`). A cart line can carry its own `key` (so 8mm and 10mm are separate lines) and `image`.
+
+### Before the product page goes live
+
+1. **Product data:** everything in the product area is written into `product.html` (name, prices, SKU, sizes, stock, swatches, specs) and `PRODUCT` in `js/product.js`. Render it from the product feed. The stock figures on the Size options (`data-stock`) are demo values.
+2. **Description and range copy:** the XD has Dr Martens placeholder copy here, so the Description and the Plasma Gold range text are written for this template. Replace them with the product and range copy from the feed. The range button and brand logo link go to the closest live pages and are marked `data-todo-url`.
+3. **Specifications:** the row labels follow the live piercing product pages (16 Nov 2026). The values are for this ring; check them against the feed.
+4. **Add to Cart:** without JavaScript the form posts to `/en_GB/cart/add` (marked `data-todo-url`). Confirm the route and field names (`gauge`, `size`, `quantity`). With JavaScript it uses the demo cart.
+5. **Added to Cart add-ons:** `UPSELL` in `js/product.js` is demo data. Fill it from the recommendations feed.
+6. **Size guide:** the XD's size guide is for footwear. This one is a piercing gauge and diameter chart. Each product type needs its own (piercing, footwear, apparel).
+7. **Delivery:** the methods and prices are from the live product page (16 Nov 2026). The 2pm weekday cut-off and the working days per method are settings in `js/product.js`, and bank holidays aren't handled. The platform should supply the dates. The free delivery offer says £50, like the cart page; the promo bar still says £70.
+8. **Offers:** the two offer blocks are set by hand. Drive them from the promotions engine.
+9. **Product Reviews:** the 4.7 / 37 rating and both reviews (Jess and Sam) are made-up placeholders. Swap the block for the Trustpilot product reviews widget for this SKU.
+10. **Express checkout and Klarna:** Apple Pay and PayPal are styled links to checkout; swap them for the SDK buttons and only show Apple Pay where `ApplePaySession` exists. The Klarna line should become Klarna's on-site messaging. Check the £30 minimum with Klarna.
+11. **Product Scales:** the hair dye scales block is in the page but hidden (`hidden` on `section.scales`). Show it and fill its values on hair dye products.
+12. **Black Friday banner:** the XD has a campaign banner under the menu. It's left out because it's a sitewide campaign slot, not part of the product template.
+13. **Search engines:** the page has the same `noindex` tag as the other pages, a canonical link to the live product URL, and Product structured data (JSON-LD) to generate from the feed.
 
 ## Changes from the XD
 
