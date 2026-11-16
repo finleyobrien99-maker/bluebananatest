@@ -561,7 +561,7 @@
 .fys__quiz select:disabled { border-color: #d9d9d9; background: #fafafa; color: #767676; cursor: not-allowed; }
 .fys__quiz .pdp-select:has(select:disabled) .icon { opacity: .4; }
 
-.fys__result { margin-top: 22px; padding: 22px; border: 1px solid #d9d9d9; background: #fff; animation: fys-in .3s var(--ease-out); }
+.fys__result { margin-top: 22px; padding: 22px; background: #fff; animation: fys-in .3s var(--ease-out); }
 .fys__result[hidden] { display: none; }
 @keyframes fys-in { from { opacity: 0; transform: translateY(6px); } }
 .fys__result-k { color: #6b6b6b; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
