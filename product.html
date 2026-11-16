@@ -1135,7 +1135,6 @@
 
   <!-- Mobile Add to Cart bar (iPhone artboards): slides up while the main Add to Cart button is off screen. -->
   <div class="pdp-sticky" data-sticky hidden>
-    <p class="pdp-sticky__price"><span class="price price--sale"><span class="sr-only">Now </span>£5.99</span> <s class="price price--was"><span class="sr-only">was </span>£8.99</s></p>
     <button class="btn btn--dark pdp-sticky__btn" type="button" data-sticky-add>Add to Cart</button>
   </div>
 
@@ -1149,17 +1148,10 @@
       <div class="fys__grid">
 
         <div class="fys__guide">
-          <div class="fys__diagram" data-guide-show="ring">
-            <svg viewBox="0 0 220 230" role="img" aria-labelledby="fys-ring-svg">
-              <title id="fys-ring-svg">Piercing ring: the diameter is measured across the inside of the ring, the gauge is the thickness of the ring</title>
-              <path d="M 64 40 A 84 84 0 0 1 156 40" fill="none" stroke="#444" stroke-width="26"/>
-              <path d="M 168 48 A 84 84 0 1 1 52 48" fill="none" stroke="#444" stroke-width="26"/>
-              <g class="fys__measure" stroke-width="5" fill="none"><line x1="52" y1="112" x2="168" y2="112"/><line x1="52" y1="102" x2="52" y2="122"/><line x1="168" y1="102" x2="168" y2="122"/></g>
-              <text class="fys__measure-label" x="110" y="98" text-anchor="middle">Diameter</text>
-              <g class="fys__measure-fill"><rect x="98" y="158" width="24" height="5"/><rect x="107" y="140" width="6" height="20"/><rect x="98" y="201" width="24" height="5"/><rect x="107" y="204" width="6" height="22"/></g>
-              <text class="fys__measure-label" x="126" y="225">Gauge</text>
-            </svg>
-          </div>
+          <!-- Hand-off: 635 x 200 supplied. Swap in a 1270 x 400 version (and add it to srcset) so it's sharp on high-density screens. -->
+          <figure class="fys__photo" data-guide-show="ring">
+            <img src="images/product/find-your-size-ring-635.jpg" width="635" height="200" loading="lazy" decoding="async" alt="Customer wearing ear piercings, beside a ring diagram: the diameter is measured across the inside of the ring and the gauge is the thickness of the ring">
+          </figure>
           <div class="fys__diagram" data-guide-show="bar" hidden>
             <svg viewBox="0 0 220 260" role="img" aria-labelledby="fys-bar-svg">
               <title id="fys-bar-svg">Piercing bar: the length is measured between the balls, the gauge is the thickness of the bar</title>
@@ -1617,8 +1609,8 @@
 
 <!-- Add To Cart Pop Up Size Select (iPhone 14 Pro Max): opens from the sticky bar when no size is chosen yet. -->
 <dialog class="pdp-dialog pdp-dialog--sheet" id="size-sheet" aria-labelledby="size-sheet-title">
-  <div class="pdp-dialog__head">
-    <h2 class="pdp-dialog__title" id="size-sheet-title">Choose Your Size</h2>
+  <div class="pdp-dialog__head pdp-dialog__head--bare">
+    <h2 class="sr-only" id="size-sheet-title">Choose Your Size</h2>
     <button class="icon-btn pdp-dialog__close" type="button" data-dialog-close><svg class="icon icon--close" aria-hidden="true"><use href="#i-close"></use></svg><span class="sr-only">Close</span></button>
   </div>
   <div class="pdp-dialog__body">

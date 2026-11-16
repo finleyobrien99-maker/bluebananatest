@@ -524,7 +524,11 @@
 }
 .fys__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: start; margin-top: 32px; }
 
-.fys__guide { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.fys__guide { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+.fys__photo { margin: 0; }
+.fys__photo img { display: block; width: 100%; height: auto; background: var(--bb-ink); }
+.fys__photo[hidden] { display: none; }
+.fys__diagram { max-width: 180px; }
 .fys__diagram svg { display: block; width: 100%; height: auto; }
 .fys__measure { stroke: var(--bb-blue); }
 .fys__measure-fill { fill: var(--bb-blue); }
@@ -539,7 +543,7 @@
 .fys__inline-link:hover { color: var(--bb-ink); }
 .fys__inline-link { font: inherit; }
 
-.fys__quiz { padding: 28px; border-top: 5px solid var(--bb-yellow); background: var(--bb-block); }
+.fys__quiz { padding: 28px; background: var(--bb-block); }
 .fys__quiz[hidden] { display: none; }
 .fys.is-pulse .fys__quiz { animation: fys-pulse 1.4s var(--ease-out); }
 @keyframes fys-pulse { from { box-shadow: 0 0 0 0 rgba(241, 195, 15, .7); } to { box-shadow: 0 0 0 18px rgba(241, 195, 15, 0); } }
@@ -604,8 +608,7 @@
 }
 @media (max-width: 899.98px) {
   .fys__inner { padding: 44px 0 48px; }
-  .fys__guide { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .fys__diagram { max-width: 180px; }
+  .fys__guide { gap: 20px; }
 }
 @media (max-width: 599.98px) {
   .fys__title { font-size: 32px; line-height: 31px; }
@@ -682,13 +685,12 @@
 .unit-toggle button + button { border-left: 0; }
 .unit-toggle button[aria-pressed="true"] { background: var(--bb-ink); color: #fff; }
 
-/* Bottom sheet (phones) */
-.pdp-dialog--sheet { width: 100%; max-height: 85vh; margin: auto 0 0; }
+/* Bottom sheet: full width along the bottom of the screen, slides up when opened */
+.pdp-dialog--sheet { width: 100%; max-height: 85vh; margin: auto 0 0; padding-bottom: env(safe-area-inset-bottom); }
 .pdp-dialog--sheet[open] { animation: pdp-sheet-up .3s var(--ease-out); }
-@media (min-width: 600px) {
-  .pdp-dialog--sheet { width: min(480px, 100% - 32px); margin: auto; }
-  .pdp-dialog--sheet[open] { animation: pdp-fade .2s var(--ease-out); }
-}
+.pdp-dialog--sheet[open]::backdrop { animation: pdp-fade .3s; }
+.pdp-dialog__head--bare { justify-content: flex-end; min-height: 0; padding: 10px 20px 0 30px; border-bottom: 0; }
+.pdp-dialog__head--bare + .pdp-dialog__body { padding-top: 0; }
 
 /* Add to Basket Side Menu: 400px panel on the right */
 .pdp-dialog--side {
@@ -768,9 +770,7 @@
     inset: auto 0 0;
     z-index: 90;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    gap: 16px;
+    grid-template-columns: minmax(0, 1fr);
     padding: 10px var(--taxon-pad) calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--bb-rule);
     background: #fff;
@@ -779,9 +779,7 @@
     transition: transform .25s var(--ease-out);
   }
   .pdp-sticky.is-visible { transform: none; }
-  .pdp-sticky__price { font-size: 16px; font-weight: 700; }
-  .pdp-sticky__price .price--was { display: block; margin: 0; color: #555; font-size: 12px; font-weight: 500; }
-  .pdp-sticky__btn { min-height: 48px; }
+  .pdp-sticky__btn { width: 100%; min-height: 48px; }
 }
 
 @media (max-width: 599.98px) {
@@ -800,6 +798,7 @@
   .scales { padding: 64px var(--taxon-pad); }
 
   .pdp-dialog__head { padding-left: 20px; }
+  .pdp-dialog__head--bare { padding-right: 12px; }
   .pdp-dialog__head--centre { padding: 24px 56px 0; }
   .pdp-dialog__body { padding: 20px 20px 28px; }
   .added__list { padding: 0 20px; }
