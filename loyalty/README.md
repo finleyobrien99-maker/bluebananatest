@@ -36,8 +36,9 @@ Services button, side panel, mobile Online / In-store tabs and menu sign-up; the
 are at the end of `assets/site-navigation.css` and in `assets/site-navigation.js`.
 
 It uses the shop header and the shop footer (with the mobile accordion), not the concept pages'
-toolbar, so it reads like any other landing page on the site. The header Loyalty button and the
-footer Loyalty Scheme link on this page point to itself.
+toolbar, so it reads like any other landing page on the site. As on the shop, there's no yellow
+Loyalty button in the header (none of the loyalty pages have it now); the mobile menu's Loyalty
+Scheme button and the footer Loyalty Scheme link point to this page.
 
 Before it goes live:
 
