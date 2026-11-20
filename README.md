@@ -65,7 +65,7 @@ Changes from the XD:
 
 ## Loyalty link
 
-The yellow Loyalty button has gone from the header (as asked in the Word document). Loyalty Scheme is now a link at the bottom of the footer's Online Order Help column, on every page with the homepage footer. The yellow Loyalty Scheme button in the mobile menu is still there.
+The yellow Loyalty button has gone from the header (as asked in the Word document). Loyalty Scheme is now a link at the bottom of the footer's Online Order Help column, on every page with the homepage footer. The yellow Loyalty Scheme button in the mobile menu is still there. Both open the Inner Circle sign-up page (`loyalty/inner-circle.html`); the three name concepts are still at `loyalty/`.
 
 ## Before this goes live
 

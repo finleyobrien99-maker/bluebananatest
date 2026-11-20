@@ -3,8 +3,8 @@
 Three landing pages for the same scheme, one per naming option, so the office can compare the
 names with real styling rather than in the abstract. Plus a neutral chooser page.
 
-Reached from the **Loyalty** button in the site header (and "Loyalty Scheme" in the slide-in
-menu below 1180px), or directly at `/loyalty/`.
+The shop's Loyalty Scheme links (footer and mobile menu) open `inner-circle.html`. The concepts
+chooser is still reachable directly at `/loyalty/`.
 
 | File | Concept | Type | Palette |
 | --- | --- | --- | --- |
@@ -44,8 +44,6 @@ Before it goes live:
 4. Swap the hero photo for the original shot (it's cropped from the display artwork).
 5. Jewellery prices were copied from the homepage build in November 2026; check them against the
    live site.
-6. Point the shop's Loyalty button and footer link at `loyalty/inner-circle.html` if this replaces
-   the concepts chooser.
 
 ## How the three differ
 
