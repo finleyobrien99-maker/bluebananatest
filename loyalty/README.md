@@ -72,6 +72,7 @@ barcode to scan at the till, in that concept's colours.
 `inner-circle.html` uses these. They replace the draft facts below:
 
 - £1 spent = 1 point; 100 points = £2
+- 50 bonus points on sign-up (added later in November 2026)
 - Welcome reward: 10% off or a free jewellery upgrade
 - In-store only for now. Members join at the till and save a digital loyalty card to their phone
   with Wallet Crew. They collect points on in-store purchases, spend them on later in-store
