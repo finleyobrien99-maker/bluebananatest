@@ -50,6 +50,13 @@ p{margin:0}
 .swatches{display:flex;gap:8px;margin-top:4px}
 .swatch{width:26px;height:26px;border:1px solid rgba(0,0,0,.12)}
 .option__cta{margin-top:auto;padding-top:14px;font-weight:800;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+.final{display:grid;grid-template-columns:1fr auto;gap:18px 30px;align-items:center;margin:0 0 30px;padding:30px 34px;background:#1d1c1b;color:#fff;text-decoration:none}
+.final b{display:block;font-weight:800;font-size:clamp(30px,4vw,44px);line-height:1;letter-spacing:-.02em}
+.final small{display:block;margin-top:8px;color:#f1c30f;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.final p{grid-column:1;margin-top:6px;color:#d9d6d1;font-size:15px}
+.final span{grid-column:2;grid-row:1 / span 2;display:inline-flex;align-items:center;min-height:50px;padding:0 24px;background:#f1c30f;color:#1d1c1b;font-weight:700;font-size:15px;transition:background-color .2s}
+.final:hover span{background:#dcb00a}
+@media(max-width:700px){.final{grid-template-columns:1fr}.final span{grid-column:1;grid-row:auto;justify-self:start}}
 .note{border-top:1px solid var(--rule);padding:28px 0 70px;color:var(--muted);font-size:14px;max-width:70ch}
 .note strong{color:var(--ink)}
 </style>
@@ -75,6 +82,13 @@ p{margin:0}
     </dl>
   </section>
 
+  <a class="final" href="inner-circle.html">
+    <div><b>Inner Circle</b><small>Customer loyalty scheme · sign-up page</small></div>
+    <p>The finished landing and sign-up page, in the Inner Circle artwork colours and the Piercing Pages XD styling.</p>
+    <span>View The Page</span>
+  </a>
+
+  <h2 style="margin:0 0 16px;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Earlier name concepts</h2>
   <section class="grid">
     <a class="option" href="the-coven.html">
       <div class="option__name coven"><div><b>The Coven</b><small>Purple · 2 serif variations</small></div></div>

@@ -12,10 +12,40 @@ menu below 1180px), or directly at `/loyalty/`.
 | `the-coven.html` | The Coven | Playfair Display + Montserrat | Violet-black `#0d0a11`, purple `#9c5dc6` |
 | `the-inner-circle.html` | The Inner Circle | Grenze Gotisch + Oswald + Montserrat | Black `#0a0a0a`, brand yellow `#f1c30e` |
 | `the-collective.html` | The Collective | Poppins + Montserrat | Ink `#101014`, neon pink `#fe3cac` |
+| `inner-circle.html` | **Inner Circle (final sign-up page)** | Montserrat ExtraBold + Karla + Montserrat | Ink `#1d1c1b`, yellow `#f1c30f`, grey `#d6d6d6` / `#e9e9e9` |
 
 Each page is self-contained: its own inline CSS, no build step, nothing shared with the rest of
 the site except `assets/`. Nothing here has rounded corners — every box, button, field and card
 is square. The only curves are the circular step numbers and the round "free to join" sticker.
+
+## Inner Circle sign-up page (`inner-circle.html`)
+
+The finished landing and sign-up page for the scheme. It follows The Collective's layout (split
+hero, three benefit tiles, everything-counts row, steps, perks, card mock, join form, FAQs) but
+takes its look from two sources:
+
+- **Inner Circle artwork** (the "Inner Circle / Customer Loyalty Scheme" lockup): Montserrat
+  ExtraBold title on an ink block with the yellow uppercase strapline, and the yellow / ink / grey
+  tiles copied word for word ("Points On Purchase", "Exclusive Offers", "Piercing Offer").
+- **Piercing Pages XD template** (`20250121_bb_piercing_pages_MLP_template.xd`): Karla ExtraBold
+  uppercase section titles, Montserrat body, `#e9e9e9` grey bands, the yellow product band with
+  white product tiles, ink and `#e0e0e0` buttons, and the hairline FAQ list.
+
+It uses the shop header and the shop footer (with the mobile accordion), not the concept pages'
+toolbar, so it reads like any other landing page on the site. The header Loyalty button and the
+footer Loyalty Scheme link on this page point to itself.
+
+Before it goes live:
+
+1. Remove `<meta name="robots" content="noindex, nofollow">`.
+2. Connect the form (`data-todo-url="loyalty-signup"`): first name, email and an optional
+   marketing opt-in. It validates in the browser and sends nothing.
+3. The member number and barcode on the card are decorative.
+4. Swap the hero photo for the original shot (it's cropped from the display artwork).
+5. Jewellery prices were copied from the homepage build in November 2026; check them against the
+   live site.
+6. Point the shop's Loyalty button and footer link at `loyalty/inner-circle.html` if this replaces
+   the concepts chooser.
 
 ## How the three differ
 
