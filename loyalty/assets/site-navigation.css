@@ -606,3 +606,124 @@
 }
 html.is-locked{overflow:hidden}html.is-locked body{padding-right:var(--scrollbar-w,0px)}.sprite{position:absolute;width:0;height:0;overflow:hidden}.skip-link{position:fixed;top:-80px;left:12px;z-index:1000;background:#fff;color:#1d1c1b;padding:12px 18px}.skip-link:focus{top:12px}.loyalty-switcher{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px 20px;background:#1d1c1b;color:#fff;font:600 14px/1.4 Montserrat,Arial,sans-serif}.loyalty-switcher a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 18px;text-decoration:none}.loyalty-switcher a:hover,.loyalty-switcher a:focus-visible{background:#3c3b3a}.loyalty-switcher a[aria-current="page"]{background:#fff;color:#1d1c1b}html{scroll-padding-top:140px}main{scroll-margin-top:140px}::selection{background:#f1c30f;color:#1d1c1b}@media(max-width:600px){.loyalty-switcher{gap:4px;padding:8px}.loyalty-switcher a{padding:8px 10px;font-size:13px}html{scroll-padding-top:80px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:1179.98px){html.no-js .site-header .site-nav{position:static;width:auto;visibility:visible;transform:none}html.no-js .site-header .site-nav__head,html.no-js .site-header .site-nav__toggle{display:none}html.no-js .site-header .has-mega>.site-nav__link{display:flex}html.no-js .site-header .mega,html.no-js .site-header .mega__group .mega__links{display:block}}
+
+/* ==========================================================================
+   In-Store Services, as on the shop pages (css/styles.css)
+   Desktop: the In-Store Services button at the left of the menu bar opens a side panel.
+   Phones and tablets: Online / In-store tabs in the burger menu.
+   Written outside @scope so the panel (which sits after the header) is covered too;
+   the .site-header prefix keeps these ahead of the scoped header rules.
+   ========================================================================== */
+.instore-panel,
+.panel-backdrop {
+  --bb-ink: #1d1c1b; --bb-yellow: #f1c30f; --bb-block: #f6f6f6; --bb-rule: #e6e6e6;
+  --bb-sale: #d53333; --bb-blue: #367db0; --ease-out: cubic-bezier(.22, .61, .36, 1);
+}
+.site-header .menu-mode,
+.site-header .instore-extras,
+html.no-js .site-header [data-menu-panel="instore"],
+html.no-js .site-header .instore-btn { display: none; }
+
+.site-header .instore-btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 26px; padding: 0 12px;
+  background: var(--bb-ink); color: #fff;
+  font-size: 11px; font-weight: 700; line-height: 1; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+  transition: background-color .2s, color .2s;
+}
+.site-header .instore-btn:hover,
+.site-header .instore-btn[aria-expanded="true"] { background: #e0e0e0; color: var(--bb-ink); }
+.site-header .icon--shop { width: 15px; height: 13px; }
+
+/* Booking and Inner Circle banners, studio reviews (mobile In-store menu and the panel) */
+:is(.site-header, .instore-panel) .instore-promo { display: block; }
+:is(.site-header, .instore-panel) .instore-promo img { display: block; width: 100%; height: auto; aspect-ratio: 340 / 180; object-fit: cover; transition: opacity .2s; }
+:is(.site-header, .instore-panel) .instore-promo:hover img { opacity: .85; }
+:is(.site-header, .instore-panel) .instore-promo__label { display: block; margin-top: 10px; font-size: 14px; font-weight: 700; line-height: 18px; }
+:is(.site-header, .instore-panel) .instore-promo:hover .instore-promo__label { text-decoration: underline; text-underline-offset: 3px; }
+:is(.site-header, .instore-panel) .instore-promo + .instore-promo { margin-top: 18px; }
+:is(.site-header, .instore-panel) .studio-reviews { margin-top: 14px; padding: 24px 25px 22px; background: var(--bb-ink); color: #fff; font-size: 12px; line-height: 16px; }
+:is(.site-header, .instore-panel) .studio-reviews__title { font-size: 18px; font-weight: 800; line-height: 22px; }
+:is(.site-header, .instore-panel) .studio-reviews__rating { display: flex; flex-wrap: wrap; align-items: center; column-gap: 14px; row-gap: 6px; margin-top: 8px; }
+:is(.site-header, .instore-panel) .studio-reviews strong { font-weight: 700; }
+:is(.site-header, .instore-panel) .studio-reviews__count { margin-top: 4px; }
+:is(.site-header, .instore-panel) .stars { display: inline-flex; gap: 10px; color: var(--bb-yellow); }
+:is(.site-header, .instore-panel) .stars .icon { width: 11px; height: 11px; }
+
+/* "Stay In The Loop, Sign Up": top of the mobile menu footer and bottom of the desktop panel */
+:is(.site-header, .instore-panel) .nav-signup { margin-bottom: 18px; padding: 10px 0 24px; border-bottom: 1px solid #404040; }
+:is(.site-header, .instore-panel) .nav-signup__title { margin: 0 0 14px; font-size: 14px; font-weight: 800; line-height: 18px; }
+:is(.site-header, .instore-panel) .nav-signup__row { display: flex; height: 50px; }
+:is(.site-header, .instore-panel) .nav-signup__input { flex: 1; min-width: 0; padding: 0 16px; border: 0; border-radius: 0; background: #fff; color: var(--bb-ink); font: 16px "Montserrat", "Helvetica Neue", Arial, sans-serif; }
+:is(.site-header, .instore-panel) .nav-signup__input::placeholder { color: #a8a8a8; font-size: 12px; }
+:is(.site-header, .instore-panel) .nav-signup__input[aria-invalid="true"] { box-shadow: inset 0 0 0 2px var(--bb-sale); }
+:is(.site-header, .instore-panel) .nav-signup__btn { display: grid; place-items: center; flex-shrink: 0; width: 57px; border: 0; background: var(--bb-yellow); color: #000; cursor: pointer; transition: background .15s; }
+:is(.site-header, .instore-panel) .nav-signup__btn:hover { background: #dcb00a; }
+:is(.site-header, .instore-panel) .nav-signup__btn .icon { width: 16px; height: 16px; }
+:is(.site-header, .instore-panel) .nav-signup__consent { display: flex; align-items: center; gap: 12px; margin-top: 12px; font-size: 10px; line-height: 14px; cursor: pointer; }
+:is(.site-header, .instore-panel) .nav-signup__consent input { flex-shrink: 0; width: 16px; height: 16px; margin: 0; accent-color: var(--bb-yellow); }
+:is(.site-header, .instore-panel) .nav-signup__consent input[aria-invalid="true"] { outline: 2px solid var(--bb-sale); outline-offset: 1px; }
+:is(.site-header, .instore-panel) .nav-signup__msg { margin: 10px 0 0; font-size: 12px; line-height: 16px; }
+:is(.site-header, .instore-panel) .nav-signup__msg:empty { display: none; }
+:is(.site-header, .instore-panel) .nav-signup__msg.is-error { color: #ffb3b3; }
+
+/* ---------- In-Store side panel (desktop), slides in from the left ---------- */
+.panel-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(0, 0, 0, .5); opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s linear .25s; }
+.panel-backdrop.is-open { opacity: 1; visibility: visible; transition-delay: 0s; }
+.instore-panel {
+  position: fixed; top: 0; bottom: 0; left: 0; z-index: 201;
+  display: flex; flex-direction: column; width: min(400px, 100%);
+  background: #fff; color: var(--bb-ink); font: 14px/1.5 "Montserrat", "Helvetica Neue", Arial, sans-serif; text-align: left;
+  -webkit-font-smoothing: antialiased; visibility: hidden; transform: translateX(-100%);
+  transition: transform .32s var(--ease-out), visibility 0s linear .32s;
+}
+.instore-panel.is-open { visibility: visible; transform: none; box-shadow: 0 0 40px rgba(0, 0, 0, .25); transition-delay: 0s; }
+/* Each loyalty page has its own type and colours; keep the shop's inside the panel */
+.instore-panel :is(h2, p, ul) { margin: 0; padding: 0; }
+.instore-panel ul { list-style: none; }
+.instore-panel a { color: inherit; text-decoration: none; }
+.instore-panel .icon { width: 20px; height: 20px; flex-shrink: 0; fill: currentColor; }
+.instore-panel .icon-btn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: none; color: var(--bb-ink); cursor: pointer; }
+.instore-panel .icon-btn .icon--close { width: 15px; height: 15px; }
+.instore-panel .sr-only { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.instore-panel :focus-visible { outline: 2px solid var(--bb-blue); outline-offset: 3px; }
+.instore-panel__head { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; height: 90px; padding: 0 6px 0 30px; border-bottom: 1px solid var(--bb-ink); }
+.instore-panel .instore-panel__title { font: 700 21px/1 "Montserrat", "Helvetica Neue", Arial, sans-serif; letter-spacing: 0; text-transform: uppercase; color: var(--bb-ink); }
+.instore-panel__body { display: flex; flex: 1; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; }
+.instore-panel__list a { display: flex; align-items: center; min-height: 58px; padding: 0 30px; border-bottom: 1px solid var(--bb-rule); font-size: 13px; font-weight: 700; line-height: 18px; text-transform: uppercase; transition: background-color .15s; }
+.instore-panel__list a:hover { background: var(--bb-block); }
+.instore-panel__extras { padding: 30px; }
+.instore-panel .instore-promo__label { font-size: 13px; text-transform: uppercase; }
+.instore-panel .studio-reviews__title { text-transform: uppercase; }
+.instore-panel__signup { margin-top: auto; padding: 26px 30px 30px; background: var(--bb-ink); color: #fff; }
+.instore-panel .nav-signup { margin: 0; padding: 0; border: 0; }
+
+@media (min-width: 1180px) {
+  /* Menu bar: the In-Store Services button on the left, the categories centred in the 1200px column */
+  .site-header .site-nav {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) minmax(0, var(--content)) minmax(0, 1fr);
+    column-gap: 32px;
+    padding: 0 var(--gutter);
+  }
+  .site-header .instore-btn { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; margin-top: -4px; }
+  .site-header .site-nav__list { grid-column: 2; grid-row: 1; max-width: none; margin: 0; }
+  .site-header .site-nav__list--instore { display: none; }
+}
+@media (min-width: 1180px) and (max-width: 1399.98px) {
+  .site-header .site-nav { column-gap: 20px; padding: 0 20px; }
+  .site-header .site-nav__link { font-size: 12px; }
+  .site-header .instore-btn { gap: 6px; padding: 0 10px; font-size: 10px; letter-spacing: .03em; }
+}
+@media (max-width: 1179.98px) {
+  html.js:not(.menu-instore) .site-header [data-menu-panel="instore"],
+  html.menu-instore .site-header [data-menu-panel="online"] { display: none !important; }
+  .site-header .instore-btn { display: none; }
+  .site-header .instore-extras { display: block; padding: 30px 20px; }
+  /* Online / In-store tabs: the chosen tab is black with a pointer under it */
+  .site-header .menu-mode { display: grid; grid-template-columns: 61fr 39fr; flex-shrink: 0; gap: 0; border-bottom: 1px solid var(--bb-ink); }
+  .site-header .menu-mode__btn { position: relative; min-height: 58px; padding: 0 12px; background: #fff; color: var(--bb-ink); font-size: 14px; font-weight: 700; line-height: 18px; white-space: nowrap; }
+  .site-header .menu-mode__btn:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .site-header .menu-mode__btn[aria-pressed="true"] { background: var(--bb-ink); color: #fff; text-decoration: none; }
+  .site-header .menu-mode__btn[aria-pressed="true"]::after { content: ""; position: absolute; bottom: -6px; left: 50%; z-index: 1; width: 12px; height: 12px; background: var(--bb-ink); transform: translateX(-50%) rotate(45deg); }
+  .site-header .menu-mode__btn:focus-visible { outline-offset: -4px; }
+}

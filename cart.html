@@ -772,6 +772,10 @@
         <img src="images/menu/menu-piercing-booking-wide.jpg" width="340" height="180" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
         <span class="instore-promo__label">Book Online</span>
       </a>
+      <a class="instore-promo" href="loyalty/inner-circle.html">
+        <img src="images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 2 points per £1, 10% off piercings, free to join" loading="lazy" decoding="async">
+        <span class="instore-promo__label">Join Inner Circle</span>
+      </a>
       <div class="studio-reviews">
         <p class="studio-reviews__title">Piercing Studio Reviews</p>
         <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
@@ -844,11 +848,34 @@
         <img src="images/menu/menu-piercing-booking-wide.jpg" width="340" height="180" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
         <span class="instore-promo__label">Book Online</span>
       </a>
+      <a class="instore-promo" href="loyalty/inner-circle.html">
+        <img src="images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 2 points per £1, 10% off piercings, free to join" loading="lazy" decoding="async">
+        <span class="instore-promo__label">Join Inner Circle</span>
+      </a>
       <div class="studio-reviews">
         <p class="studio-reviews__title">Piercing Studio Reviews</p>
         <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
         <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
       </div>
+    </div>
+    <!-- Same sign-up as the mobile menu's "Stay In The Loop". Hand-off: point it at the real mailing-list endpoint. -->
+    <div class="instore-panel__signup">
+      <form class="nav-signup" action="https://www.bluebanana.com/en_GB/form/mailing-list-signup" method="post" novalidate data-newsletter>
+        <p class="nav-signup__title">Stay In The Loop, Sign Up</p>
+        <div class="nav-signup__row">
+          <label class="sr-only" for="panel-signup-email">Email address</label>
+          <input class="nav-signup__input" id="panel-signup-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+          <button class="nav-signup__btn" type="submit">
+            <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            <span class="sr-only">Sign up</span>
+          </button>
+        </div>
+        <label class="nav-signup__consent">
+          <input type="checkbox" name="marketing_consent" value="1" required>
+          <span>Sign me up to offers &amp; updates. Opt-out at any time.</span>
+        </label>
+        <p class="nav-signup__msg" role="status" aria-live="polite" data-newsletter-msg></p>
+      </form>
     </div>
   </div>
 </aside>

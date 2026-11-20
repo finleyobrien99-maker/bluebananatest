@@ -31,7 +31,7 @@
 
   // Everything outside an open drawer is made inert so focus and screen readers stay inside it.
   const pageRegions = {
-    cart: ['.skip-link', '#site-header', '.promo-bar', '#main', '.foot'],
+    cart: ['.skip-link', '#site-header', '.loyalty-toolbar', '.loyalty-switcher', '.promo-bar', '#main', '.foot'],
     nav: ['.skip-link', '.site-header__bar', '.site-search', '.loyalty-toolbar', '.loyalty-switcher', '.promo-bar', '#main', '.foot'],
   };
   function setPageInert(on, who) {
@@ -215,6 +215,73 @@
     closeNav({ returnFocus: false });
   });
 
+  /* ---------- Online / In-store tabs (mobile menu) ----------
+     The choice is kept for the visit, so the next page opens on the same menu
+     (the inline script in <head> reads it before the page paints). */
+  const MENU_MODE_KEY = 'bb-menu-mode';
+  const modeButtons = $$('[data-menu-mode]', nav);
+
+  function getMenuMode() {
+    return document.documentElement.classList.contains('menu-instore') ? 'instore' : 'online';
+  }
+
+  function setMenuMode(mode) {
+    if (mode === getMenuMode()) return;
+    closeMega();
+    document.documentElement.classList.toggle('menu-instore', mode === 'instore');
+    modeButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.menuMode === mode)));
+    nav.scrollTop = 0;
+    try { sessionStorage.setItem(MENU_MODE_KEY, mode); } catch (err) { /* private mode: the switch still works on this page */ }
+  }
+
+  if (modeButtons.length) {
+    const startMode = getMenuMode();
+    modeButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.menuMode === startMode));
+      button.addEventListener('click', () => setMenuMode(button.dataset.menuMode));
+    });
+  }
+
+  /* ---------- In-Store side panel (desktop) ---------- */
+  const instorePanel = $('#instore-panel');
+  const instoreOpenBtn = $('[data-instore-open]');
+  const instoreBackdrop = $('.panel-backdrop');
+  let instoreIsOpen = false;
+
+  function openInstore() {
+    if (instoreIsOpen || !instorePanel) return;
+    instoreIsOpen = true;
+    closeMega();
+    closeSearch();
+    closeLocale();
+    instorePanel.inert = false;
+    instorePanel.classList.add('is-open');
+    instoreBackdrop.classList.add('is-open');
+    instoreOpenBtn.setAttribute('aria-expanded', 'true');
+    // Move focus into the panel before the header (and the button) becomes inert.
+    $('[data-instore-close]', instorePanel).focus({ preventScroll: true });
+    setPageInert(true, 'cart');
+    lockScroll();
+  }
+
+  function closeInstore({ returnFocus = true } = {}) {
+    if (!instoreIsOpen) return;
+    instoreIsOpen = false;
+    instorePanel.classList.remove('is-open');
+    instoreBackdrop.classList.remove('is-open');
+    instoreOpenBtn.setAttribute('aria-expanded', 'false');
+    instorePanel.inert = true;
+    setPageInert(false, 'cart');
+    unlockScroll();
+    if (returnFocus) instoreOpenBtn.focus();
+  }
+
+  if (instorePanel && instoreOpenBtn) {
+    instoreOpenBtn.addEventListener('click', openInstore);
+    $$('[data-instore-close]').forEach((node) => node.addEventListener('click', () => closeInstore()));
+    desktopMQ.addEventListener('change', () => closeInstore({ returnFocus: false }));
+  }
+
   /* ---------- Search bar ---------- */
   const search = $('[data-search]');
   const searchToggle = $('[data-search-toggle]');
@@ -273,14 +340,63 @@
     if (e.relatedTarget && !locale.contains(e.relatedTarget)) closeLocale();
   });
 
+  /* ---------- Newsletter forms (the homepage block and the menu's "Stay In The Loop") ----------
+     Hand-off: swap the redirect for a request to the mailing-list provider. */
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  $$('[data-newsletter]').forEach((newsletter) => {
+    const input = $('input[type="email"]', newsletter);
+    const consent = $('input[type="checkbox"][required]', newsletter);
+    const message = $('[data-newsletter-msg]', newsletter);
+
+    const setMessage = (text, isError) => {
+      message.textContent = text;
+      message.classList.toggle('is-error', isError);
+    };
+
+    newsletter.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const value = input.value.trim();
+      if (!EMAIL.test(value)) {
+        input.setAttribute('aria-invalid', 'true');
+        setMessage(value ? 'Please enter a valid email address.' : 'Please enter your email address.', true);
+        input.focus();
+        return;
+      }
+      input.removeAttribute('aria-invalid');
+      if (consent && !consent.checked) {
+        consent.setAttribute('aria-invalid', 'true');
+        setMessage('Please tick the box to sign up to offers & updates.', true);
+        consent.focus();
+        return;
+      }
+      setMessage('Nearly there! Taking you to our sign-up page to confirm your details…', false);
+      setTimeout(() => { window.location.href = newsletter.action; }, 1200);
+    });
+
+    input.addEventListener('input', () => {
+      if (!input.hasAttribute('aria-invalid')) return;
+      input.removeAttribute('aria-invalid');
+      setMessage('', false);
+    });
+    if (consent) {
+      consent.addEventListener('change', () => {
+        if (!consent.hasAttribute('aria-invalid')) return;
+        consent.removeAttribute('aria-invalid');
+        setMessage('', false);
+      });
+    }
+  });
+
   /* ---------- Global keyboard + outside-click handling ---------- */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Tab') {
-      if (navIsOpen) trapFocus(nav, e);
+      if (instoreIsOpen) trapFocus(instorePanel, e);
+      else if (navIsOpen) trapFocus(nav, e);
       return;
     }
     if (e.key !== 'Escape') return;
-    if (navIsOpen) closeNav();
+    if (instoreIsOpen) closeInstore();
+    else if (navIsOpen) closeNav();
     else if (searchIsOpen) closeSearch({ returnFocus: true });
     else if (localeIsOpen) closeLocale({ returnFocus: true });
     else if (openItem) closeMega({ returnFocus: true });

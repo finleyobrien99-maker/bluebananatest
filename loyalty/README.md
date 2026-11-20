@@ -31,6 +31,10 @@ takes its look from two sources:
   uppercase section titles, Montserrat body, `#e9e9e9` grey bands, the yellow product band with
   white product tiles, ink and `#e0e0e0` buttons, and the hairline FAQ list.
 
+All four pages with the site header (this one and the three concepts) have the shop's In-Store
+Services button, side panel, mobile Online / In-store tabs and menu sign-up; their styles and script
+are at the end of `assets/site-navigation.css` and in `assets/site-navigation.js`.
+
 It uses the shop header and the shop footer (with the mobile accordion), not the concept pages'
 toolbar, so it reads like any other landing page on the site. The header Loyalty button and the
 footer Loyalty Scheme link on this page point to itself.

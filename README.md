@@ -45,15 +45,15 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 
 ## Online / In-store menu
 
-The menu has two versions: **Online** (the shop categories) and **In-store** (the piercing studios). On phones and tablets they're tabs in the burger menu; on desktop the in-store menu opens in a side panel. Every page with the homepage header has it (homepage, cart, taxon, style gallery and New In; the loyalty pages have their own header and are unchanged).
+The menu has two versions: **Online** (the shop categories) and **In-store** (the piercing studios). On phones and tablets they're tabs in the burger menu; on desktop the in-store menu opens in a side panel. Every page has it: homepage, cart, product, taxon, style gallery, New In, and the loyalty pages (Inner Circle and the three name concepts), which use the same markup with the styles and script in `loyalty/assets/site-navigation.css` and `.js`.
 
 - **Phones and tablets (below 1180px):** the burger menu follows iPhone 14 Pro Max – 7 and 8 in the XD.
   - The menu opens with Login at the top, then two tabs, Online and In-store. The chosen tab is black with a small pointer under it.
-  - In-store lists Piercing Info, Store Locator, Aftercare Info, Medi-Daith Info and Piercing Gallery as plain links. Under them are the Book Online banner (`images/menu/menu-piercing-booking-wide.jpg`, the XD's `20260909_menu_large_piercing_booking_mobile.jpg`) and the Piercing Studio Reviews block.
+  - In-store lists Piercing Info, Store Locator, Aftercare Info, Medi-Daith Info and Piercing Gallery as plain links. Under them are the Book Online banner (`images/menu/menu-piercing-booking-wide.jpg`, the XD's `20260909_menu_large_piercing_booking_mobile.jpg`), the Join Inner Circle banner (`images/menu/menu-loyalty-inner-circle-wide.jpg`, same 340 x 180 size, links to the Inner Circle page) and the Piercing Studio Reviews block.
   - The menu footer now starts with "Stay In The Loop, Sign Up": an email field, a yellow arrow button and an opt-in tick box.
 - **Desktop (1180px and wider):** follows the "Blue Banana Homepage Changes" Word document (13 Nov 2026).
   - An In-Store Services button sits at the left of the menu bar. It's dark, like the site's other buttons, with the shop icon from the XD assets.
-  - It opens an In-Store panel from the left, built to the screenshot in the document. The panel has the same links, Book Online banner and Piercing Studio Reviews block as the mobile In-store tab. The heading, links, Book Online label and reviews title are in capitals. Close it with the cross, the dark backdrop or Esc.
+  - It opens an In-Store panel from the left, built to the screenshot in the document. The panel has the same links, Book Online and Join Inner Circle banners and Piercing Studio Reviews block as the mobile In-store tab, then the mobile menu's "Stay In The Loop, Sign Up" form on an ink strip at the bottom (it uses the same newsletter check and hand-off as the other sign-up forms). The heading, links, Book Online label and reviews title are in capitals. Close it with the cross, the dark backdrop or Esc.
   - At 1920 the categories stay centred, as in the XD. Between 1180 and 1399px the button and the category text are a little smaller so everything fits.
 - **Remembering the choice (phones and tablets):** the tab choice lasts for the visit (`sessionStorage`, key `bb-menu-mode`), so the next page opens on the same menu. A small script in each page's `<head>` applies it before the page appears, so the menu doesn't flash. A new visit starts on Online.
 - **Without JavaScript:** only the Online menu shows. Get Pierced has the same links.
