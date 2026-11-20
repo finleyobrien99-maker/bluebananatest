@@ -12,24 +12,24 @@ chooser is still reachable directly at `/loyalty/`.
 | `the-coven.html` | The Coven | Playfair Display + Montserrat | Violet-black `#0d0a11`, purple `#9c5dc6` |
 | `the-inner-circle.html` | The Inner Circle | Grenze Gotisch + Oswald + Montserrat | Black `#0a0a0a`, brand yellow `#f1c30e` |
 | `the-collective.html` | The Collective | Poppins + Montserrat | Ink `#101014`, neon pink `#fe3cac` |
-| `inner-circle.html` | **Inner Circle (final sign-up page)** | Montserrat ExtraBold + Karla + Montserrat | Ink `#1d1c1b`, yellow `#f1c30f`, grey `#d6d6d6` / `#e9e9e9` |
+| `inner-circle.html` | **Inner Circle (final landing page)** | Montserrat ExtraBold + Karla + Montserrat | Ink `#1d1c1b`, yellow `#f1c30f`, grey `#d6d6d6` / `#e9e9e9` |
 
 Each page is self-contained: its own inline CSS, no build step, nothing shared with the rest of
 the site except `assets/`. Nothing here has rounded corners — every box, button, field and card
 is square. The only curves are the circular step numbers and the round "free to join" sticker.
 
-## Inner Circle sign-up page (`inner-circle.html`)
+## Inner Circle landing page (`inner-circle.html`)
 
-The finished landing and sign-up page for the scheme. It follows The Collective's layout (split
-hero, three benefit tiles, everything-counts row, steps, perks, card mock, join form, FAQs) but
+The finished landing page for the (in-store) scheme. It follows The Collective's layout (split
+hero, three benefit tiles, everything-counts row, steps, benefits, card mock, how to join in store, FAQs) but
 takes its look from two sources:
 
 - **Inner Circle artwork** (the "Inner Circle / Customer Loyalty Scheme" lockup): Montserrat
   ExtraBold title on an ink block with the yellow uppercase strapline, and the yellow / ink / grey
-  tiles copied word for word ("Points On Purchase", "Exclusive Offers", "Piercing Offer").
+  tiles ("Points On Purchase", "Exclusive Offers", "Piercing Offer"; the points line now says 1 point per £1).
 - **Piercing Pages XD template** (`20250121_bb_piercing_pages_MLP_template.xd`): Karla ExtraBold
   uppercase section titles, Montserrat body, `#e9e9e9` grey bands, the yellow product band with
-  white product tiles, ink and `#e0e0e0` buttons, and the hairline FAQ list.
+  white product tiles, ink and `#e0e0e0` buttons, and the FAQ list, styled like the live site's FAQ blocks (1px `#707070` lines, 14px questions, thin grey chevron that flips when open).
 
 All four pages with the site header (this one and the three concepts) have the shop's In-Store
 Services button, side panel, mobile Online / In-store tabs and menu sign-up; their styles and script
@@ -42,8 +42,8 @@ footer Loyalty Scheme link on this page point to itself.
 Before it goes live:
 
 1. Remove `<meta name="robots" content="noindex, nofollow">`.
-2. Connect the form (`data-todo-url="loyalty-signup"`): first name, email and an optional
-   marketing opt-in. It validates in the browser and sends nothing.
+2. If Wallet Crew provides a join link or QR code, add it to the How To Join box (there's a
+   `Hand-off` comment there).
 3. The member number and barcode on the card are decorative.
 4. Swap the hero photo for the original shot (it's cropped from the display artwork).
 5. Jewellery prices were copied from the homepage build in November 2026; check them against the
@@ -66,7 +66,25 @@ we do", "Everyone gets the same deal", "Everyone's in".
 All three show the same card mock: Blue Banana and the scheme name, a member number and a
 barcode to scan at the till, in that concept's colours.
 
-## Scheme facts used
+## Confirmed scheme facts (Inner Circle changes doc, November 2026)
+
+`inner-circle.html` uses these. They replace the draft facts below:
+
+- £1 spent = 1 point; 100 points = £2
+- Welcome reward: 10% off or a free jewellery upgrade
+- In-store only for now. Members join at the till and save a digital loyalty card to their phone
+  with Wallet Crew. They collect points on in-store purchases, spend them on later in-store
+  purchases, and see their balance on their phone, not on the website. So the page has no online
+  sign-up form or sign-in; the join section explains how to join in store and links to the store
+  locator.
+- Still on the page from the artwork: exclusive in-store offers and 10% off all piercings,
+  including jewellery.
+- Taken off the page because they weren't in the confirmed list (and most were online): early
+  access to drops, aftercare check-ins, refer a friend, points for reviews and photos, donating points.
+
+The three name concepts still use the draft facts below.
+
+## Scheme facts used (draft, concept pages only)
 
 Taken from the 7 October display posters and the 15 October Illustrator card drafts, which are
 the newest material in the loyalty scheme artwork folder:

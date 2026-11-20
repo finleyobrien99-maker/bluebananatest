@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1d1c1b">
 <title>Inner Circle | Blue Banana Customer Loyalty Scheme</title>
-<meta name="description" content="Join Inner Circle, the Blue Banana customer loyalty scheme. 2 points per £1, exclusive in-store offers and 10% off all piercings, including jewellery. Free to join in all 18 UK stores and online.">
+<meta name="description" content="Join Inner Circle, the Blue Banana in-store customer loyalty scheme. 1 point for every £1 spent, 100 points = £2 off, a welcome reward, exclusive in-store offers and 10% off all piercings. Free to join in all 18 UK stores.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@800&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap">
@@ -111,12 +111,9 @@ h1,h2,h3{margin:0}
 
 /* Everything counts */
 .counts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:30px}
-.counts a{display:block;text-decoration:none}
 .counts__media{display:block;overflow:hidden}
-.counts img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .6s var(--ease-out)}
-.counts a:hover img{transform:scale(1.05)}
+.counts img{width:100%;aspect-ratio:1;object-fit:cover}
 .counts span.counts__label{display:block;margin-top:12px;font-weight:700;font-size:13px;text-transform:uppercase;text-align:center;letter-spacing:.02em}
-.counts a:hover .counts__label{text-decoration:underline;text-underline-offset:4px}
 
 /* Steps: round yellow numbers are the one allowed curve on loyalty pages */
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:50px;counter-reset:step}
@@ -173,30 +170,22 @@ h1,h2,h3{margin:0}
 .join__list{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:8px;font-weight:600;font-size:15px}
 .join__list li{display:flex;gap:12px;align-items:baseline}
 .join__list li::before{content:"";flex:none;width:10px;height:10px;background:var(--bb-yellow);transform:translateY(-1px)}
-.form{display:grid;gap:14px}
-.field label{display:block;margin-bottom:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-.field input{width:100%;min-height:52px;padding:0 16px;border:0;border-bottom:2px solid transparent;border-radius:0;background:#fff;color:var(--bb-ink);font:500 16px var(--font-body)}
-.field input::placeholder{color:#8b8884}
-.field input:focus{outline:none;border-bottom-color:var(--bb-yellow)}
-.field input[aria-invalid="true"]{border-bottom-color:var(--bb-error);background:#fff3f3}
-.check{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#e6e4e1;cursor:pointer}
-.check input{flex:none;width:20px;height:20px;margin:2px 0 0;accent-color:var(--bb-yellow)}
-.form .btn{width:100%;margin-top:4px}
-.form__msg{min-height:24px;font-weight:600;font-size:15px}
-.form__msg.is-error{color:#ffb3b3}
-.form__msg.is-ok{color:var(--bb-yellow)}
-.form__legal{font-size:12px;color:#bdbab5}
-.form__legal a{color:#fff}
+.join__how{padding:30px 32px 32px;background:#fff;color:var(--bb-ink)}
+.join__how-title{font-weight:800;font-size:20px;text-transform:uppercase}
+.join__steps{list-style:none;margin:18px 0 24px;padding:0;counter-reset:join;display:grid;gap:14px}
+.join__steps li{counter-increment:join;display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:center;font-weight:600;font-size:15px;line-height:1.4}
+.join__steps li::before{content:counter(join);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--bb-yellow);color:var(--bb-ink);font-weight:800;font-size:15px}
+.join__how .btn{width:100%;padding:10px 16px;text-align:center}
 
-/* FAQs: XD hairline list */
-.faqs{max-width:960px;margin:0 auto;border-top:1px solid var(--bb-rule)}
-.faqs details{border-bottom:1px solid var(--bb-rule)}
-.faqs summary{cursor:pointer;list-style:none;position:relative;padding:20px 50px 20px 0;font-weight:700;font-size:16px}
+/* FAQs: same rules, text and chevron as the live site's FAQ blocks
+   (bluebanana.com/en_GB/cms/piercing-aftercare-cms) */
+.faqs{max-width:960px;margin:0 auto;border-top:1px solid #707070}
+.faqs details{border-bottom:1px solid #707070}
+.faqs summary{display:flex;align-items:center;justify-content:space-between;gap:17.5px;padding:24px 0;cursor:pointer;list-style:none;color:#000;font-size:14px;font-weight:400;line-height:16px}
 .faqs summary::-webkit-details-marker{display:none}
-.faqs summary::after{content:"";position:absolute;right:4px;top:50%;width:14px;height:14px;transform:translateY(-50%);background:linear-gradient(var(--bb-ink),var(--bb-ink)) center/14px 2px no-repeat,linear-gradient(var(--bb-ink),var(--bb-ink)) center/2px 14px no-repeat}
-.faqs details[open] summary::after{background:linear-gradient(var(--bb-ink),var(--bb-ink)) center/14px 2px no-repeat}
-.faqs summary:hover{text-decoration:underline;text-underline-offset:4px}
-.faqs details p{padding:0 50px 22px 0;color:var(--bb-muted)}
+.faqs summary::after{content:"";flex:none;width:17.5px;height:17.5px;background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill-opacity='.25' fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .2s ease-in-out}
+.faqs details[open] summary::after{transform:rotate(180deg)}
+.faqs details p{padding:0 17.5px 14px 0;color:#000;font-size:12px;line-height:20px}
 
 /* ---------- Site footer (same as the shop) ---------- */
 .site-footer{padding:30px 20px 70px;background:var(--bb-ink);color:#fff;font-size:14px;line-height:1.5}
@@ -268,7 +257,8 @@ h1,h2,h3{margin:0}
   .product a{padding:10px 10px 14px}
   .perks{grid-template-columns:1fr;gap:30px}
   .card{padding:20px 22px}
-  .join{padding:36px 20px}
+  .join{padding:36px 16px}
+  .join__how{padding:24px 18px 26px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -1011,7 +1001,7 @@ h1,h2,h3{margin:0}
         <span class="instore-promo__label">Book Online</span>
       </a>
       <a class="instore-promo" href="inner-circle.html">
-        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 2 points per £1, 10% off piercings, free to join" loading="lazy" decoding="async">
+        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 1 point per £1 spent, 10% off piercings, free to join in store" loading="lazy" decoding="async">
         <span class="instore-promo__label">Join Inner Circle</span>
       </a>
       <div class="studio-reviews">
@@ -1087,7 +1077,7 @@ h1,h2,h3{margin:0}
         <span class="instore-promo__label">Book Online</span>
       </a>
       <a class="instore-promo" href="inner-circle.html">
-        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 2 points per £1, 10% off piercings, free to join" loading="lazy" decoding="async">
+        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 1 point per £1 spent, 10% off piercings, free to join in store" loading="lazy" decoding="async">
         <span class="instore-promo__label">Join Inner Circle</span>
       </a>
       <div class="studio-reviews">
@@ -1118,7 +1108,7 @@ h1,h2,h3{margin:0}
   </div>
 </aside>
 
-<p class="promo-bar"><span><strong>Free To Join</strong> In All 18 UK Stores &amp; Online. Earn <strong>2 Points Per £1</strong></span></p>
+<p class="promo-bar"><span><strong>Free To Join</strong> In All 18 UK Stores. Earn <strong>1 Point For Every £1</strong> You Spend</span></p>
 
 <main id="main" tabindex="-1">
 
@@ -1128,27 +1118,27 @@ h1,h2,h3{margin:0}
       <div class="hero__copy">
         <h1 id="hero-title">Inner Circle</h1>
         <p class="hero__scheme">Customer Loyalty Scheme</p>
-        <p class="hero__sub">Get rewarded for everything you love about Blue Banana. Clothing, band merch, boots, hair dye, jewellery and piercing all earn points, in every store and online.</p>
+        <p class="hero__sub">Get rewarded every time you shop in our stores. Clothing, band merch, boots, hair dye, jewellery and piercing all earn points, in all 18 Blue Banana stores.</p>
         <div class="hero__cta">
-          <a class="btn btn--yellow btn--wide" href="#join">Join Inner Circle</a>
+          <a class="btn btn--yellow btn--wide" href="#join">How To Join</a>
           <a class="btn btn--light" href="#benefits">See The Benefits</a>
         </div>
-        <p class="hero__note">Already a member? <a href="https://www.bluebanana.com/en_GB/login">Sign in to see your points</a></p>
+        <p class="hero__note">Already a member? Your points balance is on your Inner Circle card, saved on your phone.</p>
       </div>
       <div class="hero__media">
         <img src="assets/inner-circle-hero.jpg" alt="Blue Banana customer with nose, lip and ear piercings" width="1080" height="700" fetchpriority="high">
-        <p class="hero__badge" aria-hidden="true">2 Points<br>Per £1<small>Every category, every store</small></p>
+        <p class="hero__badge" aria-hidden="true">1 Point<br>Per £1<small>Spent in any of our 18 stores</small></p>
       </div>
     </div>
   </section>
 
-  <!-- The three tiles, lifted straight from the artwork -->
+  <!-- The three tiles from the artwork. Points rate updated to 1 point per £1 (Inner Circle changes doc). -->
   <section class="tiles-section" id="benefits" aria-label="Member benefits">
     <div class="wrap tiles">
       <article class="tile tile--yellow" data-reveal>
         <h2 class="tile-title">Points On Purchase</h2>
         <em>Available to all members</em>
-        <p>2 points per £1</p>
+        <p>1 point per £1 spent</p>
       </article>
       <article class="tile tile--ink" data-reveal>
         <h2 class="tile-title">Exclusive Offers</h2>
@@ -1166,15 +1156,15 @@ h1,h2,h3{margin:0}
   <section class="section" aria-labelledby="counts-title">
     <div class="wrap">
       <div class="section__head">
-        <h2 class="section-title" id="counts-title" data-reveal>Everything In The Shop Counts</h2>
-        <p class="section-sub">Two points for every £1 you spend, across every category we sell.</p>
+        <h2 class="section-title" id="counts-title" data-reveal>Everything In Store Counts</h2>
+        <p class="section-sub">1 point for every £1 you spend in our stores, across every category we sell.</p>
       </div>
       <ul class="counts">
-        <li data-reveal><a href="https://www.bluebanana.com/en_GB/section/alternative-clothing"><span class="counts__media"><img src="assets/cat-dress-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Clothing</span></a></li>
-        <li data-reveal><a href="https://www.bluebanana.com/en_GB/section/official-band-merch"><span class="counts__media"><img src="assets/cat-tee-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Band Merch</span></a></li>
-        <li data-reveal><a href="https://www.bluebanana.com/en_GB/section/alternative-footwear"><span class="counts__media"><img src="assets/cat-boots-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Footwear</span></a></li>
-        <li data-reveal><a href="https://www.bluebanana.com/en_GB/section/types-of-body-jewellery"><span class="counts__media"><img src="assets/cat-jewellery-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Piercing Jewellery</span></a></li>
-        <li data-reveal><a href="https://www.bluebanana.com/en_GB/piercing-aftercare-guides"><span class="counts__media"><img src="assets/cat-aftercare-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Aftercare</span></a></li>
+        <li data-reveal><span class="counts__media"><img src="assets/cat-dress-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Clothing</span></li>
+        <li data-reveal><span class="counts__media"><img src="assets/cat-tee-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Band Merch</span></li>
+        <li data-reveal><span class="counts__media"><img src="assets/cat-boots-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Footwear</span></li>
+        <li data-reveal><span class="counts__media"><img src="assets/cat-jewellery-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Piercing Jewellery</span></li>
+        <li data-reveal><span class="counts__media"><img src="assets/cat-aftercare-stone.jpg" alt="" width="560" height="560" loading="lazy"></span><span class="counts__label">Aftercare</span></li>
       </ul>
     </div>
   </section>
@@ -1183,20 +1173,20 @@ h1,h2,h3{margin:0}
     <div class="wrap">
       <div class="section__head">
         <h2 class="section-title" id="steps-title" data-reveal>How It Works</h2>
-        <p class="section-sub">Three steps, then you're in.</p>
+        <p class="section-sub">Three steps, all in store.</p>
       </div>
       <ol class="steps">
         <li class="step" data-reveal>
-          <h3>Join Free</h3>
-          <p>Sign up below or ask at the till in any of our 18 UK stores. It takes a minute.</p>
+          <h3>Join In Store</h3>
+          <p>Ask at the till in any of our 18 UK stores and save your Inner Circle card to your phone with Wallet Crew.</p>
         </li>
         <li class="step" data-reveal>
-          <h3>Earn Everywhere</h3>
-          <p>Get 2 points for every £1 you spend in store and online, on everything we sell.</p>
+          <h3>Collect Points</h3>
+          <p>Show your card at the till and get 1 point for every £1 you spend, on everything we sell.</p>
         </li>
         <li class="step" data-reveal>
           <h3>Spend Your Points</h3>
-          <p>Every 100 points is £2 off your next order, in store or online.</p>
+          <p>Every 100 points is £2 off your next in-store purchase.</p>
         </li>
       </ol>
     </div>
@@ -1208,7 +1198,7 @@ h1,h2,h3{margin:0}
       <div class="band-yellow__intro">
         <p class="eyebrow">Member Piercing Offer</p>
         <h2 id="piercing-title" data-reveal>10% Off All Piercings</h2>
-        <p>Including the jewellery. Just show your card in any of our 18 piercing studios.</p>
+        <p>Including the jewellery. Just show your Inner Circle card in any of our 18 piercing studios.</p>
         <a class="btn btn--dark btn--wide" href="https://piercing.bluebanana.com/">Book A Piercing</a>
       </div>
       <ul class="products">
@@ -1220,36 +1210,37 @@ h1,h2,h3{margin:0}
     </div>
   </section>
 
+  <!-- Only the confirmed benefits (Inner Circle changes doc + the artwork tiles). -->
   <section class="section" aria-labelledby="perks-title">
     <div class="wrap">
       <div class="section__head">
-        <h2 class="section-title" id="perks-title" data-reveal>More Member Perks</h2>
+        <h2 class="section-title" id="perks-title" data-reveal>Member Benefits</h2>
         <p class="section-sub">No tiers and no small print. Every member gets the same deal.</p>
       </div>
       <div class="perks">
         <div class="perk" data-reveal>
           <h3>A Welcome Reward</h3>
-          <p>10% off your first order, or a free jewellery upgrade with your next piercing.</p>
+          <p>Get 10% off or a free jewellery upgrade when you join.</p>
         </div>
         <div class="perk" data-reveal>
-          <h3>Early Access To Drops</h3>
-          <p>A 24 to 48 hour head start on new collections and collabs before everyone else.</p>
+          <h3>1 Point For Every £1</h3>
+          <p>Collect points on everything you buy in our stores, from band tees to boots to body jewellery.</p>
         </div>
         <div class="perk" data-reveal>
-          <h3>Aftercare Check-Ins</h3>
-          <p>Reminders at day 3, 14, 30 and 60 after a new piercing, plus an offer when it's time to change your jewellery.</p>
+          <h3>100 Points = £2 Off</h3>
+          <p>Use your points as money off your next in-store purchase.</p>
         </div>
         <div class="perk" data-reveal>
-          <h3>Bring A Friend</h3>
-          <p>Refer a friend and you both earn a reward, not just one of you.</p>
+          <h3>Exclusive In-Store Offers</h3>
+          <p>Member-only offers, redeemable in our stores when you show your card.</p>
         </div>
         <div class="perk" data-reveal>
-          <h3>Points For Taking Part</h3>
-          <p>Reviews and tagged photos earn points too, not just what's in your basket.</p>
+          <h3>10% Off All Piercings</h3>
+          <p>Including the jewellery that goes in, at all 18 of our piercing studios.</p>
         </div>
         <div class="perk" data-reveal>
-          <h3>Give Your Points Away</h3>
-          <p>Turn your points into a charity donation instead of a voucher, whenever you like.</p>
+          <h3>Your Points On Your Phone</h3>
+          <p>Your card saves to your phone with Wallet Crew, so you can check your points balance whenever you like.</p>
         </div>
       </div>
     </div>
@@ -1257,7 +1248,7 @@ h1,h2,h3{margin:0}
 
   <section class="section section--band" aria-labelledby="card-title">
     <div class="wrap mock">
-      <div class="card" role="img" aria-label="Inner Circle membership card: Blue Banana, member number 4927 0381 6654" data-reveal>
+      <div class="card" role="img" aria-label="Inner Circle digital loyalty card: Blue Banana, member number 4927 0381 6654" data-reveal>
         <div class="card__top">
           <p class="card__brand">Blue Banana</p>
           <span class="card__scheme"></span>
@@ -1272,10 +1263,10 @@ h1,h2,h3{margin:0}
         </div>
       </div>
       <div class="mock__copy">
-        <p class="eyebrow">One Account, Everywhere</p>
-        <h2 id="card-title" style="margin-top:10px" data-reveal>Show Your Card, Or Just Sign In</h2>
-        <p>Show your card at the till to earn points and unlock in-store offers, or sign in online. It's the same account and the same points wherever you shop.</p>
-        <a class="btn btn--dark btn--wide" href="#join">Join Inner Circle</a>
+        <p class="eyebrow">Your Digital Loyalty Card</p>
+        <h2 id="card-title" style="margin-top:10px" data-reveal>Your Card Lives On Your Phone</h2>
+        <p>We'll help you save your Inner Circle card to your phone with Wallet Crew when you join. Show it at the till to collect points and use them on your next in-store purchase. Your points balance shows on the card, so there's nothing to log in to.</p>
+        <a class="btn btn--dark btn--wide" href="#join">How To Join</a>
       </div>
     </div>
   </section>
@@ -1285,28 +1276,27 @@ h1,h2,h3{margin:0}
       <div class="join">
         <div class="join__intro">
           <h2 id="join-title" data-reveal>Get In. <span>It's Free.</span></h2>
-          <p>Sign up with your email and we'll set up your Inner Circle account. Prefer to join in person? Just ask at the till.</p>
+          <p>Inner Circle is free to join in any of our 18 UK stores. Just ask at the till.</p>
           <ul class="join__list">
-            <li>2 points for every £1</li>
-            <li>Exclusive in-store offers</li>
+            <li>Welcome reward: 10% off or a free jewellery upgrade</li>
+            <li>1 point for every £1 you spend</li>
+            <li>100 points = £2 off</li>
             <li>10% off all piercings, including jewellery</li>
           </ul>
         </div>
-        <!-- Hand-off: front-end only. Post to the loyalty sign-up endpoint once it exists. -->
-        <form class="form" id="joinForm" novalidate data-todo-url="loyalty-signup">
-          <div class="field">
-            <label for="first-name">First Name</label>
-            <input id="first-name" name="firstName" type="text" autocomplete="given-name" placeholder="First name" required>
-          </div>
-          <div class="field">
-            <label for="email">Email Address</label>
-            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="your@email.com" required aria-describedby="formMsg">
-          </div>
-          <label class="check"><input type="checkbox" name="marketing" value="yes"> <span>Send me member offers and early access news by email. You can unsubscribe at any time.</span></label>
-          <button class="btn btn--yellow" type="submit">Join Inner Circle</button>
-          <p class="form__msg" id="formMsg" role="status" aria-live="polite"></p>
-          <p class="form__legal">By joining you agree to our <a href="https://www.bluebanana.com/en_GB/terms-and-conditions">Terms &amp; Conditions</a> and <a href="https://www.bluebanana.com/en_GB/privacy-policy">Privacy Policy</a>. Preview form: no account is created.</p>
-        </form>
+        <!-- Hand-off: Inner Circle is in-store only for now (members join at the till and save their
+             card with Wallet Crew), so there's no online sign-up form. If Wallet Crew gives us a
+             join link or QR code, it can go here as an extra button. -->
+        <div class="join__how">
+          <p class="join__how-title">How To Join</p>
+          <ol class="join__steps">
+            <li>Visit any of our 18 UK stores.</li>
+            <li>Ask at the till to join Inner Circle.</li>
+            <li>Save your Inner Circle card to your phone with Wallet Crew.</li>
+            <li>Show it at the till every time you shop.</li>
+          </ol>
+          <a class="btn btn--yellow" href="https://www.bluebanana.com/en_GB/stores">Find Your Nearest Store</a>
+        </div>
       </div>
     </div>
   </section>
@@ -1319,19 +1309,35 @@ h1,h2,h3{margin:0}
       <div class="faqs">
         <details>
           <summary>Does it cost anything to join?</summary>
-          <p>No. Inner Circle is free to join and free to stay in, in any of our 18 UK stores or online.</p>
+          <p>No. Inner Circle is free to join and free to stay in, in any of our 18 UK stores.</p>
+        </details>
+        <details>
+          <summary>How do I join?</summary>
+          <p>Ask at the till in any of our 18 UK stores. We'll help you save your Inner Circle card to your phone using Wallet Crew.</p>
+        </details>
+        <details>
+          <summary>What do I get when I join?</summary>
+          <p>A welcome reward of 10% off or a free jewellery upgrade.</p>
         </details>
         <details>
           <summary>How do points work?</summary>
-          <p>You get 2 points for every £1 you spend, in store or online. Every 100 points is worth £2 off, and you can use it either way.</p>
+          <p>You get 1 point for every £1 you spend in our stores. Every 100 points is worth £2 off your next in-store purchase.</p>
+        </details>
+        <details>
+          <summary>How do I check my points?</summary>
+          <p>Your points balance shows on your Inner Circle card on your phone, so you can check it any time.</p>
+        </details>
+        <details>
+          <summary>Can I use Inner Circle online?</summary>
+          <p>Not at the moment. Inner Circle is an in-store scheme for now, so you collect and spend your points in our stores.</p>
         </details>
         <details>
           <summary>Does everything count?</summary>
-          <p>Yes. Clothing, band merch, footwear, accessories, hair dye, piercing jewellery and piercings all earn points.</p>
+          <p>Yes. Clothing, band merch, footwear, accessories, hair dye, piercing jewellery and piercings bought in store all earn points.</p>
         </details>
         <details>
           <summary>How do I get 10% off my piercing?</summary>
-          <p>Show your card or give your details at the studio before you're pierced. The 10% comes off the piercing and the jewellery that goes in.</p>
+          <p>Show your Inner Circle card at the studio before you're pierced. The 10% comes off the piercing and the jewellery that goes in.</p>
         </details>
         <details>
           <summary>Where can I use the exclusive offers?</summary>
@@ -1340,10 +1346,6 @@ h1,h2,h3{margin:0}
         <details>
           <summary>Are there tiers or levels?</summary>
           <p>No. Every member gets the same benefits from the day they join.</p>
-        </details>
-        <details>
-          <summary>Can I donate my points?</summary>
-          <p>Yes. You can turn your points into a charity donation instead of a voucher whenever you like.</p>
         </details>
       </div>
     </div>
@@ -1404,31 +1406,6 @@ h1,h2,h3{margin:0}
 </footer>
 
 <script>
-  // Preview sign-up: validates in the browser, sends nothing anywhere.
-  (function () {
-    var form = document.getElementById('joinForm');
-    var nameInput = document.getElementById('first-name');
-    var email = document.getElementById('email');
-    var msg = document.getElementById('formMsg');
-    function say(text, ok) {
-      msg.textContent = text;
-      msg.className = 'form__msg ' + (ok ? 'is-ok' : 'is-error');
-    }
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      var name = nameInput.value.trim();
-      var value = email.value.trim();
-      var nameOk = name.length > 0;
-      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
-      nameInput.setAttribute('aria-invalid', String(!nameOk));
-      email.setAttribute('aria-invalid', String(!emailOk));
-      if (!nameOk) { say('Enter your first name to join.'); nameInput.focus(); return; }
-      if (!emailOk) { say(value ? 'That email address doesn’t look right.' : 'Enter your email address to join.'); email.focus(); return; }
-      say('Welcome to Inner Circle, ' + name + '. (Preview page: nothing was sent.)', true);
-      form.reset();
-    });
-  })();
-
   // Sections fade up as they come into view.
   (function () {
     var items = document.querySelectorAll('[data-reveal]');
