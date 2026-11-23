@@ -7,11 +7,13 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1d1c1b">
 <title>Inner Circle | Blue Banana Customer Loyalty Scheme</title>
-<meta name="description" content="Join Inner Circle, the Blue Banana in-store customer loyalty scheme. 50 bonus points when you sign up, 1 point for every £1 spent, 100 points = £2 off, a welcome reward, exclusive in-store offers and 10% off all piercings. Free to join in all 18 UK stores.">
+<meta name="description" content="Join Inner Circle, the Blue Banana in-store customer loyalty scheme. 50 bonus points when you sign up, 1 point for every £1 spent, 100 points = £2 off, a welcome reward, exclusive in-store offers and 10% off all piercing jewellery. Free to join in all 18 UK stores. Earn on everything, redeem on anything.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@800&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap">
 <link rel="stylesheet" href="assets/site-navigation.css">
+<!-- Leaflet: map for the Find A Store block -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script>document.documentElement.classList.replace("no-js","js");try{if(sessionStorage.getItem("bb-menu-mode")==="instore")document.documentElement.classList.add("menu-instore")}catch(e){}</script>
 <script src="assets/site-navigation.js" defer></script>
 
@@ -85,7 +87,6 @@ h1,h2,h3{margin:0}
 .hero__scheme{margin-top:14px;color:var(--bb-yellow);font-weight:800;font-size:clamp(17px,2.1vw,32px);line-height:1.15;letter-spacing:.005em;text-transform:uppercase}
 .hero__sub{margin-top:28px;max-width:46ch;font-size:18px;line-height:1.6;color:#e6e4e1}
 .hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.hero__note{margin-top:20px;font-size:14px;color:#bdbab5}
 .hero__media{position:relative;min-height:100%}
 .hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 30%}
 .hero__badge{position:absolute;left:0;bottom:40px;padding:16px 22px;background:var(--bb-yellow);color:var(--bb-ink);font-weight:800;font-size:26px;line-height:1.05;text-transform:uppercase}
@@ -147,17 +148,6 @@ h1,h2,h3{margin:0}
 
 /* Card mock */
 .mock{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
-.card{aspect-ratio:1.586;padding:30px 34px;background:var(--bb-ink);color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 30px 50px -34px rgba(0,0,0,.55)}
-.card__top{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.card__brand{font-weight:800;font-size:14px;letter-spacing:.24em;text-transform:uppercase}
-.card__scheme{width:38px;height:6px;background:var(--bb-yellow)}
-.card__name{font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1;letter-spacing:-.025em}
-.card__name small{display:block;margin-top:8px;color:var(--bb-yellow);font-size:clamp(10px,1.1vw,14px);letter-spacing:.02em;text-transform:uppercase}
-.card__foot{display:flex;align-items:flex-end;justify-content:space-between;gap:5%}
-.card__no{font-size:14px;font-weight:700;letter-spacing:.18em}
-.card__code{width:42%;max-width:190px}
-.card__bars{height:clamp(26px,4vw,40px);padding:3px;background-color:#fff;background-image:repeating-linear-gradient(90deg,#1d1c1b 0 2px,#fff 2px 5px,#1d1c1b 5px 6px,#fff 6px 9px,#1d1c1b 9px 12px,#fff 12px 14px,#1d1c1b 14px 15px,#fff 15px 19px,#1d1c1b 19px 21px,#fff 21px 23px);background-clip:content-box}
-.card__codeno{margin-top:6px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#bdbab5;text-align:center}
 .mock__copy h2{font-weight:800;font-size:clamp(30px,3.4vw,44px);line-height:1.05;text-transform:uppercase;letter-spacing:-.015em}
 .mock__copy p{margin-top:18px;max-width:46ch;color:var(--bb-muted)}
 .mock__copy .btn{margin-top:26px}
@@ -203,6 +193,67 @@ h1,h2,h3{margin:0}
 .site-footer .collapse-btn{display:none}
 .icon{width:1em;height:1em;fill:currentColor}
 
+/* ---------- Hero carousel (three in-store photos, with dots) ---------- */
+.hero__media{overflow:hidden}
+.carousel{position:absolute;inset:0}
+.carousel__track{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.carousel__track::-webkit-scrollbar{display:none}
+.carousel__track:focus-visible{outline:2px solid var(--bb-yellow);outline-offset:-4px}
+.carousel__slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;scroll-snap-stop:always}
+.carousel__slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.carousel__dots{position:absolute;right:16px;bottom:16px;z-index:2;display:none;gap:2px}
+.carousel.is-ready .carousel__dots{display:flex}
+.carousel__dot{display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;background:none;cursor:pointer}
+.carousel__dot::before{content:"";width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.7);box-shadow:0 0 0 1px rgba(0,0,0,.35);transition:background-color .2s,transform .2s}
+.carousel__dot:hover::before{background:#fff}
+.carousel__dot[aria-current="true"]::before{background:var(--bb-yellow);transform:scale(1.25)}
+.carousel__dot:focus-visible{outline:2px solid var(--bb-yellow);outline-offset:-2px}
+.hero__badge{z-index:2}
+.hero__tagline{margin-top:28px;font-weight:800;font-size:clamp(20px,2vw,30px);line-height:1.15;letter-spacing:-.01em}
+.hero .hero__sub{margin-top:12px}
+
+/* ---------- Phone with the wallet card ---------- */
+.mock__phone{justify-self:center;width:min(300px,100%)}
+.mock__phone img{width:100%;height:auto}
+.wallets{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.wallets span{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border:1px solid var(--bb-ink);color:var(--bb-ink);font-weight:700;font-size:13px}
+
+/* ---------- Find A Store (live site's postcode lookup block) ---------- */
+.store-finder{display:grid;grid-template-columns:1fr 1fr;min-height:500px;background:#2e4156;color:#fff}
+.store-finder__map{position:relative;z-index:0;min-height:500px;background:#dde1e4}
+.store-finder__panel{display:flex;flex-direction:column;justify-content:center;padding:35px clamp(24px,5vw,66px)}
+.store-finder__search-panel,.store-finder__results{width:100%;max-width:520px}
+.store-finder__sub{font-size:14px;line-height:20px}
+.store-finder__title{margin-top:2px;font-family:var(--font-section);font-weight:800;font-size:32px;line-height:41px;letter-spacing:-.04em;text-transform:uppercase}
+.store-finder__form{position:relative;margin-top:12px}
+.store-finder__form input{width:100%;height:40px;padding:0 44px 0 20px;border:1px solid #fff;border-radius:0;background:transparent;color:#fff;font:12px var(--font-body)}
+.store-finder__form input::placeholder{color:rgba(255,255,255,.85)}
+.store-finder__form input:focus{outline:none;box-shadow:inset 0 0 0 1px #fff}
+.store-finder__form input[aria-invalid="true"]{border-color:#ffb3b3;box-shadow:inset 0 0 0 1px #ffb3b3}
+.store-finder__go{position:absolute;top:0;right:0;display:grid;place-items:center;width:44px;height:40px;padding:0;border:0;background:none;color:#fff;cursor:pointer}
+.store-finder__go .icon{width:15px;height:15px;fill:currentColor}
+.store-finder__msg{min-height:20px;margin-top:10px;font-size:12px;line-height:18px}
+.store-finder__all{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;text-transform:uppercase;color:#fff;text-underline-offset:3px}
+.store-finder__back{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;padding:6px 0;border:0;background:none;color:#fff;font:700 12px var(--font-body);text-transform:uppercase;cursor:pointer}
+.store-finder__back:hover{text-decoration:underline;text-underline-offset:3px}
+.store-finder__list{list-style:none;margin:0;padding:0;max-height:360px;overflow-y:auto;border-top:1px solid rgba(255,255,255,.2)}
+.store-finder__item{display:flex;justify-content:space-between;gap:16px;padding:14px 4px 14px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+.store-finder__name{font-weight:700;font-size:12px;line-height:20px}
+.store-finder__address{font-size:12px;line-height:20px}
+.store-finder__links{display:flex;flex-wrap:wrap;gap:4px 20px;margin-top:4px;font-size:12px;line-height:20px;text-transform:uppercase}
+.store-finder__links a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.store-finder__links a:hover{color:var(--bb-yellow)}
+.store-finder__dist{flex:none;font-size:14px;line-height:20px;white-space:nowrap}
+.store-pin{background:none;border:0}
+.store-pin svg{display:block;width:30px;height:40px}
+.store-pop{display:grid;gap:4px;font:12px/1.5 var(--font-body);color:var(--bb-ink)}
+.store-pop strong{font-size:13px}
+.store-pop__links{display:flex;gap:14px;font-weight:700;text-transform:uppercase}
+.store-pop__links a{color:var(--bb-ink)}
+.store-finder .leaflet-bar,.store-finder .leaflet-bar a,.store-finder .leaflet-popup-content-wrapper{border-radius:0}
+.store-finder .leaflet-container{font-family:var(--font-body)}
+.store-finder .leaflet-tile-pane{filter:grayscale(1) brightness(1.06) contrast(.88)}
+
 /* ---------- Motion ---------- */
 .js-reveal [data-reveal]{opacity:0;transform:translateY(22px)}
 .js-reveal [data-reveal].is-in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
@@ -232,8 +283,13 @@ h1,h2,h3{margin:0}
   .hero__grid{grid-template-columns:1fr;min-height:0}
   .hero__copy{padding:48px 20px 44px}
   .hero h1{font-size:clamp(46px,11.5vw,96px)}
-  .hero__media{min-height:0;aspect-ratio:4/3}
-  .hero__badge{bottom:24px;font-size:22px}
+  /* Photos first on phones and tablets */
+  .hero__media{order:-1;min-height:0;aspect-ratio:1080/700}
+  .hero__badge{bottom:16px;padding:10px 14px;font-size:18px}
+  .store-finder{grid-template-columns:1fr}
+  .store-finder__map{min-height:320px}
+  .store-finder__panel{padding:32px 20px 36px}
+  .mock__phone{width:min(240px,70%)}
   .tiles{grid-template-columns:1fr;gap:14px}
   .tile{min-height:0;padding:30px 28px 32px}
   .counts{grid-template-columns:repeat(3,1fr);gap:24px 16px}
@@ -245,9 +301,13 @@ h1,h2,h3{margin:0}
 @media (max-width:599.98px){
   .wrap{width:calc(100% - 32px)}
   .promo-bar{min-height:36px;font-size:13px}
-  .hero__copy{padding:40px 16px 38px}
-  .hero__sub{font-size:16px}
-  .hero__cta .btn{flex:1 1 100%}
+  .hero__copy{padding:28px 16px 32px}
+  .hero__tagline{margin-top:18px}
+  .hero__sub{font-size:15px;line-height:1.5}
+  /* Buttons side by side to keep the hero short */
+  .hero__cta{flex-wrap:nowrap;gap:8px;margin-top:22px}
+  .hero__cta .btn{flex:1 1 0;min-width:0;padding:0 8px;font-size:15px}
+  .hero__badge{font-size:15px}
   .tiles-section{padding-top:16px}
   .section{padding:56px 0}
   .section-title{font-size:32px;line-height:31px}
@@ -256,7 +316,6 @@ h1,h2,h3{margin:0}
   .products{gap:12px}
   .product a{padding:10px 10px 14px}
   .perks{grid-template-columns:1fr;gap:30px}
-  .card{padding:20px 22px}
   .join{padding:36px 16px}
   .join__how{padding:24px 18px 26px}
 }
@@ -1000,7 +1059,7 @@ h1,h2,h3{margin:0}
         <span class="instore-promo__label">Book Online</span>
       </a>
       <a class="instore-promo" href="inner-circle.html">
-        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 1 point per £1 spent, 10% off piercings, free to join in store" loading="lazy" decoding="async">
+        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 1 point per £1 spent, 10% off piercing jewellery, free to join in store" loading="lazy" decoding="async">
         <span class="instore-promo__label">Join Inner Circle</span>
       </a>
       <div class="studio-reviews">
@@ -1076,7 +1135,7 @@ h1,h2,h3{margin:0}
         <span class="instore-promo__label">Book Online</span>
       </a>
       <a class="instore-promo" href="inner-circle.html">
-        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 1 point per £1 spent, 10% off piercings, free to join in store" loading="lazy" decoding="async">
+        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 1 point per £1 spent, 10% off piercing jewellery, free to join in store" loading="lazy" decoding="async">
         <span class="instore-promo__label">Join Inner Circle</span>
       </a>
       <div class="studio-reviews">
@@ -1111,43 +1170,60 @@ h1,h2,h3{margin:0}
 
 <main id="main" tabindex="-1">
 
-  <!-- Hero: the Inner Circle artwork block, split with photography as on The Collective -->
+  <!-- Hero: the Inner Circle artwork block, split with a photo carousel. On phones the carousel sits above the text. -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__grid">
       <div class="hero__copy">
         <h1 id="hero-title">Inner Circle</h1>
         <p class="hero__scheme">Customer Loyalty Scheme</p>
-        <p class="hero__sub">Get rewarded every time you shop in our stores. Clothing, band merch, boots, hair dye, jewellery and piercing all earn points, in all 18 Blue Banana stores. Sign up and get 50 bonus points to start you off.</p>
+        <p class="hero__tagline">Earn on everything, redeem on anything.</p>
+        <p class="hero__sub">Free to join in all 18 of our UK stores, with 50 bonus points when you sign up.</p>
         <div class="hero__cta">
           <a class="btn btn--yellow btn--wide" href="#join">How To Join</a>
           <a class="btn btn--light" href="#benefits">See The Benefits</a>
         </div>
-        <p class="hero__note">Already a member? Your points balance is on your Inner Circle card, saved on your phone.</p>
       </div>
       <div class="hero__media">
-        <img src="assets/inner-circle-hero.jpg" alt="Blue Banana customer with nose, lip and ear piercings" width="1080" height="700" fetchpriority="high">
-        <p class="hero__badge" aria-hidden="true">1 Point<br>Per £1<small>Spent in any of our 18 stores</small></p>
+        <div class="carousel" data-carousel role="region" aria-roledescription="carousel" aria-label="Inner Circle in our stores">
+          <div class="carousel__track" tabindex="0">
+            <div class="carousel__slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
+              <img src="assets/inner-circle-hero-till.jpg" alt="Smiling customer at the till while a Blue Banana team member signs her up on a tablet" width="1080" height="700" fetchpriority="high" style="object-position:30% 30%">
+            </div>
+            <div class="carousel__slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+              <img src="assets/inner-circle-hero-jewellery.jpg" alt="Piercer showing a customer piercing jewellery at the studio counter" width="1080" height="700" loading="lazy" style="object-position:40% 40%">
+            </div>
+            <div class="carousel__slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+              <img src="assets/inner-circle-hero-gift-bag.jpg" alt="Blue Banana Body Piercing gift bag held up in front of the neon studio sign" width="1080" height="700" loading="lazy" style="object-position:45% 50%">
+            </div>
+          </div>
+          <div class="carousel__dots" role="group" aria-label="Choose an image">
+            <button class="carousel__dot" type="button" aria-current="true"><span class="sr-only">Show image 1 of 3</span></button>
+            <button class="carousel__dot" type="button" aria-current="false"><span class="sr-only">Show image 2 of 3</span></button>
+            <button class="carousel__dot" type="button" aria-current="false"><span class="sr-only">Show image 3 of 3</span></button>
+          </div>
+        </div>
+        <p class="hero__badge">Free To Join<br>50 Bonus Points</p>
       </div>
     </div>
   </section>
 
-  <!-- The three tiles from the artwork. Points rate updated to 1 point per £1 (Inner Circle changes doc). -->
+  <!-- The three tiles from the artwork, with the wording from the Inner Circle changes doc -->
   <section class="tiles-section" id="benefits" aria-label="Member benefits">
     <div class="wrap tiles">
       <article class="tile tile--yellow" data-reveal>
         <h2 class="tile-title">Points On Purchase</h2>
         <em>Available to all members</em>
-        <p>1 point per £1 spent</p>
+        <p>Gain points on every purchase in-store</p>
       </article>
       <article class="tile tile--ink" data-reveal>
         <h2 class="tile-title">Exclusive Offers</h2>
         <em>Available to all members</em>
-        <p>Exclusive In-Store Offers only redeemable</p>
+        <p>Exclusive in-store offers, free items, early access &amp; more</p>
       </article>
       <article class="tile tile--grey" data-reveal>
         <h2 class="tile-title">Piercing Offer</h2>
         <em>Available to all members</em>
-        <p>10% Off All Piercings, Including Jewellery</p>
+        <p>10% Off All Piercing Jewellery</p>
       </article>
     </div>
   </section>
@@ -1177,7 +1253,7 @@ h1,h2,h3{margin:0}
       <ol class="steps">
         <li class="step" data-reveal>
           <h3>Join In Store</h3>
-          <p>Ask at the till in any of our 18 UK stores and save your Inner Circle card to your phone with Wallet Crew. You get 50 bonus points when you sign up.</p>
+          <p>Ask at the till in any of our 18 UK stores and save your Inner Circle card to Apple Wallet or Google Wallet. You get 50 bonus points when you sign up.</p>
         </li>
         <li class="step" data-reveal>
           <h3>Collect Points</h3>
@@ -1196,8 +1272,8 @@ h1,h2,h3{margin:0}
     <div class="wrap band-yellow__grid">
       <div class="band-yellow__intro">
         <p class="eyebrow">Member Piercing Offer</p>
-        <h2 id="piercing-title" data-reveal>10% Off All Piercings</h2>
-        <p>Including the jewellery. Just show your Inner Circle card in any of our 18 piercing studios.</p>
+        <h2 id="piercing-title" data-reveal>10% Off All Piercing Jewellery</h2>
+        <p>Just show your Inner Circle card in any of our 18 stores and piercing studios.</p>
         <a class="btn btn--dark btn--wide" href="https://piercing.bluebanana.com/">Book A Piercing</a>
       </div>
       <ul class="products">
@@ -1209,7 +1285,7 @@ h1,h2,h3{margin:0}
     </div>
   </section>
 
-  <!-- Only the confirmed benefits (Inner Circle changes doc + the artwork tiles). -->
+  <!-- Only the confirmed benefits (Inner Circle changes docs + the artwork tiles). -->
   <section class="section" aria-labelledby="perks-title">
     <div class="wrap">
       <div class="section__head">
@@ -1223,7 +1299,7 @@ h1,h2,h3{margin:0}
         </div>
         <div class="perk" data-reveal>
           <h3>1 Point For Every £1</h3>
-          <p>Collect points on everything you buy in our stores, from band tees to boots to body jewellery.</p>
+          <p>Gain points on every purchase in our stores, from band tees to boots to body jewellery.</p>
         </div>
         <div class="perk" data-reveal>
           <h3>100 Points = £2 Off</h3>
@@ -1231,15 +1307,15 @@ h1,h2,h3{margin:0}
         </div>
         <div class="perk" data-reveal>
           <h3>Exclusive In-Store Offers</h3>
-          <p>Member-only offers, redeemable in our stores when you show your card.</p>
+          <p>Member-only offers, free items, early access and more, in our stores.</p>
         </div>
         <div class="perk" data-reveal>
-          <h3>10% Off All Piercings</h3>
-          <p>Including the jewellery that goes in, at all 18 of our piercing studios.</p>
+          <h3>10% Off Piercing Jewellery</h3>
+          <p>On all piercing jewellery, in all 18 of our stores and piercing studios.</p>
         </div>
         <div class="perk" data-reveal>
           <h3>Your Points On Your Phone</h3>
-          <p>Your card saves to your phone with Wallet Crew, so you can check your points balance whenever you like.</p>
+          <p>Your card saves to Apple Wallet or Google Wallet, so you can check your points balance whenever you like.</p>
         </div>
       </div>
     </div>
@@ -1247,24 +1323,14 @@ h1,h2,h3{margin:0}
 
   <section class="section section--band" aria-labelledby="card-title">
     <div class="wrap mock">
-      <div class="card" role="img" aria-label="Inner Circle digital loyalty card: Blue Banana, member number 4927 0381 6654" data-reveal>
-        <div class="card__top">
-          <p class="card__brand">Blue Banana</p>
-          <span class="card__scheme"></span>
-        </div>
-        <p class="card__name">Inner Circle<small>Customer Loyalty Scheme</small></p>
-        <div class="card__foot">
-          <p class="card__no">4927 0381 6654</p>
-          <div class="card__code" aria-hidden="true">
-            <div class="card__bars"></div>
-            <p class="card__codeno">Scan at the till</p>
-          </div>
-        </div>
+      <div class="mock__phone" data-reveal>
+        <img src="assets/inner-circle-wallet-phone.webp" alt="Inner Circle loyalty card saved in a phone's wallet app, showing the member's name and points balance" width="945" height="1965" loading="lazy">
       </div>
       <div class="mock__copy">
         <p class="eyebrow">Your Digital Loyalty Card</p>
         <h2 id="card-title" style="margin-top:10px" data-reveal>Your Card Lives On Your Phone</h2>
-        <p>We'll help you save your Inner Circle card to your phone with Wallet Crew when you join. Show it at the till to collect points and use them on your next in-store purchase. Your points balance shows on the card, so there's nothing to log in to.</p>
+        <p>When you join, we'll help you save your Inner Circle card to Apple Wallet or Google Wallet using Wallet Crew. Show it at the till to collect points and use them on your next in-store purchase. Your points balance shows on the card, so there's nothing to log in to.</p>
+        <p class="wallets" aria-label="Available on Apple Wallet and Google Wallet"><span>Apple Wallet</span><span>Google Wallet</span></p>
         <a class="btn btn--dark btn--wide" href="#join">How To Join</a>
       </div>
     </div>
@@ -1281,7 +1347,7 @@ h1,h2,h3{margin:0}
             <li>Welcome reward: 10% off or a free jewellery upgrade</li>
             <li>1 point for every £1 you spend</li>
             <li>100 points = £2 off</li>
-            <li>10% off all piercings, including jewellery</li>
+            <li>10% off all piercing jewellery</li>
           </ul>
         </div>
         <!-- Hand-off: Inner Circle is in-store only for now (members join at the till and save their
@@ -1292,16 +1358,42 @@ h1,h2,h3{margin:0}
           <ol class="join__steps">
             <li>Visit any of our 18 UK stores.</li>
             <li>Ask at the till to join Inner Circle.</li>
-            <li>Save your Inner Circle card to your phone with Wallet Crew.</li>
+            <li>Save your Inner Circle card to Apple Wallet or Google Wallet with Wallet Crew.</li>
             <li>Show it at the till every time you shop.</li>
           </ol>
-          <a class="btn btn--yellow" href="https://www.bluebanana.com/en_GB/stores">Find Your Nearest Store</a>
+          <a class="btn btn--yellow" href="#find-a-store">Find Your Nearest Store</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" style="padding-top:0" aria-labelledby="faq-title">
+  <!-- Find A Store, rebuilt from the live site's postcode lookup block (bluebanana.com/en_GB/cms/blue-banana-piercing).
+       Hand-off: on the live site, drop in the existing c3sPostCodeLookup component (Mapbox map, /en_GB/ajax/locations)
+       instead. This preview uses Leaflet with OpenStreetMap tiles and postcodes.io to look up the postcode;
+       the 18 stores were copied from /en_GB/ajax/locations on 23 Nov 2026. -->
+  <section class="store-finder" id="find-a-store" aria-labelledby="store-finder-title">
+    <div class="store-finder__map" id="store-map" role="region" aria-label="Map of Blue Banana stores"></div>
+    <div class="store-finder__panel">
+      <div class="store-finder__search-panel" data-sf-search>
+        <p class="store-finder__sub">Enter your postcode to find your nearest Blue Banana store and piercing studio!</p>
+        <h2 class="store-finder__title" id="store-finder-title">Find A Store</h2>
+        <form class="store-finder__form" data-sf-form role="search" novalidate>
+          <label class="sr-only" for="store-postcode">Postcode</label>
+          <input id="store-postcode" type="text" placeholder="Start typing your postcode..." autocomplete="postal-code" autocapitalize="characters" enterkeyhint="search" aria-describedby="store-finder-msg">
+          <button class="store-finder__go" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span class="sr-only">Search</span></button>
+        </form>
+        <p class="store-finder__msg" id="store-finder-msg" role="status" aria-live="polite" data-sf-msg></p>
+        <a class="store-finder__all" href="https://www.bluebanana.com/en_GB/stores">See all 18 stores</a>
+      </div>
+      <div class="store-finder__results" data-sf-results hidden>
+        <button class="store-finder__back" type="button" data-sf-back><span aria-hidden="true">&larr;</span> Search again</button>
+        <p class="sr-only" id="store-results-title" tabindex="-1">Your nearest stores</p>
+        <ul class="store-finder__list" data-sf-list aria-labelledby="store-results-title"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
     <div class="wrap">
       <div class="section__head">
         <h2 class="section-title" id="faq-title" data-reveal>FAQs</h2>
@@ -1313,7 +1405,7 @@ h1,h2,h3{margin:0}
         </details>
         <details>
           <summary>How do I join?</summary>
-          <p>Ask at the till in any of our 18 UK stores. We'll help you save your Inner Circle card to your phone using Wallet Crew.</p>
+          <p>Ask at the till in any of our 18 UK stores. We'll help you save your Inner Circle card to Apple Wallet or Google Wallet using Wallet Crew.</p>
         </details>
         <details>
           <summary>What do I get when I join?</summary>
@@ -1325,7 +1417,7 @@ h1,h2,h3{margin:0}
         </details>
         <details>
           <summary>How do I check my points?</summary>
-          <p>Your points balance shows on your Inner Circle card on your phone, so you can check it any time.</p>
+          <p>Your points balance shows on your Inner Circle card in Apple Wallet or Google Wallet, so you can check it any time.</p>
         </details>
         <details>
           <summary>Can I use Inner Circle online?</summary>
@@ -1336,12 +1428,12 @@ h1,h2,h3{margin:0}
           <p>Yes. Clothing, band merch, footwear, accessories, hair dye, piercing jewellery and piercings bought in store all earn points.</p>
         </details>
         <details>
-          <summary>How do I get 10% off my piercing?</summary>
-          <p>Show your Inner Circle card at the studio before you're pierced. The 10% comes off the piercing and the jewellery that goes in.</p>
+          <summary>How do I get 10% off piercing jewellery?</summary>
+          <p>Show your Inner Circle card at the till or in the studio. The 10% comes off all piercing jewellery.</p>
         </details>
         <details>
-          <summary>Where can I use the exclusive offers?</summary>
-          <p>Member offers are redeemable in store only. Show your card at the till to use them.</p>
+          <summary>What are the exclusive offers?</summary>
+          <p>Member-only offers, free items, early access and more. They're redeemable in store only: show your card at the till to use them.</p>
         </details>
         <details>
           <summary>Are there tiers or levels?</summary>
@@ -1405,7 +1497,215 @@ h1,h2,h3{margin:0}
   <p class="site-footer__copy">&copy; 2026 - Blue Banana</p>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
+  // Hero carousel: swipe or use the dots; moves on by itself every 5 seconds unless the
+  // visitor is hovering, focused on it, or prefers reduced motion.
+  (function () {
+    var root = document.querySelector('[data-carousel]');
+    if (!root) return;
+    var track = root.querySelector('.carousel__track');
+    var slides = Array.prototype.slice.call(track.children);
+    var dots = Array.prototype.slice.call(root.querySelectorAll('.carousel__dot'));
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var index = 0, timer = 0, frame = 0, paused = false;
+
+    function setCurrent(i) {
+      index = i;
+      dots.forEach(function (dot, j) { dot.setAttribute('aria-current', String(j === i)); });
+      slides.forEach(function (slide, j) { slide.setAttribute('aria-hidden', String(j !== i)); });
+    }
+    function go(i) {
+      track.scrollTo({ left: i * track.clientWidth, behavior: reduce.matches ? 'auto' : 'smooth' });
+    }
+    function stop() { clearInterval(timer); timer = 0; }
+    function start() {
+      stop();
+      if (reduce.matches || paused || document.hidden || slides.length < 2) return;
+      timer = setInterval(function () { go((index + 1) % slides.length); }, 5000);
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () { go(i); start(); });
+    });
+    track.addEventListener('scroll', function () {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(function () {
+        var i = Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
+        if (i !== index && slides[i]) setCurrent(i);
+      });
+    }, { passive: true });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(Math.min(index + 1, slides.length - 1)); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(Math.max(index - 1, 0)); }
+    });
+    root.addEventListener('pointerenter', function () { paused = true; stop(); });
+    root.addEventListener('pointerleave', function () { paused = false; start(); });
+    root.addEventListener('focusin', function () { paused = true; stop(); });
+    root.addEventListener('focusout', function (e) { if (!root.contains(e.relatedTarget)) { paused = false; start(); } });
+    track.addEventListener('touchstart', function () { stop(); }, { passive: true });
+    document.addEventListener('visibilitychange', start);
+    window.addEventListener('resize', function () { track.scrollLeft = index * track.clientWidth; });
+
+    root.classList.add('is-ready');
+    setCurrent(0);
+    start();
+  })();
+
+  // Find A Store: map of the 18 stores, and the nearest five to a postcode.
+  // Hand-off: the live site's c3sPostCodeLookup component does this with Mapbox and /en_GB/ajax/locations.
+  (function () {
+    var STORES = [
+      ['coventry', 'Coventry', 'Unit 68 Lower Precinct Shopping Centre', 'Coventry', 'CV1 1NQ', 52.40784, -1.5132],
+      ['stoke', 'Stoke', '4 Market Square, Hanley', 'Stoke-on-Trent', 'ST1 1NU', 53.02642, -2.17502],
+      ['reading', 'Reading', '95 Broad Street', 'Reading', 'RG1 2AP', 51.45545, -0.97341],
+      ['exeter', 'Exeter', '204 High Street', 'Exeter', 'EX4 3EB', 50.72338, -3.53161],
+      ['wolverhampton', 'Wolverhampton', '61 Wulfrun Shopping Centre', 'Wolverhampton', 'WV1 3HH', 52.58362, -2.12773],
+      ['leicester', 'Leicester', 'Unit SU08, Lower Mall Highcross', 'Leicester', 'LE1 4FS', 52.6366, -1.13175],
+      ['swansea', 'Swansea', '38 Union Street', 'Swansea', 'SA1 3DZ', 51.6191, -3.94576],
+      ['newport', 'Newport', '42a Commercial Street', 'Newport', 'NP20 1LP', 51.58526, -2.99414],
+      ['nottingham', 'Nottingham', '15 Long Row, The Exchange Arcade', 'Nottingham', 'NG1 2NX', 52.9536, -1.14814],
+      ['swindon', 'Swindon', '42 The Parade', 'Swindon', 'SN1 1BA', 51.56175, -1.78528],
+      ['plymouth', 'Plymouth', '26-28 Cornwall Street', 'Plymouth', 'PL1 1LP', 50.37252, -4.14141],
+      ['leeds', 'Leeds', '55 Albion Street', 'Leeds', 'LS1 5AA', 53.79839, -1.54521],
+      ['cardiff', 'Cardiff', '8 Queen Street', 'Cardiff', 'CF10 2BU', 51.48169, -3.17917],
+      ['manchester', 'Manchester', 'Unit 48 Barbirolli Mall East, Arndale Shopping Centre', 'Manchester', 'M4 3AQ', 53.48361, -2.24128],
+      ['bristol', 'Bristol', '67 The Horsefair', 'Bristol', 'BS1 3JP', 51.45882, -2.58873],
+      ['birmingham', 'Birmingham', '117 New Street', 'Birmingham', 'B2 4JH', 52.47887, -1.8991],
+      ['sheffield', 'Sheffield', '15 Fargate', 'Sheffield', 'S1 2HD', 53.38203, -1.46863],
+      ['liverpool', 'Liverpool', '58 Bold Street', 'Liverpool', 'L1 4EA', 53.40336, -2.9791]
+    ].map(function (s) {
+      return { code: s[0], name: 'Blue Banana ' + s[1], street: s[2], city: s[3], postcode: s[4], lat: s[5], lng: s[6] };
+    });
+
+    var form = document.querySelector('[data-sf-form]');
+    if (!form) return;
+    var input = form.querySelector('input');
+    var msg = document.querySelector('[data-sf-msg]');
+    var searchPanel = document.querySelector('[data-sf-search]');
+    var results = document.querySelector('[data-sf-results]');
+    var list = document.querySelector('[data-sf-list]');
+    var mapEl = document.getElementById('store-map');
+    var map = null, markers = {};
+
+    function address(s) { return s.street + ', ' + s.city + ', ' + s.postcode; }
+    function bookingUrl(s) { return 'https://piercing.bluebanana.com/?store=' + s.code; }
+    function directionsUrl(s) { return 'https://www.google.com/maps/dir//' + encodeURIComponent(s.street + ' ' + s.city + ' ' + s.postcode); }
+    function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; }
+    function link(text, href) { var a = el('a', '', text); a.href = href; a.target = '_blank'; a.rel = 'noreferrer'; return a; }
+
+    // The map loads when the block comes near the screen, so the tiles don't slow the page down.
+    function initMap() {
+      if (map || !window.L) return;
+      map = L.map(mapEl, { scrollWheelZoom: false, attributionControl: true });
+      // OpenStreetMap tiles, greyed in CSS to match the live site's light Mapbox style.
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      var icon = L.divIcon({
+        className: 'store-pin',
+        html: '<svg viewBox="0 0 30 40" aria-hidden="true"><path d="M15 39C15 39 2 23.6 2 14.5A13 13 0 0 1 28 14.5C28 23.6 15 39 15 39Z" fill="#367db0" stroke="#fff" stroke-width="1.5"/><circle cx="15" cy="14.5" r="8.5" fill="#fff"/><text x="15" y="19" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="12" fill="#1d1c1b">B</text></svg>',
+        iconSize: [30, 40], iconAnchor: [15, 39], popupAnchor: [0, -34]
+      });
+      STORES.forEach(function (s) {
+        var pop = el('div', 'store-pop');
+        pop.appendChild(el('strong', '', s.name));
+        pop.appendChild(el('span', '', address(s)));
+        var links = el('span', 'store-pop__links');
+        links.appendChild(link('Book Now', bookingUrl(s)));
+        links.appendChild(link('Get Directions', directionsUrl(s)));
+        pop.appendChild(links);
+        markers[s.code] = L.marker([s.lat, s.lng], { icon: icon, title: s.name, alt: s.name }).addTo(map).bindPopup(pop);
+      });
+      showAll();
+    }
+    function showAll() {
+      if (!map) return;
+      map.fitBounds(STORES.map(function (s) { return [s.lat, s.lng]; }), { padding: [30, 30] });
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); initMap(); }
+      }, { rootMargin: '400px 0px' });
+      io.observe(mapEl);
+    } else {
+      initMap();
+    }
+
+    function miles(lat1, lng1, lat2, lng2) {
+      var R = 3958.8, toRad = Math.PI / 180;
+      var dLat = (lat2 - lat1) * toRad, dLng = (lng2 - lng1) * toRad;
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * toRad) * Math.cos(lat2 * toRad) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      return 2 * R * Math.asin(Math.sqrt(a));
+    }
+
+    // Full postcode first, then just the first half (e.g. "B2") if that's all that was typed.
+    function lookup(postcode) {
+      var full = 'https://api.postcodes.io/postcodes/' + encodeURIComponent(postcode);
+      var outcode = 'https://api.postcodes.io/outcodes/' + encodeURIComponent(postcode.split(' ')[0]);
+      return fetch(full).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+        if (data && data.result) return data.result;
+        return fetch(outcode).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { return d && d.result; });
+      });
+    }
+
+    function showResults(lat, lng) {
+      var nearest = STORES.map(function (s) { return { store: s, dist: miles(lat, lng, s.lat, s.lng) }; })
+        .sort(function (a, b) { return a.dist - b.dist; }).slice(0, 5);
+      list.replaceChildren();
+      nearest.forEach(function (n) {
+        var s = n.store;
+        var li = el('li', 'store-finder__item');
+        var details = el('div', 'store-finder__details');
+        details.appendChild(el('p', 'store-finder__name', s.name));
+        details.appendChild(el('p', 'store-finder__address', address(s)));
+        var links = el('p', 'store-finder__links');
+        links.appendChild(link('Book Now', bookingUrl(s)));
+        links.appendChild(link('Get Directions', directionsUrl(s)));
+        details.appendChild(links);
+        li.appendChild(details);
+        li.appendChild(el('p', 'store-finder__dist', n.dist.toFixed(1) + 'mi'));
+        list.appendChild(li);
+      });
+      searchPanel.hidden = true;
+      results.hidden = false;
+      document.getElementById('store-results-title').focus({ preventScroll: true });
+      if (map) {
+        var pts = [[lat, lng]].concat(nearest.slice(0, 3).map(function (n) { return [n.store.lat, n.store.lng]; }));
+        map.fitBounds(pts, { padding: [40, 40], maxZoom: 11 });
+        markers[nearest[0].store.code].openPopup();
+      }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var value = input.value.trim().toUpperCase().replace(/\s+/g, ' ');
+      if (!/^[A-Z]{1,2}[0-9][0-9A-Z]?( ?[0-9][A-Z]{2})?$/.test(value)) {
+        input.setAttribute('aria-invalid', 'true');
+        msg.textContent = value ? 'Please enter a valid UK postcode.' : 'Please enter your postcode.';
+        input.focus();
+        return;
+      }
+      input.removeAttribute('aria-invalid');
+      msg.textContent = 'Finding your nearest stores…';
+      lookup(value).then(function (result) {
+        if (!result) { msg.textContent = 'We couldn’t find that postcode. Please check it and try again.'; return; }
+        msg.textContent = '';
+        showResults(result.latitude, result.longitude);
+      }).catch(function () {
+        msg.textContent = 'Sorry, we couldn’t search right now. See all 18 stores instead.';
+      });
+    });
+    input.addEventListener('input', function () { input.removeAttribute('aria-invalid'); });
+    document.querySelector('[data-sf-back]').addEventListener('click', function () {
+      results.hidden = true;
+      searchPanel.hidden = false;
+      if (map) { map.closePopup(); showAll(); }
+      input.focus();
+    });
+  })();
+
   // Sections fade up as they come into view.
   (function () {
     var items = document.querySelectorAll('[data-reveal]');

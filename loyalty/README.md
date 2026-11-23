@@ -74,15 +74,28 @@ barcode to scan at the till, in that concept's colours.
 - £1 spent = 1 point; 100 points = £2
 - 50 bonus points on sign-up (added later in November 2026)
 - Welcome reward: 10% off or a free jewellery upgrade
-- In-store only for now. Members join at the till and save a digital loyalty card to their phone
-  with Wallet Crew. They collect points on in-store purchases, spend them on later in-store
+- In-store only for now. Members join at the till and save a digital loyalty card to Apple Wallet
+  or Google Wallet with Wallet Crew. They collect points on in-store purchases, spend them on later in-store
   purchases, and see their balance on their phone, not on the website. So the page has no online
   sign-up form or sign-in; the join section explains how to join in store and links to the store
   locator.
-- Still on the page from the artwork: exclusive in-store offers and 10% off all piercings,
-  including jewellery.
-- Taken off the page because they weren't in the confirmed list (and most were online): early
-  access to drops, aftercare check-ins, refer a friend, points for reviews and photos, donating points.
+- Exclusive in-store offers, free items, early access and more (second changes doc).
+- 10% off all piercing jewellery (second changes doc; this replaced "10% off all piercings, including
+  jewellery" from the artwork).
+- Tagline: "Earn on everything, redeem on anything" (in the hero, under the scheme name).
+- Taken off the page because they weren't in the confirmed list: aftercare check-ins, refer a
+  friend, points for reviews and photos, donating points.
+
+Second changes doc (23 Nov 2026) also added: the three in-store hero photos as a carousel with dots
+(photos above the text on phones), the phone/wallet image in place of the card mock, a shorter hero
+without the "Already a member" line, the yellow badge saying Free To Join / 50 Bonus Points, and
+the Find A Store block between the join section and the FAQs.
+
+**Find A Store hand-off:** the preview rebuilds the live site's postcode lookup with Leaflet,
+OpenStreetMap map tiles (greyed to match) and postcodes.io for the postcode lookup (the visitor's postcode is
+sent to postcodes.io). The 18 stores were copied from `/en_GB/ajax/locations` on 23 Nov 2026. On
+the live site, use the existing `c3sPostCodeLookup` component (Mapbox + `/en_GB/ajax/locations`)
+instead.
 
 The three name concepts still use the draft facts below.
 
