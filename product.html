@@ -6,6 +6,7 @@
   <title>Blue Banana Plasma Gold 1.2mm Hinged Segment Ring (Gold) | Blue Banana</title>
   <meta name="description" content="Blue Banana Plasma Gold 1.2mm Hinged Segment Ring in gold: a seamless hinged hoop for ear, nose and lip piercings. Now £5.99, was £8.99.">
   <meta name="theme-color" content="#1d1c1b">
+  <meta name="color-scheme" content="light dark">
   <!-- Preview copy: keeps search engines from indexing it. Remove when this goes into the live site. -->
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="https://cdn.bluebanana.com/prod/build/shop/assets/images/bluebanana/favicon/favicon.f28c8ea2.ico">
@@ -13,6 +14,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Karla:wght@800&amp;family=Montserrat:wght@400;500;700;800&amp;display=swap">
+  <!-- Colour theme: the visitor's choice from the footer switch (bb-theme) or the system setting, set before the page draws -->
+  <script>(function(){var t;try{t=localStorage.getItem('bb-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();</script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/taxon.css">
   <link rel="stylesheet" href="css/product.css">
@@ -49,6 +52,9 @@
   <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M3 6h9M18 6h3M3 12h3M12 12h9M3 18h11M20 18h1" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="12" y="3" width="6" height="6" rx="1.2"/><rect x="6" y="9" width="6" height="6" rx="1.2"/><rect x="14" y="15" width="6" height="6" rx="1.2"/></symbol>
   <symbol id="i-arrow-thin" viewBox="0 0 13 24"><path d="M1.5 1.5 11.5 12l-10 10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-verified" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7 12.4l3.2 3.1L17 8.7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-theme-system" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 3a9 9 0 0 1 0 18z"/></symbol>
+  <symbol id="i-theme-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6"/><path d="M12 1.8v2.6M12 19.6v2.6M1.8 12h2.6M19.6 12h2.6M4.8 4.8l1.8 1.8M17.4 17.4l1.8 1.8M4.8 19.2l1.8-1.8M17.4 6.6l1.8-1.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-theme-dark" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
 </svg>
 
 <a class="skip-link" href="#main">Skip to content</a>
@@ -1582,6 +1588,15 @@
     <li><a href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/icons/instagram.png" width="16" height="16" alt="Blue Banana on Instagram"></a></li>
     <li><a href="https://www.tiktok.com/@bluebananauk" target="_blank" rel="noopener"><img src="images/icons/tiktok.png" width="15" height="16" alt="Blue Banana on TikTok"></a></li>
   </ul>
+  <!-- Theme switch: Match System / Light / Dark. js/main.js saves the choice; hidden without JavaScript. -->
+  <div class="theme-switch" role="group" aria-labelledby="theme-switch-label">
+    <p class="theme-switch__label" id="theme-switch-label">Theme</p>
+    <div class="theme-switch__options">
+      <button class="theme-switch__btn" type="button" aria-pressed="true" data-theme-choice="system"><svg class="icon" aria-hidden="true"><use href="#i-theme-system"></use></svg>Match System</button>
+      <button class="theme-switch__btn" type="button" aria-pressed="false" data-theme-choice="light"><svg class="icon" aria-hidden="true"><use href="#i-theme-light"></use></svg>Light</button>
+      <button class="theme-switch__btn" type="button" aria-pressed="false" data-theme-choice="dark"><svg class="icon" aria-hidden="true"><use href="#i-theme-dark"></use></svg>Dark</button>
+    </div>
+  </div>
   <p class="site-footer__copy">&copy; 2026 - Blue Banana</p>
 </footer>
 

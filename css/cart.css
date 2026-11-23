@@ -28,7 +28,7 @@
   margin-bottom: 26px;
   padding: 14px 18px;
   border-left: 4px solid var(--bb-yellow);
-  background: #fdf6d9;
+  background: var(--bb-notice);
   font-size: 13px;
   line-height: 19px;
 }
@@ -107,7 +107,7 @@
   line-height: 20px;
 }
 .delivery-meter__text strong { font-weight: 800; }
-.delivery-meter__text .icon { width: 20px; height: 20px; color: #2f8f46; }
+.delivery-meter__text .icon { width: 20px; height: 20px; color: var(--bb-success-text); }
 .delivery-meter__track {
   height: 8px;
   margin-top: 12px;
@@ -121,11 +121,11 @@
   background: var(--bb-yellow);
   transition: width .5s var(--ease-out), background-color .3s;
 }
-.delivery-meter.is-complete .delivery-meter__fill { background: #2f8f46; }
+.delivery-meter.is-complete .delivery-meter__fill { background: var(--bb-success); }
 .delivery-meter__small { margin-top: 8px; font-size: 11px; line-height: 16px; opacity: .65; }
 
 /* Teasers: offers the cart hasn't unlocked, folded away under the meter */
-.teasers { margin-top: 12px; border-top: 1px solid #d2d2d2; }
+.teasers { margin-top: 12px; border-top: 1px solid var(--bb-rule-strong); }
 .teasers > summary {
   display: flex;
   align-items: center;
@@ -147,7 +147,7 @@
   padding: 0 6px;
   border-radius: 10px;
   background: var(--bb-ink);
-  color: #fff;
+  color: var(--bb-paper);
   font-size: 11px;
   font-weight: 700;
 }
@@ -167,7 +167,7 @@
   align-items: flex-start;
   padding: 12px 14px;
   border-left: 3px solid var(--bb-yellow);
-  background: #fff;
+  background: var(--bb-paper);
 }
 .teaser__title { font-size: 14px; font-weight: 800; line-height: 19px; }
 .teaser__text { margin-top: 3px; font-size: 13px; line-height: 18px; }
@@ -242,7 +242,7 @@
 .cart-line__qty { grid-area: qty; display: flex; justify-content: center; }
 .cart-line__qty .qty { width: 104px; height: 44px; font-size: 13px; }
 .cart-line__sum { grid-area: total; text-align: right; }
-.cart-line__saving { display: block; margin-top: 3px; color: var(--bb-sale); font-size: 11px; font-weight: 700; }
+.cart-line__saving { display: block; margin-top: 3px; color: var(--bb-sale-text); font-size: 11px; font-weight: 700; }
 .cart-line__each { display: none; }
 
 .cart-main__foot {
@@ -309,7 +309,7 @@
 .summary__row[hidden] { display: none; }
 .summary__row dt { font-weight: 500; }
 .summary__row dd { margin: 0; font-weight: 700; text-align: right; white-space: nowrap; }
-.summary__row--saving dd { color: var(--bb-sale); }
+.summary__row--saving dd { color: var(--bb-sale-text); }
 .summary__muted { opacity: .6; }
 .summary__code { font-weight: 700; }
 .summary__remove-code { margin-left: 4px; font-size: 11px; }
@@ -327,8 +327,8 @@
 .summary__vat { margin-top: 2px; font-size: 11px; opacity: .6; text-align: right; }
 
 /* Discount code / gift card disclosures */
-.summary__drawer { border-bottom: 1px solid #d2d2d2; }
-.summary__drawer:first-of-type { margin-top: 16px; border-top: 1px solid #d2d2d2; }
+.summary__drawer { border-bottom: 1px solid var(--bb-rule-strong); }
+.summary__drawer:first-of-type { margin-top: 16px; border-top: 1px solid var(--bb-rule-strong); }
 .summary__drawer > summary {
   display: flex;
   align-items: center;
@@ -356,20 +356,20 @@
   border: 1px solid var(--bb-ink);
   border-right: 0;
   border-radius: 0;
-  background: #fff;
+  background: var(--bb-paper);
   color: var(--bb-ink);
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
 }
-.code-form__input::placeholder { color: rgba(29, 28, 27, .45); text-transform: none; }
+.code-form__input::placeholder { color: var(--bb-ink); opacity: .45; text-transform: none; }
 .code-form__input:focus { outline: none; box-shadow: inset 0 0 0 1px var(--bb-ink); }
 .code-form__input[aria-invalid="true"] { border-color: var(--bb-sale); box-shadow: inset 0 0 0 1px var(--bb-sale); }
 .code-form__btn { min-height: 50px; padding: 0 22px; font-size: 15px; }
 .code-form__msg { grid-column: 1 / -1; margin-top: 8px; font-size: 12px; font-weight: 500; line-height: 16px; }
 .code-form__msg:empty { display: none; }
-.code-form__msg.is-error { color: var(--bb-sale); }
-.code-form__msg.is-success { color: #2f8f46; }
+.code-form__msg.is-error { color: var(--bb-sale-text); }
+.code-form__msg.is-success { color: var(--bb-success-text); }
 
 .summary__checkout { gap: 10px; }
 .summary__checkout .icon,
@@ -385,7 +385,7 @@
   opacity: .7;
 }
 .summary__or::before,
-.summary__or::after { content: ""; flex: 1; height: 1px; background: #cfcfcf; }
+.summary__or::after { content: ""; flex: 1; height: 1px; background: var(--bb-rule-strong); }
 
 /* Apple Pay then PayPal, stacked, the same width and height as Checkout Securely */
 .express { display: grid; gap: 10px; }
@@ -465,8 +465,8 @@
   text-transform: uppercase;
   transition: background-color .2s, color .2s, border-color .2s;
 }
-.card__add:hover { background: var(--bb-ink); color: #fff; }
-.card__add.is-added { border-color: #2f8f46; background: #2f8f46; color: #fff; }
+.card__add:hover { background: var(--bb-ink); color: var(--bb-paper); }
+.card__add.is-added { border-color: var(--bb-success); background: var(--bb-success); color: #fff; }
 
 /* ---------- Mobile checkout bar ---------- */
 .checkout-bar { display: none; }
@@ -481,7 +481,7 @@
   padding: 0;
   overflow-y: auto;
   border: 0;
-  background: #fff;
+  background: var(--bb-paper);
   color: var(--bb-ink);
   box-shadow: 0 -10px 30px rgba(0, 0, 0, .25);
 }
@@ -531,7 +531,7 @@ html:has(.express-dialog[open]) { overflow: hidden; }
   max-width: calc(100% - 32px);
   padding: 12px 14px 12px 20px;
   background: var(--bb-ink);
-  color: #fff;
+  color: var(--bb-paper);
   box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
   transform: translateX(-50%);
   animation: toast-in .25s var(--ease-out);
@@ -603,7 +603,7 @@ html:has(.express-dialog[open]) { overflow: hidden; }
     gap: 16px;
     padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--bb-rule);
-    background: #fff;
+    background: var(--bb-paper);
     box-shadow: 0 -8px 20px -12px rgba(0, 0, 0, .3);
     transform: translateY(110%);
     transition: transform .25s var(--ease-out);
@@ -613,7 +613,7 @@ html:has(.express-dialog[open]) { overflow: hidden; }
   .checkout-bar__total { display: grid; font-size: 11px; line-height: 14px; }
   .checkout-bar__amounts { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 8px; }
   .checkout-bar__total strong { font-size: 18px; font-weight: 800; line-height: 22px; }
-  .checkout-bar__saving { color: var(--bb-sale); font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .checkout-bar__saving { color: var(--bb-sale-text); font-size: 12px; font-weight: 700; white-space: nowrap; }
   .checkout-bar__saving[hidden] { display: none; }
   .checkout-bar__btn { gap: 8px; min-height: 46px; padding: 0 26px; font-size: 16px; }
   .toast { bottom: 84px; }
@@ -624,3 +624,10 @@ html:has(.express-dialog[open]) { overflow: hidden; }
 @media (max-width: 399.98px) {
   .cart-line { grid-template-columns: 84px auto minmax(0, 1fr) auto; column-gap: 12px; }
 }
+
+/* ==========================================================================
+   Dark theme: colours here that don't come from the theme tokens in styles.css
+   ========================================================================== */
+/* Apple's guidance: a white Apple Pay button on dark backgrounds */
+[data-theme="dark"] .express__btn--apple { background: #fff; color: #000; }
+[data-theme="dark"] .express__btn--apple:hover { background: #e0e0e0; }

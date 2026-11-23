@@ -5,15 +5,30 @@
    ========================================================================== */
 
 :root {
+  color-scheme: light;
+
   /* XD document library colours */
-  --bb-ink: #1d1c1b;          /* Top Header & Body Text Grey */
+  --bb-ink: #1d1c1b;          /* Top Header & Body Text Grey: text, ink rules and dark buttons */
   --bb-menu: #2b2b2b;         /* Menu Links Grey */
   --bb-blue: #367db0;         /* Feature Colour Blue */
   --bb-yellow: #f1c30f;       /* Feature Colour Yellow */
   --bb-block: #f6f6f6;        /* Block Backing Light Grey */
-  --bb-sale: #d53333;
+  --bb-sale: #d53333;         /* sale badges and other red fills */
   --bb-button-light: #e0e0e0;
   --bb-rule: #e6e6e6;
+
+  /* Theme colours. Most of the colours above and below switch in the dark theme; these don't:
+     --bb-black, --bb-band, --bb-blue, --bb-yellow, --bb-sale and --bb-success. */
+  --bb-paper: #fff;                  /* page, header, menus, drawers and inputs */
+  --bb-black: #1d1c1b;               /* text on yellow and on white inputs, in both themes */
+  --bb-band: #1d1c1b;                /* footer, newsletter and other dark blocks, in both themes */
+  --bb-button-light-hover: #d0d0d0;
+  --bb-rule-strong: #d2d2d2;         /* secondary rule on grey */
+  --bb-muted: #6b6b6b;               /* secondary text */
+  --bb-sale-text: #d53333;           /* sale prices, savings and error text */
+  --bb-success: #2f8f46;             /* green fills (free delivery reached, Added) */
+  --bb-success-text: #2f8f46;
+  --bb-notice: #fdf6d9;              /* notice backing, with a 4px yellow left border */
 
   --font-body: "Montserrat", "Helvetica Neue", Arial, sans-serif;
   --font-display: "Karla", "Montserrat", "Helvetica Neue", Arial, sans-serif;
@@ -25,17 +40,44 @@
   --ease-out: cubic-bezier(.22, .61, .36, 1);
 }
 
+/* ---------- Dark theme ----------
+   html[data-theme] is set before the page draws by the inline script in <head>: the visitor's
+   choice from the footer switch (kept in localStorage as bb-theme), or the system setting when
+   they've chosen Match System. Product photos keep their white backgrounds. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bb-ink: #edebe7;
+  --bb-menu: #d4d1cc;
+  --bb-block: #1f1e1c;
+  --bb-button-light: #33312e;
+  --bb-button-light-hover: #403e3b;
+  --bb-rule: #33312e;
+  --bb-rule-strong: #4a4845;
+  --bb-muted: #a5a29d;
+  --bb-paper: #121110;
+  --bb-sale-text: #ff7070;
+  --bb-success-text: #5fc27a;
+  --bb-notice: #2b2716;
+}
+/* The black logo artwork turns white */
+[data-theme="dark"] .site-logo img { filter: invert(1); }
+/* Stop every colour animating at once when the theme changes */
+.theme-changing *,
+.theme-changing *::before,
+.theme-changing *::after { transition: none !important; }
+
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
+  background: var(--bb-paper);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  background: #fff;
+  background: var(--bb-paper);
   color: var(--bb-ink);
   font-family: var(--font-body);
   font-size: 14px;
@@ -71,7 +113,7 @@ input { font: inherit; }
   z-index: 1000;
   padding: 10px 16px;
   background: var(--bb-ink);
-  color: #fff;
+  color: var(--bb-paper);
   font-weight: 700;
   transition: top .15s;
 }
@@ -102,10 +144,10 @@ input { font: inherit; }
   white-space: nowrap;
   transition: background-color .2s, color .2s;
 }
-.btn--dark { background: var(--bb-ink); color: #fff; }
-.btn--dark:hover { background: var(--bb-button-light); color: #000; }
+.btn--dark { background: var(--bb-ink); color: var(--bb-paper); }
+.btn--dark:hover { background: var(--bb-button-light); color: var(--bb-ink); }
 .btn--light { background: var(--bb-button-light); color: var(--bb-ink); }
-.btn--light:hover { background: #d0d0d0; }
+.btn--light:hover { background: var(--bb-button-light-hover); }
 .btn--yellow { background: var(--bb-yellow); color: #000; text-transform: uppercase; }
 .btn--yellow:hover { background: #dcb00a; }
 .btn--wide { min-width: 215px; padding: 0 16px; }
@@ -122,7 +164,7 @@ input { font: inherit; }
 }
 
 .price { white-space: nowrap; }
-.price--sale { color: var(--bb-sale); }
+.price--sale { color: var(--bb-sale-text); }
 .price--was { margin-left: 3px; text-decoration: line-through; }
 
 /* ==========================================================================
@@ -132,7 +174,7 @@ input { font: inherit; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #fff;
+  background: var(--bb-paper);
   transition: box-shadow .2s;
 }
 .site-header.is-stuck { box-shadow: 0 8px 18px -14px rgba(0, 0, 0, .45); }
@@ -203,7 +245,7 @@ input { font: inherit; }
   min-width: 190px;
   padding: 8px 0;
   border: 1px solid var(--bb-rule);
-  background: #fff;
+  background: var(--bb-paper);
   box-shadow: 0 12px 30px rgba(0, 0, 0, .14);
   opacity: 0;
   visibility: hidden;
@@ -308,7 +350,7 @@ input { font: inherit; }
   right: 0;
   left: 0;
   z-index: 3;
-  background: #fff;
+  background: var(--bb-paper);
   box-shadow: 0 22px 30px -22px rgba(0, 0, 0, .35);
   opacity: 0;
   visibility: hidden;
@@ -414,7 +456,7 @@ input { font: inherit; }
   height: 26px;
   padding: 0 12px;
   background: var(--bb-ink);
-  color: #fff;
+  color: var(--bb-paper);
   font-size: 11px;
   font-weight: 700;
   line-height: 1;
@@ -450,7 +492,7 @@ input { font: inherit; }
 .studio-reviews {
   margin-top: 14px;
   padding: 24px 25px 22px;
-  background: var(--bb-ink);
+  background: var(--bb-band);
   color: #fff;
   font-size: 12px;
   line-height: 16px;
@@ -494,7 +536,7 @@ input { font: inherit; }
   display: flex;
   flex-direction: column;
   width: min(400px, 100%);
-  background: #fff;
+  background: var(--bb-paper);
   visibility: hidden;
   transform: translateX(-100%);
   transition: transform .32s var(--ease-out), visibility 0s linear .32s;
@@ -546,7 +588,7 @@ input { font: inherit; }
 .instore-panel__signup {
   margin-top: auto;
   padding: 26px 30px 30px;
-  background: var(--bb-ink);
+  background: var(--bb-band);
   color: #fff;
 }
 .instore-panel .nav-signup { margin: 0; padding: 0; border: 0; }
@@ -566,7 +608,7 @@ input { font: inherit; }
   border: 0;
   border-radius: 0;
   background: #fff;
-  color: var(--bb-ink);
+  color: var(--bb-black);
   font-size: 16px; /* 16px stops iOS zooming in on focus */
 }
 .nav-signup__input::placeholder { color: #a8a8a8; font-size: 12px; }
@@ -610,7 +652,7 @@ input { font: inherit; }
   right: 0;
   left: 0;
   z-index: 2;
-  background: #fff;
+  background: var(--bb-paper);
   box-shadow: 0 14px 22px -16px rgba(0, 0, 0, .35);
   opacity: 0;
   visibility: hidden;
@@ -859,7 +901,7 @@ input { font: inherit; }
   margin-top: 40px;
   padding: 51px 16px;
   overflow: hidden;
-  background: var(--bb-ink);
+  background: var(--bb-band);
 }
 .newsletter__bg,
 .newsletter__bg img {
@@ -905,7 +947,7 @@ input { font: inherit; }
   border: 0;
   border-radius: 0;
   background: #fff;
-  color: var(--bb-ink);
+  color: var(--bb-black);
   font-size: 14px;
   font-weight: 500;
 }
@@ -926,7 +968,7 @@ input { font: inherit; }
    ========================================================================== */
 .site-footer {
   padding: 30px 20px 70px;
-  background: var(--bb-ink);
+  background: var(--bb-band);
   color: #fff;
 }
 
@@ -969,6 +1011,55 @@ input { font: inherit; }
 }
 .site-footer__social a:hover { opacity: 1; }
 
+/* Theme switch: Match System / Light / Dark. The footer stays dark in both themes.
+   Hidden without JavaScript, which saves and applies the choice (js/main.js). */
+.theme-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 16px;
+  margin-top: 26px;
+}
+.no-js .theme-switch { display: none; }
+.theme-switch__label {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .75;
+}
+.theme-switch__options { display: flex; }
+.theme-switch__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, .3);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.theme-switch__btn + .theme-switch__btn { margin-left: -1px; }
+.theme-switch__btn .icon { width: 15px; height: 15px; }
+.theme-switch__btn:hover { position: relative; border-color: #fff; }
+.theme-switch__btn[aria-pressed="true"] {
+  position: relative;
+  border-color: #fff;
+  background: #fff;
+  color: var(--bb-black);
+  font-weight: 700;
+}
+.theme-switch__btn:focus-visible { position: relative; z-index: 1; }
+@media (max-width: 479.98px) {
+  .theme-switch__label { flex-basis: 100%; text-align: center; }
+}
+
 .site-footer__copy {
   margin-top: 24px;
   font-size: 11px;
@@ -1007,7 +1098,7 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   display: flex;
   flex-direction: column;
   width: min(400px, 100%);
-  background: #fff;
+  background: var(--bb-paper);
   visibility: hidden;
   transform: translateX(100%);
   transition: transform .32s var(--ease-out), visibility 0s linear .32s;
@@ -1146,7 +1237,7 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   gap: 10px;
   padding: 16px 30px 30px;
   border-top: 1px solid var(--bb-rule);
-  background: #fff;
+  background: var(--bb-paper);
 }
 .cart-subtotal {
   display: flex;
@@ -1235,7 +1326,7 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     width: min(420px, calc(100% - 48px));
     overflow-y: auto;
     overscroll-behavior: contain;
-    background: #fff;
+    background: var(--bb-paper);
     visibility: hidden;
     transform: translateX(-100%);
     transition: transform .32s var(--ease-out), visibility 0s linear .32s;
@@ -1278,7 +1369,7 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     position: relative;
     min-height: 58px;
     padding: 0 12px;
-    background: #fff;
+    background: var(--bb-paper);
     color: var(--bb-ink);
     font-size: 14px;
     font-weight: 700;
@@ -1286,7 +1377,7 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     white-space: nowrap;
   }
   .menu-mode__btn:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .menu-mode__btn[aria-pressed="true"] { background: var(--bb-ink); color: #fff; text-decoration: none; }
+  .menu-mode__btn[aria-pressed="true"] { background: var(--bb-ink); color: var(--bb-paper); text-decoration: none; }
   .menu-mode__btn[aria-pressed="true"]::after {
     content: "";
     position: absolute;
@@ -1419,7 +1510,7 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     display: grid;
     margin-top: auto;
     padding: 18px 20px 24px;
-    background: var(--bb-ink);
+    background: var(--bb-band);
     color: #fff;
   }
   .site-nav__foot a { font-size: 13px; font-weight: 500; line-height: 36px; }
@@ -1427,7 +1518,7 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
     margin-bottom: 8px;
     padding: 0 14px;
     background: var(--bb-yellow);
-    color: var(--bb-ink);
+    color: var(--bb-black);
     font-weight: 800 !important;
     letter-spacing: .12em;
     text-transform: uppercase;

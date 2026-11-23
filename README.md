@@ -42,6 +42,7 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 - **Below 600px:** banners switch to the square `_480` crops.
 - **Product rows:** they scroll sideways, with arrows on desktop and swiping on touch screens.
 - **Menus, footer and product cards:** they use the live site's URLs. Product names and prices were taken from the live site on 17 Sept 2026.
+- **Light and dark themes:** a Match System / Light / Dark switch at the bottom of every shop page. See [Light and dark themes](#light-and-dark-themes).
 
 ## Online / In-store menu
 
@@ -77,6 +78,23 @@ The yellow Loyalty button has gone from the header (as asked in the Word documen
 On phones it's an accordion in the burger menu. `loyalty/index.html` has no shop menu, so it has a small Key Pages dropdown in its header instead. Between 1180px and 1300px wide the category text drops to 11px so the extra item fits.
 
 It's there so the pages are easy to show in meetings. **Remove it before any of these pages go live** (search for `KEY PAGES` / `mega-key-pages` and the `keys` block in `loyalty/index.html`).
+
+## Light and dark themes
+
+The six shop pages (homepage, cart, taxon, product, style gallery and New In) have a light and a dark theme. The switch is at the bottom of every page, under the social icons in the footer: **Match System** (the default), **Light** and **Dark**.
+
+- **Match System** follows the device's light/dark setting, and changes straight away if that setting changes while the page is open.
+- **Light** or **Dark** is remembered in the browser (`localStorage`, key `bb-theme`) and applies on every page and in other open tabs. Choosing Match System clears it.
+- A small script in each page's `<head>` sets `data-theme="light"` or `"dark"` on `<html>` before the page draws, so the wrong theme never flashes up. The switch itself is in `js/main.js`. Without JavaScript the pages stay light and the switch is hidden.
+
+How the colours work:
+- The colours are variables at the top of `css/styles.css`, with the dark values in one block under them (`:root[data-theme="dark"]`). Most of them switch: `--bb-ink` (text, ink rules and dark buttons) becomes off-white and the new `--bb-paper` (page, header, menus, drawers and inputs) becomes near-black. So dark buttons turn light in the dark theme, with dark text.
+- These stay the same in both themes: `--bb-band` (the footer, newsletter, New In hero and other dark blocks), `--bb-black` (text on yellow and on white inputs), the yellow, the blue, and the red and green used as fills. Red and green text use `--bb-sale-text` and `--bb-success-text`, which are lighter in the dark theme.
+- Product photos keep their white backgrounds. In the dark theme the header logo turns white, brand logos on the product page sit on a white tile (they're made for white backgrounds, some in colour), and the cart's Apple Pay button turns white, as Apple recommends on dark backgrounds.
+- Each page stylesheet ends with a short "Dark theme" block for the few colours that aren't variables (review greys, scrollbars and similar).
+- **When adding styles:** use the variables (`--bb-paper` for backgrounds, `--bb-ink` for text) instead of `#fff` and `#000`, and check new blocks in both themes.
+
+Not themed: the loyalty pages (Inner Circle and the name concepts) have their own stylesheets and campaign colours, so they stay as designed and don't have the switch.
 
 ## Before this goes live
 

@@ -16,6 +16,51 @@
   let lastPointerType = 'mouse';
   document.addEventListener('pointerdown', (e) => { lastPointerType = e.pointerType; }, true);
 
+  /* ---------- Colour theme: Match System, Light or Dark (the switch in the footer) ----------
+     The inline script in <head> sets html[data-theme] before the page draws. This keeps it up to
+     date: it saves the choice (localStorage bb-theme; Match System clears it), follows the system
+     setting while Match System is chosen, and updates other open tabs. */
+  const THEME_KEY = 'bb-theme';
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const themeButtons = $$('[data-theme-choice]');
+  const savedTheme = () => {
+    try {
+      const value = localStorage.getItem(THEME_KEY);
+      return value === 'light' || value === 'dark' ? value : 'system';
+    } catch (e) { return 'system'; }
+  };
+  let themeChoice = savedTheme();
+
+  function applyTheme() {
+    const root = document.documentElement;
+    const theme = themeChoice === 'system' ? (systemDark.matches ? 'dark' : 'light') : themeChoice;
+    if (root.dataset.theme !== theme) {
+      // Swap every colour in one go instead of letting each hover transition fade
+      root.classList.add('theme-changing');
+      root.dataset.theme = theme;
+      window.requestAnimationFrame(() => window.requestAnimationFrame(() => root.classList.remove('theme-changing')));
+    }
+    themeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === themeChoice)));
+  }
+
+  themeButtons.forEach((b) => b.addEventListener('click', () => {
+    themeChoice = b.dataset.themeChoice;
+    try {
+      if (themeChoice === 'system') localStorage.removeItem(THEME_KEY);
+      else localStorage.setItem(THEME_KEY, themeChoice);
+    } catch (e) { /* storage blocked: the choice applies to this page only */ }
+    applyTheme();
+  }));
+  const onSystemTheme = () => { if (themeChoice === 'system') applyTheme(); };
+  if (systemDark.addEventListener) systemDark.addEventListener('change', onSystemTheme);
+  else if (systemDark.addListener) systemDark.addListener(onSystemTheme);
+  window.addEventListener('storage', (e) => {
+    if (e.key !== THEME_KEY && e.key !== null) return;
+    themeChoice = savedTheme();
+    applyTheme();
+  });
+  applyTheme();
+
   /* ---------- Shared helpers ---------- */
   let lockCount = 0;
   function lockScroll() {

@@ -8,7 +8,6 @@
 :root {
   --gallery-w: 1240px;
   --gallery-pad: 20px;
-  --bb-notice: #fdf6d9;       /* notice background, with a yellow left border */
 }
 @media (min-width: 768px) {
   :root { --gallery-pad: 40px; }
@@ -196,7 +195,7 @@
   aspect-ratio: 4 / 5;
   padding: 14px;
   overflow: hidden;
-  background: var(--bb-ink);
+  background: var(--bb-band);
   color: #fff;
   transition: background-color .2s;
 }
@@ -218,7 +217,7 @@
   width: 38px;
   height: 37px;
   background: var(--bb-yellow);
-  color: var(--bb-ink);
+  color: var(--bb-black);
   transition: background-color .2s;
 }
 .reel__play .icon { width: 14px; height: 14px; }
@@ -249,7 +248,7 @@
    Brand Profiles: the banner, then one button per brand in the gallery
    ========================================================================== */
 .brands { margin-top: 70px; }
-.brands__banner { display: block; overflow: hidden; background: var(--bb-ink); }
+.brands__banner { display: block; overflow: hidden; background: var(--bb-band); }
 .brands__banner img { width: 100%; transition: opacity .2s; }
 .brands__banner:hover img { opacity: .88; }
 
@@ -272,8 +271,8 @@
   white-space: nowrap;
   transition: background-color .2s, color .2s;
 }
-.pill:hover { background: var(--bb-ink); color: #fff; }
-.pill--dark { background: var(--bb-ink); color: #fff; }
+.pill:hover { background: var(--bb-ink); color: var(--bb-paper); }
+.pill--dark { background: var(--bb-ink); color: var(--bb-paper); }
 .pill--dark:hover { background: var(--bb-button-light); color: var(--bb-ink); }
 
 /* ==========================================================================
@@ -362,7 +361,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   width: min(1040px, 100% - 60px);
   max-height: calc(100% - 60px);
-  background: #fff;
+  background: var(--bb-paper);
   box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .5);
   opacity: 0;
   visibility: hidden;
@@ -384,7 +383,7 @@
   z-index: 3;
   width: 50px;
   height: 50px;
-  background: #fff;
+  background: var(--bb-paper);
 }
 .look-panel__close:hover { background: var(--bb-block); }
 
@@ -556,3 +555,10 @@
   .style-tile__media img,
   .feature__banner img { transition: none; }
 }
+
+/* ==========================================================================
+   Dark theme: colours here that don't come from the theme tokens in styles.css
+   ========================================================================== */
+/* The video cards would match the dark grey row, so lift them a step */
+[data-theme="dark"] .reel__link { background: var(--bb-button-light); }
+[data-theme="dark"] .reel__link:hover { background: var(--bb-button-light-hover); }
