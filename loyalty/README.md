@@ -91,6 +91,15 @@ Second changes doc (23 Nov 2026) also added: the three in-store hero photos as a
 without the "Already a member" line, the yellow badge saying Free To Join / 50 Bonus Points, and
 the Find A Store block between the join section and the FAQs.
 
+Third changes doc (23 Nov 2026): How It Works moved up to sit straight under the hero, and an
+"Unlock Member Exclusive Offers" newsletter block (the homepage newsletter design) added above the
+yellow Member Piercing Offer band. It explains that member-exclusive offers, free items and early
+access are sent by email, so members need to be on the mailing list. The form uses the site's
+shared newsletter check and hands off to `/en_GB/form/mailing-list-signup`, like the homepage.
+
+Page order now: hero, How It Works, the three tiles, Everything In Store Counts, newsletter, Member
+Piercing Offer, Member Benefits, the phone card, Get In / How To Join, Find A Store, FAQs.
+
 **Find A Store hand-off:** the preview rebuilds the live site's postcode lookup with Leaflet,
 OpenStreetMap map tiles (greyed to match) and postcodes.io for the postcode lookup (the visitor's postcode is
 sent to postcodes.io). The 18 stores were copied from `/en_GB/ajax/locations` on 23 Nov 2026. On

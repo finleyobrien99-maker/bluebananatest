@@ -24,6 +24,20 @@ p{margin:0}
 .top{border-bottom:1px solid var(--rule)}
 .top__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0}
 .top img{width:190px}
+.top__right{display:flex;align-items:center;gap:20px}
+.keys{position:relative}
+.keys summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;min-height:40px;padding:0 14px;background:var(--ink);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.keys summary::-webkit-details-marker{display:none}
+.keys summary::after{content:"";width:7px;height:7px;margin-left:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.keys[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.keys__panel{position:absolute;right:0;top:calc(100% + 6px);z-index:10;width:260px;padding:16px 20px 18px;background:#fff;border:1px solid var(--rule);box-shadow:0 22px 30px -22px rgba(0,0,0,.35)}
+.keys__head{margin:10px 0 4px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--ink)}
+.keys__head:first-child{margin-top:0}
+.keys ul{list-style:none;margin:0;padding:0}
+.keys a{display:block;font-size:13px;line-height:30px;text-decoration:none}
+.keys a:hover{text-decoration:underline}
+.keys a[aria-current]{font-weight:700}
+@media(max-width:600px){.top__right>span{display:none}}
 .top span{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .intro{padding:64px 0 40px;max-width:60ch}
 .intro h1{font-family:"Karla",var(--sans);font-weight:800;font-size:clamp(34px,6vw,54px);letter-spacing:-.03em;text-transform:uppercase;margin:0 0 16px;line-height:1.02}
@@ -66,7 +80,32 @@ p{margin:0}
 <header class="top">
   <div class="wrap top__inner">
     <a href="../" aria-label="Blue Banana home"><img src="assets/blue-banana-logo.png" alt="Blue Banana" width="190" height="16"></a>
-    <span>Loyalty scheme concepts</span>
+    <div class="top__right">
+      <span>Loyalty scheme concepts</span>
+      <!-- Key Pages (preview only): same links as the Key Pages menu on the other pages -->
+      <details class="keys">
+        <summary>Key Pages</summary>
+        <div class="keys__panel">
+          <p class="keys__head">Shop Pages</p>
+          <ul>
+        <li><a href="../index.html">Homepage</a></li>
+        <li><a href="../new-in.html">New In</a></li>
+        <li><a href="../taxon.html">Category Page (Clothing)</a></li>
+        <li><a href="../product.html">Product Page</a></li>
+        <li><a href="../cart.html">Cart Page</a></li>
+        <li><a href="../style-inspo.html">Style Gallery</a></li>
+          </ul>
+          <p class="keys__head">Loyalty Pages</p>
+          <ul>
+        <li><a href="inner-circle.html">Inner Circle Landing Page</a></li>
+        <li><a href="index.html" aria-current="page">Loyalty Name Concepts</a></li>
+        <li><a href="the-coven.html">The Coven (Concept)</a></li>
+        <li><a href="the-collective.html">The Collective (Concept)</a></li>
+        <li><a href="the-inner-circle.html">Inner Circle (Early Concept)</a></li>
+          </ul>
+        </div>
+      </details>
+    </div>
   </div>
 </header>
 

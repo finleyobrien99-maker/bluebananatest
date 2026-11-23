@@ -1190,6 +1190,11 @@ html.is-locked body { padding-right: var(--scrollbar-w, 0px); }
   .site-nav__link { font-size: 12px; }
   .instore-btn { gap: 6px; padding: 0 10px; font-size: 10px; letter-spacing: .03em; }
 }
+/* With Key Pages in the bar, the smallest desktops need slightly smaller category text */
+@media (min-width: 1180px) and (max-width: 1299.98px) {
+  .site-nav { column-gap: 16px; }
+  .site-nav__link { font-size: 11px; }
+}
 
 /* ==========================================================================
    Tablet & mobile: burger header + slide-in accordion nav

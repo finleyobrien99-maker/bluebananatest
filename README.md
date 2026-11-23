@@ -67,10 +67,21 @@ Changes from the XD:
 
 The yellow Loyalty button has gone from the header (as asked in the Word document). Loyalty Scheme is now a link at the bottom of the footer's Online Order Help column, on every page with the homepage footer. The yellow Loyalty Scheme button in the mobile menu is still there. Both open the Inner Circle sign-up page (`loyalty/inner-circle.html`); the three name concepts are still at `loyalty/`.
 
+## Key Pages menu (preview only)
+
+"Key Pages" is the last item in the top menu on every page with the shop header (homepage, cart, taxon, product, style gallery, New In, and the four loyalty pages). It's a dropdown like the others, with every page type in the project:
+
+- **Shop Pages:** Homepage, New In, Category Page (Clothing), Product Page, Cart Page, Style Gallery
+- **Loyalty Pages:** Inner Circle Landing Page, Loyalty Name Concepts, The Coven (Concept), The Collective (Concept), Inner Circle (Early Concept)
+
+On phones it's an accordion in the burger menu. `loyalty/index.html` has no shop menu, so it has a small Key Pages dropdown in its header instead. Between 1180px and 1300px wide the category text drops to 11px so the extra item fits.
+
+It's there so the pages are easy to show in meetings. **Remove it before any of these pages go live** (search for `KEY PAGES` / `mega-key-pages` and the `keys` block in `loyalty/index.html`).
+
 ## Before this goes live
 
 1. **Cart drawer:** it runs on demo data (`DEMO_CART` / `DEMO_UPSELL` in `js/main.js`) and needs connecting to the basket API. "Checkout" points at `/en_GB/checkout/`, the Sylius default, so confirm that URL.
-2. **Newsletter forms:** the homepage block and the menu's "Stay In The Loop" sign-up both check the email address, then send people to `/en_GB/form/mailing-list-signup`. The menu form also needs its opt-in box ticked; it's sent as `marketing_consent`. Both need connecting to the real mailing-list service.
+2. **Newsletter forms:** the homepage block, the Inner Circle page's "Unlock Member Exclusive Offers" block, the desktop In-Store panel's sign-up and the menu's "Stay In The Loop" sign-up all check the email address, then send people to `/en_GB/form/mailing-list-signup`. The menu form also needs its opt-in box ticked; it's sent as `marketing_consent`. Both need connecting to the real mailing-list service.
 3. **Piercing Studio Reviews:** the figures (4.96 average, 71,282 reviews, 18 studios) are copied from the XD. They appear in the mobile In-store menu and the desktop In-Store panel, so they need to come from the studios' review source. The block doesn't link anywhere yet. Point it at a reviews page if there is one.
 4. **Get Pierced links:** six of them have no page on the live site yet. They're marked `data-todo-url` in Get Pierced and point at the closest existing page for now:
    - Inserting & Changing Jewellery

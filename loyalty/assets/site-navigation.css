@@ -714,6 +714,10 @@ html.no-js .site-header .instore-btn { display: none; }
   .site-header .site-nav__link { font-size: 12px; }
   .site-header .instore-btn { gap: 6px; padding: 0 10px; font-size: 10px; letter-spacing: .03em; }
 }
+@media (min-width: 1180px) and (max-width: 1299.98px) {
+  .site-header .site-nav { column-gap: 16px; }
+  .site-header .site-nav__link { font-size: 11px; }
+}
 @media (max-width: 1179.98px) {
   html.js:not(.menu-instore) .site-header [data-menu-panel="instore"],
   html.menu-instore .site-header [data-menu-panel="online"] { display: none !important; }

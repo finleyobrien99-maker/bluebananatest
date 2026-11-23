@@ -193,6 +193,24 @@ h1,h2,h3{margin:0}
 .site-footer .collapse-btn{display:none}
 .icon{width:1em;height:1em;fill:currentColor}
 
+/* ---------- Newsletter (same block as the homepage) ---------- */
+.newsletter{position:relative;display:grid;place-items:center;min-height:400px;padding:51px 16px;overflow:hidden;background:var(--bb-ink)}
+.newsletter__bg,.newsletter__bg img{position:absolute;inset:0;width:100%;height:100%}
+.newsletter__bg img{object-fit:cover}
+.newsletter__box{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:min(861px,100%);min-height:298px;padding:36px 40px;background:rgba(0,0,0,.7);color:#fff;text-align:center}
+.newsletter__eyebrow{color:var(--bb-yellow);margin-bottom:8px}
+.newsletter__text{max-width:602px;margin-top:15px;font-size:14px;line-height:20px}
+.newsletter__form{display:grid;grid-template-columns:repeat(2,minmax(0,340px));justify-content:center;column-gap:30px;width:100%;margin-top:30px}
+.newsletter__input{width:100%;height:50px;padding:0 18px;border:0;border-radius:0;background:#fff;color:var(--bb-ink);font:500 14px var(--font-body)}
+.newsletter__input::placeholder{color:rgba(29,28,27,.5)}
+.newsletter__input[aria-invalid="true"]{box-shadow:inset 0 0 0 2px var(--bb-error)}
+.newsletter__btn{white-space:nowrap}
+.newsletter__msg{grid-column:1 / -1;margin-top:10px;font-size:13px;font-weight:500;line-height:18px}
+.newsletter__msg:empty{margin:0}
+.newsletter__msg.is-error{color:#ffb3b3}
+.newsletter__small{margin-top:16px;font-size:12px;color:#d9d6d1}
+.newsletter__small a{color:#fff}
+
 /* ---------- Hero carousel (three in-store photos, with dots) ---------- */
 .hero__media{overflow:hidden}
 .carousel{position:absolute;inset:0}
@@ -318,6 +336,11 @@ h1,h2,h3{margin:0}
   .perks{grid-template-columns:1fr;gap:30px}
   .join{padding:36px 16px}
   .join__how{padding:24px 18px 26px}
+  .newsletter{min-height:424px;padding:28px 16px}
+  .newsletter__box{min-height:0;padding:32px 20px}
+  .newsletter__form{grid-template-columns:minmax(0,318px);row-gap:14px}
+  .newsletter__input,.newsletter__btn{height:47px;min-height:47px}
+  .newsletter__btn{padding:0 10px;font-size:16px;white-space:normal}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -1039,6 +1062,46 @@ h1,h2,h3{margin:0}
           </div>
         </div>
       </li>
+
+      <!-- KEY PAGES (preview only): quick links to every page type in this project, for showing
+           the work in meetings. Remove before any of these pages go live. -->
+      <li class="site-nav__item has-mega site-nav__item--key">
+        <a class="site-nav__link" href="../index.html">Key Pages</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-key-pages">
+          <span class="site-nav__toggle-label">Key Pages<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-key-pages">
+          <div class="mega__inner">
+            <a class="mega__all" href="../index.html">Homepage</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Shop Pages</h3>
+                <ul class="mega__links">
+                  <li><a href="../index.html">Homepage</a></li>
+                  <li><a href="../new-in.html">New In</a></li>
+                  <li><a href="../taxon.html">Category Page (Clothing)</a></li>
+                  <li><a href="../product.html">Product Page</a></li>
+                  <li><a href="../cart.html">Cart Page</a></li>
+                  <li><a href="../style-inspo.html">Style Gallery</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Loyalty Pages</h3>
+                <ul class="mega__links">
+                  <li><a href="../loyalty/inner-circle.html">Inner Circle Landing Page</a></li>
+                  <li><a href="../loyalty/index.html">Loyalty Name Concepts</a></li>
+                  <li><a href="../loyalty/the-coven.html">The Coven (Concept)</a></li>
+                  <li><a href="../loyalty/the-collective.html">The Collective (Concept)</a></li>
+                  <li><a href="../loyalty/the-inner-circle.html">Inner Circle (Early Concept)</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
     </ul>
 
     <!-- ============ IN-STORE MENU (phones and tablets) ============
@@ -1207,6 +1270,29 @@ h1,h2,h3{margin:0}
     </div>
   </section>
 
+  <section class="section section--band" aria-labelledby="steps-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 class="section-title" id="steps-title" data-reveal>How It Works</h2>
+        <p class="section-sub">Three steps, all in store.</p>
+      </div>
+      <ol class="steps">
+        <li class="step" data-reveal>
+          <h3>Join In Store</h3>
+          <p>Ask at the till in any of our 18 UK stores and save your Inner Circle card to Apple Wallet or Google Wallet. You get 50 bonus points when you sign up.</p>
+        </li>
+        <li class="step" data-reveal>
+          <h3>Collect Points</h3>
+          <p>Show your card at the till and get 1 point for every £1 you spend, on everything we sell.</p>
+        </li>
+        <li class="step" data-reveal>
+          <h3>Spend Your Points</h3>
+          <p>Every 100 points is £2 off your next in-store purchase.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- The three tiles from the artwork, with the wording from the Inner Circle changes doc -->
   <section class="tiles-section" id="benefits" aria-label="Member benefits">
     <div class="wrap tiles">
@@ -1244,26 +1330,24 @@ h1,h2,h3{margin:0}
     </div>
   </section>
 
-  <section class="section section--band" aria-labelledby="steps-title">
-    <div class="wrap">
-      <div class="section__head">
-        <h2 class="section-title" id="steps-title" data-reveal>How It Works</h2>
-        <p class="section-sub">Three steps, all in store.</p>
-      </div>
-      <ol class="steps">
-        <li class="step" data-reveal>
-          <h3>Join In Store</h3>
-          <p>Ask at the till in any of our 18 UK stores and save your Inner Circle card to Apple Wallet or Google Wallet. You get 50 bonus points when you sign up.</p>
-        </li>
-        <li class="step" data-reveal>
-          <h3>Collect Points</h3>
-          <p>Show your card at the till and get 1 point for every £1 you spend, on everything we sell.</p>
-        </li>
-        <li class="step" data-reveal>
-          <h3>Spend Your Points</h3>
-          <p>Every 100 points is £2 off your next in-store purchase.</p>
-        </li>
-      </ol>
+  <!-- Mailing list: member-exclusive offers are sent by email, so members need to be signed up.
+       Same block as the homepage newsletter. Hand-off: point the form at the real mailing-list endpoint. -->
+  <section class="newsletter" aria-labelledby="newsletter-title">
+    <picture class="newsletter__bg">
+      <source media="(max-width: 640px)" srcset="../images/newsletter/newsletter-bg-640.jpg" width="640" height="640">
+      <img src="../images/newsletter/newsletter-bg-1920.jpg" width="1920" height="623" alt="" loading="lazy" decoding="async">
+    </picture>
+    <div class="newsletter__box">
+      <p class="eyebrow newsletter__eyebrow">Inner Circle Members</p>
+      <h2 class="section-title newsletter__title" id="newsletter-title" data-reveal>Unlock Member Exclusive Offers</h2>
+      <p class="newsletter__text">Member exclusive offers, free items and early access are sent by email, so you'll need to be on our mailing list to see them. Sign up with the same email address you give us when you join Inner Circle in store.</p>
+      <form class="newsletter__form" action="https://www.bluebanana.com/en_GB/form/mailing-list-signup" method="post" novalidate data-newsletter>
+        <label class="sr-only" for="newsletter-email">Email address</label>
+        <input class="newsletter__input" id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+        <button class="btn btn--yellow newsletter__btn" type="submit">Sign Up To Our Newsletter</button>
+        <p class="newsletter__msg" role="status" aria-live="polite" data-newsletter-msg></p>
+      </form>
+      <p class="newsletter__small">You can unsubscribe at any time. See our <a href="https://www.bluebanana.com/en_GB/privacy-policy">Privacy Policy</a>.</p>
     </div>
   </section>
 
