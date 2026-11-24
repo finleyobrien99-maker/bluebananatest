@@ -69,10 +69,7 @@ The yellow Loyalty button has gone from the header (as asked in the Word documen
 
 ## Key Pages menu (preview only)
 
-"Key Pages" is the last item in the top menu on every page with the shop header (homepage, cart, taxon, product, style gallery, New In, and the four loyalty pages). It's a dropdown like the others, with every page type in the project:
-
-- **Shop Pages:** Homepage, New In, Category Page (Clothing), Product Page, Cart Page, Style Gallery
-- **Loyalty Pages:** Inner Circle Landing Page, Loyalty Name Concepts, The Coven (Concept), The Collective (Concept), Inner Circle (Early Concept)
+"Key Pages" is the last item in the top menu on every page with the shop header (homepage, cart, taxon, product, style gallery, New In, and the four loyalty pages). It's a dropdown like the others, with one list of the key page types: Homepage, New In, Category Page (Clothing), Product Page, Cart Page, Style Gallery and Inner Circle Landing Page. (The earlier loyalty name concepts are left out; they're still at `loyalty/`.)
 
 On phones it's an accordion in the burger menu. `loyalty/index.html` has no shop menu, so it has a small Key Pages dropdown in its header instead. Between 1180px and 1300px wide the category text drops to 11px so the extra item fits.
 
