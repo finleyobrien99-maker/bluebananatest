@@ -151,31 +151,7 @@
     });
   }
 
-  /* ---------- Shared: footer accordion (same markup and classes as the shop) ---------- */
-  let collapseId = 0;
-  $$('.footer-col').forEach((group) => {
-    const heading = $('.footer-col__heading', group);
-    const body = $('.footer-col__links', group);
-    if (!heading || !body) return;
-    if (!body.id) body.id = 'collapse-' + (++collapseId);
-    const text = heading.textContent.trim();
-    const label = document.createElement('span');
-    label.className = 'collapse-label';
-    label.textContent = text;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'collapse-btn';
-    button.setAttribute('aria-expanded', 'false');
-    button.setAttribute('aria-controls', body.id);
-    button.innerHTML = '<span></span><svg class="icon collapse-btn__icon" aria-hidden="true"><use href="#i-chevron"></use></svg>';
-    button.firstElementChild.textContent = text;
-    heading.replaceChildren(label, button);
-    button.addEventListener('click', () => {
-      const open = !group.classList.contains('is-expanded');
-      group.classList.toggle('is-expanded', open);
-      button.setAttribute('aria-expanded', String(open));
-    });
-  });
+  /* Footer accordion, header, menus and search come from ../js/main.js, as on the shop pages. */
 
   /* ---------- Shared: on phones, scroll the piercing menu so Book Online is in view ---------- */
   const subnav = $('.bk-subnav ul');

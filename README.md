@@ -110,7 +110,9 @@ The colour variables it relies on (`--bb-paper` for backgrounds, `--bb-ink` for 
 
 ## Online Piercing Booking (`booking/`)
 
-A prototype of the updated "Online Piercing Booking" app (the one at piercing.bluebanana.com today). It follows the "Blue Banana Mobile Booking Redesign" canvas for the steps, layout and behaviour, and the shop's colours, type and square corners. It runs on its own, like the real app, with a slim header (Back To Shop, logo, My Visits), the piercing menu from the current app, and the shop footer.
+A prototype of the updated "Online Piercing Booking" app (the one at piercing.bluebanana.com today). It follows the "Blue Banana Mobile Booking Redesign" canvas for the steps, layout and behaviour, and the shop's colours, type and square corners. So customers feel they haven't left the website, the booking pages use the shop's own header (copied from `cart.html`, with its mega menus, burger menu, In-Store panel and search, run by `js/main.js`), with the piercing menu from the current app (Visits, My Data, Book Online, and so on) underneath, and the shop footer. The page is white, with boxed blocks on the light grey `#f6f6f6`, like the cart page.
+
+If the shop header changes, copy the new one into the booking pages too, with paths starting `../`.
 
 Every "Book Online" link now opens it: the Get Pierced mega menu promo, the In-store menu and In-Store panel banners on every page, the Inner Circle "Book A Piercing" button, and the Inner Circle store finder's "Book Now" links (which preselect that studio with `?store=<code>`). The product page's "Book a Consultation" link opens it with Consultation picked (`?visit=consult`). It's also in the Key Pages menu.
 
@@ -138,7 +140,7 @@ How it behaves:
 2. **Studios:** the 18 studios and their map positions come from the Inner Circle store finder. Connect them to the studio list the booking app uses.
 3. **Address lookup:** Find fills the postcode only. Connect the UK address lookup the current app uses.
 4. **Payment:** Confirm & Pay goes straight to the confirmation page. No payment is taken. Connect the payment provider, then show the confirmation after payment.
-5. **Sign-in and My Visits:** the prototype doesn't sign anyone in. Visits, My Data and My Visits point at the current app (`data-todo-url`). Prefill Your Details for signed-in customers.
+5. **Sign-in and Visits:** the prototype doesn't sign anyone in. Visits and My Data point at the current app (`data-todo-url`). Prefill Your Details for signed-in customers.
 6. **Terms:** the first 15 paragraphs match the current form; the rest needs carrying over.
 7. **Deposit:** £5.00 a booking (£4.17 + £0.83 VAT), as on the current form. Confirm it's one deposit per booking, not per piercing.
 8. **Remove the demo button** ("Fill In A Demo Booking", `fillDemo` in `booking.js`) and the `noindex` tag on each booking page.

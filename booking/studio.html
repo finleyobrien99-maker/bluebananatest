@@ -14,30 +14,909 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@800&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="assets/booking.css">
-  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <script>document.documentElement.classList.replace('no-js', 'js');try{if(sessionStorage.getItem('bb-menu-mode')==='instore')document.documentElement.classList.add('menu-instore')}catch(e){}</script>
+  <!-- The shop's own script runs the header: mega menus, burger menu, In-Store panel, search and footer accordion -->
+  <script src="../js/main.js" defer></script>
   <script src="assets/booking.js" defer></script>
 </head>
 <body class="bk" data-step="2">
 
+<!-- ======================= SHOP HEADER =======================
+     Copied from cart.html so the booking feels like part of the website (same header,
+     menus and In-Store panel, run by ../js/main.js). Keep it in step with the shop pages. -->
+<!-- Icon sprite. Search, user, bag and star glyphs:
+     Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com
+     License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc. -->
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-search" viewBox="64 64 512 512"><path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z"/></symbol>
+  <symbol id="i-user" viewBox="112 72 416 504"><path d="M320 312C386.3 312 440 258.3 440 192C440 125.7 386.3 72 320 72C253.7 72 200 125.7 200 192C200 258.3 253.7 312 320 312zM290.3 368C191.8 368 112 447.8 112 546.3C112 562.7 125.3 576 141.7 576L498.3 576C514.7 576 528 562.7 528 546.3C528 447.8 448.2 368 349.7 368L290.3 368z"/></symbol>
+  <symbol id="i-bag" viewBox="96 32 448 512"><path d="M256 144C256 108.7 284.7 80 320 80C355.3 80 384 108.7 384 144L384 192L256 192L256 144zM208 192L144 192C117.5 192 96 213.5 96 240L96 448C96 501 139 544 192 544L448 544C501 544 544 501 544 448L544 240C544 213.5 522.5 192 496 192L432 192L432 144C432 82.1 381.9 32 320 32C258.1 32 208 82.1 208 144L208 192zM232 240C245.3 240 256 250.7 256 264C256 277.3 245.3 288 232 288C218.7 288 208 277.3 208 264C208 250.7 218.7 240 232 240zM384 264C384 250.7 394.7 240 408 240C421.3 240 432 250.7 432 264C432 277.3 421.3 288 408 288C394.7 288 384 277.3 384 264z"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
   <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M8.5 4.5 16 12l-7.5 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-burger" viewBox="0 0 27 23"><path d="M2 2.5h23M2 11.5h23M2 20.5h23" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="i-star" viewBox="44 30 554 532"><path d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"/></symbol>
+  <symbol id="i-shop" viewBox="48 96 544 448"><path d="M53.5 245.1L110.3 131.4C121.2 109.7 143.3 96 167.6 96L472.5 96C496.7 96 518.9 109.7 529.7 131.4L586.5 245.1C590.1 252.3 592 260.2 592 268.3C592 295.6 570.8 318 544 319.9L544 512C544 529.7 529.7 544 512 544C494.3 544 480 529.7 480 512L480 320L384 320L384 496C384 522.5 362.5 544 336 544L144 544C117.5 544 96 522.5 96 496L96 319.9C69.2 318 48 295.6 48 268.3C48 260.3 49.9 252.3 53.5 245.1zM160 320L160 432C160 440.8 167.2 448 176 448L304 448C312.8 448 320 440.8 320 432L320 320L160 320z"/></symbol>
+  <!-- Cart page icons -->
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 5.5h12v10H2zM14 9h4.2l3.3 3.6v2.9H14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="6" cy="17.5" r="2" fill="#fff" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="17.5" r="2" fill="#fff" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 3h8.5L21 12.5 12.5 21 3 11.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="7.6" cy="7.6" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><path d="M3.5 8.5h17v4h-17zM5 12.5h14V21H5zM12 8.5V21M12 8.5C10 4 6.5 4 6.5 6.3S10 8.5 12 8.5zM12 8.5c2-4.5 5.5-4.5 5.5-2.2S14 8.5 12 8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-return" viewBox="0 0 24 24"><path d="M8 4 4 8l4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.5 8H14a6 6 0 0 1 0 12H8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5 9.5 17.5 19.5 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- Booking app header. The booking runs apart from the shop, so this is a slim header:
-     back to the shop, the logo and the customer's visits, then the piercing menu
-     (the same items as the current booking app). -->
-<header class="bk-header">
-  <div class="bk-wrap bk-header__bar">
-    <a class="bk-header__link" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg><span>Back To Shop</span></a>
-    <a class="bk-header__logo" href="../index.html"><img src="../images/brand/blue-banana-logo.png" width="327" height="27" alt="Blue Banana home"></a>
-    <!-- Hand-off: My Visits goes to the signed-in customer's visits in the booking app. -->
-    <a class="bk-header__link bk-header__link--right" href="https://piercing.bluebanana.com/" data-todo-url><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.2 4.1-6.5 8-6.5s7 2.3 8 6.5"/></svg><span>My Visits</span></a>
+<!-- ============================== HEADER ============================== -->
+<header class="site-header" id="site-header">
+  <div class="site-header__bar">
+    <div class="site-header__left">
+      <button class="icon-btn nav-open" type="button" aria-controls="site-nav" aria-expanded="false" data-nav-open>
+        <svg class="icon icon--burger" aria-hidden="true"><use href="#i-burger"></use></svg>
+        <span class="sr-only">Open menu</span>
+      </button>
+      <a class="header-link header-link--account" href="https://www.bluebanana.com/en_GB/login">
+        <svg class="icon icon--user" aria-hidden="true"><use href="#i-user"></use></svg>
+        <span class="header-link__label">Sign In</span>
+      </a>
+      <div class="locale" data-dropdown>
+        <button class="header-link locale__btn" type="button" aria-expanded="false" aria-controls="locale-menu" data-dropdown-toggle>
+          <span class="sr-only">Change country and currency. Current: </span>GB/£
+        </button>
+        <ul class="locale__menu" id="locale-menu" data-dropdown-menu>
+          <li><a href="https://www.bluebanana.com/en_GB/" aria-current="true">English (UK) &middot; £</a></li>
+          <li><a href="https://www.bluebanana.com/en_US/">English (US)</a></li>
+          <li><a href="https://www.bluebanana.com/fr_FR/" lang="fr">Français</a></li>
+          <li><a href="https://www.bluebanana.com/de_DE/" lang="de">Deutsch</a></li>
+          <li><a href="https://www.bluebanana.com/it_IT/" lang="it">Italiano</a></li>
+          <li><a href="https://www.bluebanana.com/es_ES/" lang="es">Español</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <a class="site-logo" href="https://www.bluebanana.com/en_GB/">
+      <img src="../images/brand/blue-banana-logo.png" width="327" height="27" alt="Blue Banana">
+    </a>
+
+    <div class="site-header__right">
+      <button class="header-link header-link--search" type="button" aria-controls="site-search" aria-expanded="false" data-search-toggle>
+        <svg class="icon icon--search" aria-hidden="true"><use href="#i-search"></use></svg>
+        <span class="header-link__label">Search</span>
+      </button>
+      <!-- On the booking pages the bag is a plain link to the cart page; there is no drawer. -->
+      <a class="header-link header-link--bag" href="../cart.html" aria-label="Cart">
+        <svg class="icon icon--bag" aria-hidden="true"><use href="#i-bag"></use></svg>
+        <span class="bag-count" data-cart-count aria-hidden="true" hidden>0</span>
+      </a>
+    </div>
   </div>
-  <nav class="bk-subnav" aria-label="Piercing">
-    <div class="bk-wrap">
-      <ul>
+
+  <div class="nav-backdrop" data-nav-close></div>
+
+  <!-- One nav for every screen size: a hover mega menu on desktop, a slide-in accordion on mobile. -->
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+    <div class="site-nav__head">
+      <a class="site-nav__account" href="https://www.bluebanana.com/en_GB/login">
+        <svg class="icon icon--user" aria-hidden="true"><use href="#i-user"></use></svg>
+        <span>Login</span>
+      </a>
+      <button class="icon-btn" type="button" data-nav-close>
+        <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"></use></svg>
+        <span class="sr-only">Close menu</span>
+      </button>
+    </div>
+
+    <!-- Online / In-store tabs (phones and tablets): swap the whole menu between the shop and the
+         piercing studios (iPhone 14 Pro Max – 7 / 8). The choice lasts for the visit (sessionStorage). -->
+    <div class="menu-mode" role="group" aria-label="Choose a menu">
+      <button class="menu-mode__btn" type="button" aria-pressed="true" aria-controls="menu-online" data-menu-mode="online">Online</button>
+      <button class="menu-mode__btn" type="button" aria-pressed="false" aria-controls="menu-instore" data-menu-mode="instore">In-store</button>
+    </div>
+
+    <!-- Desktop: opens the In-Store side panel (after the header) -->
+    <button class="instore-btn" type="button" aria-haspopup="dialog" aria-controls="instore-panel" aria-expanded="false" data-instore-open>
+      <svg class="icon icon--shop" aria-hidden="true"><use href="#i-shop"></use></svg>
+      <span>In-Store Services</span>
+    </button>
+
+    <!-- ============ ONLINE MENU ============ -->
+    <ul class="site-nav__list" id="menu-online" data-menu-panel="online">
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="../new-in.html">New In</a>
+      </li>
+
+      <!-- CLOTHING -->
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="../taxon.html">Clothing</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-clothing">
+          <span class="site-nav__toggle-label">Clothing<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-clothing">
+          <div class="mega__inner">
+            <a class="mega__all" href="../taxon.html">Shop All Clothing</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Clothing</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-dresses">Dresses</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-hoodies">Hoodies &amp; Sweatshirts</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/coats-jackets">Jackets &amp; Coats</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-trousers">Jeans &amp; Trousers</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/jumpers-cardigans">Jumpers &amp; Cardigans</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/pinafores-and-dungarees">Pinafores &amp; Dungarees</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-shirts-tops">Shirts &amp; Tops</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-skirts-shorts">Skirts</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-t-shirts">T Shirts &amp; Vests</a></li>
+                  <li><a class="mega__more" href="../taxon.html">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Brands</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/banned-clothing">Banned</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/bleeding-heart-clothing">Bleeding Heart</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/blue-banana-clothing">Blue Banana</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/cupcake-cult">Cupcake Cult</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/heartless-clothing">Heartless</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/hell-bunny">Hell Bunny</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/innocent">Innocent</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/jawbreaker">Jawbreaker</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/poizen-industries">Poizen Industries</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/the-ragged-priest-alternative-clothing-brands">The Ragged Priest</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/vixxsin-clothing">Vixxsin</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/brands-a-z">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Dresses</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-dresses">Gothic Dresses</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-prom-dresses">Prom Dresses</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/vintage-dresses">Vintage Dresses</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/alternative-dresses">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Shop By Style</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/winter-fashion">Autumn &amp; Winter</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-clothing">Gothic</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/kawaii-fashion">Kawaii</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/spring-summer-fashion">Spring &amp; Summer</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/steampunk-clothing">Steampunk</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/tartan-collection">Tartan</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/pop-culture-merchandise">TV &amp; Movie Merch</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/vintage-clothing">Vintage</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/witchy-clothing">Witchy</a></li>
+                  <li><a class="mega__more" href="../taxon.html">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">T Shirts</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/2-for-ps35-t-shirts">2 For £35 Band T Shirts</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-t-shirts">Band</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/geek-t-shirts">Geek</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/horror-tshirts">Horror</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/retro-t-shirts">Retro</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/skinny-t-shirts">Skinny</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/alternative-t-shirts">View All</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- FOOTWEAR -->
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/section/alternative-footwear">Footwear</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-footwear">
+          <span class="site-nav__toggle-label">Footwear<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-footwear">
+          <div class="mega__inner">
+            <a class="mega__all" href="https://www.bluebanana.com/en_GB/section/alternative-footwear">Shop All Footwear</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Brands</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/bleeding-heart-clothing?attributes%5Battribute_product_type%5D%5B%5D=d5bd6ae4_2a35_11ee_9498_0242c0a8c009&amp;attributes%5Battribute_product_type%5D%5B%5D=d5bd5284_2a35_11ee_99be_0242c0a8c009">Bleeding Heart</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/buffalo">Buffalo</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/dr-martens">Dr Martens</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/new-rock">New Rock</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/alternative-footwear">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Bleeding Heart</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/bleeding-heart-clothing?attributes%5Battribute_footwear_type%5D%5B%5D=03e098c8_2a37_11ee_9f0b_0242c0a8c008&amp;order_by_sort=product_created_at-desc">Boots</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/bleeding-heart-clothing?attributes%5Battribute_footwear_type%5D%5B%5D=03e07e6a_2a37_11ee_9354_0242c0a8c008&amp;order_by_sort=product_created_at-desc">Shoes</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/bleeding-heart-clothing?attributes%5Battribute_product_type%5D%5B%5D=d5bd6ae4_2a35_11ee_9498_0242c0a8c009&amp;attributes%5Battribute_product_type%5D%5B%5D=d5bd5284_2a35_11ee_99be_0242c0a8c009">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Buffalo</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/buffalo?attributes%5Battribute_footwear_type%5D%5B%5D=03e04616_2a37_11ee_a490_0242c0a8c008">Boots</a></li>
+                  <!-- The live menu's Buffalo > Shoes link points at Bleeding Heart; this filters Buffalo instead. -->
+                  <li><a href="https://www.bluebanana.com/en_GB/section/buffalo?attributes%5Battribute_footwear_type%5D%5B%5D=03e07e6a_2a37_11ee_9354_0242c0a8c008">Shoes</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/buffalo">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Dr Martens</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/dr-martens?attributes%5Battribute_footwear_type%5D%5B%5D=03e04616_2a37_11ee_a490_0242c0a8c008&amp;attributes%5Battribute_footwear_type%5D%5B%5D=03e098c8_2a37_11ee_9f0b_0242c0a8c008">Boots</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/dr-martens?attributes%5Battribute_footwear_type%5D%5B%5D=3ac34780_2acf_11ee_b3c7_0242c0a8c009&amp;attributes%5Battribute_footwear_type%5D%5B%5D=03e07e6a_2a37_11ee_9354_0242c0a8c008">Shoes</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/dr-martens">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">New Rock</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/new-rock?attributes%5Battribute_footwear_type%5D%5B%5D=03e063bc_2a37_11ee_bc49_0242c0a8c008&amp;attributes%5Battribute_footwear_type%5D%5B%5D=03e098c8_2a37_11ee_9f0b_0242c0a8c008">Boots</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/new-rock?attributes%5Battribute_footwear_type%5D%5B%5D=03e07e6a_2a37_11ee_9354_0242c0a8c008">Shoes</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/new-rock">View All</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- GIFTS & ACCESSORIES -->
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/section/alternative-gifts">Gifts &amp; Accessories</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-gifts">
+          <span class="site-nav__toggle-label">Gifts &amp; Accessories<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-gifts">
+          <div class="mega__inner">
+            <a class="mega__all" href="https://www.bluebanana.com/en_GB/section/alternative-gifts">Shop All Gifts &amp; Accessories</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Accessories</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/hats-caps-beanies">Beanies &amp; Hats</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/belts-and-harnesses">Belts &amp; Harnesses</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/chokers">Chokers</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-hair-accessories">Gothic Hair Accessories</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-handbags">Handbags</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/pin-badges-brooches">Pin Badges</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-purses">Purses &amp; Wallets</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-tights-socks">Tights &amp; Socks</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/alternative-accessories">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Bags</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/bags-and-backpacks">Backpacks</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-handbags">Handbags</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-purses">Purses</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/school-backpacks">School Bags</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/bags-and-backpacks">View All</a></li>
+                </ul>
+              </div>
+              <div class="mega__group">
+                <h3 class="mega__heading">Band Merch</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-gifts">Accessories</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-hoodies">Hoodies</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-tankards">Tankards</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-t-shirts">T Shirts</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/official-band-merch">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Gift Ranges</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/halloween-store-uk">Halloween Store</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-gifts">Band Merch Gifts</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/fantasy-gothic-gifts">Fantasy Gifts</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-gifts">Gothic Gifts</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-hair-accessories">Gothic Hair Accessories</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/blue-banana-gift-cards">Piercing &amp; In-Store Voucher</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/pop-culture-merchandise">Pop Culture Gifts</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/stocking-fillers">Stocking Fillers</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/alternative-gifts">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Homeware</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/home-accessories">Gothic Ornaments</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/gothic-cat-figurines">Gothic Cat Figurines</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/novelty-mugs">Mugs &amp; Tankards</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/nemesis-now-gifts">Nemesis Now</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/skull-ornaments">Skull Ornaments</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/home-accessories">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Jewellery</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alchemy-gothic">Alchemy Gothic</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alchemy-earrings">Earrings &amp; Ear Wraps</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alchemy-necklaces-pendants">Necklaces &amp; Pendants</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/pin-badges-brooches">Pins &amp; Brooches</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/alternative-jewellery">View All</a></li>
+                </ul>
+              </div>
+              <div class="mega__group">
+                <h3 class="mega__heading">TV &amp; Movie</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/corpse-bride">Corpse Bride</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/nightmare-before-christmas-merchandise">Nightmare Before Xmas</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/stranger-things-merchandise">Stranger Things</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/wednesday">Wednesday</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/pop-culture-merchandise">View All</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- BAND MERCH -->
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/section/official-band-merch">Band Merch</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-band">
+          <span class="site-nav__toggle-label">Band Merch<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-band">
+          <div class="mega__inner">
+            <a class="mega__all" href="https://www.bluebanana.com/en_GB/section/official-band-merch">Shop All Band Merch</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Band Merch</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-gifts">Band Accessories</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-hoodies">Band Hoodies</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-t-shirts">Band T Shirts</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/official-band-merch">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Featured Bands</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-merch?attributes%5Battribute_band%5D%5B%5D=c94f2d00_0154_11ef_b17e_0242c0a80006&amp;order_by_sort=sold_units-desc">Bad Omens</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-merch?attributes%5Battribute_band%5D%5B%5D=iron_maiden&amp;order_by_sort=sold_units-desc">Iron Maiden</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-merch?attributes%5Battribute_band%5D%5B%5D=metallica&amp;order_by_sort=sold_units-desc">Metallica</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-merch?attributes%5Battribute_band%5D%5B%5D=ec53f98a_d700_11ee_971e_0242ac140007&amp;order_by_sort=sold_units-desc">Sleep Token</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/official-band-merch?attributes%5Battribute_band%5D%5B%5D=slipknot&amp;order_by_sort=sold_units-desc">Slipknot</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/bands-a-z">Bands A-Z</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos">
+              <a class="mega-promo" href="https://www.bluebanana.com/en_GB/section/official-band-t-shirts">
+                <img src="../images/menu/menu-band-t-shirts.jpg" width="195" height="267" alt="" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Band T Shirts</span>
+              </a>
+              <a class="mega-promo" href="https://www.bluebanana.com/en_GB/section/official-band-hoodies">
+                <img src="../images/menu/menu-band-hoodies.jpg" width="195" height="267" alt="" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Band Hoodies</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- HAIR DYE -->
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/section/hair-dye">Hair Dye</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-hair">
+          <span class="site-nav__toggle-label">Hair Dye<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-hair">
+          <div class="mega__inner">
+            <a class="mega__all" href="https://www.bluebanana.com/en_GB/section/hair-dye">Shop All Hair Dye</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Colours</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/black-hair-dye">Black</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/blue-hair-dye">Blue</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/brown-hair-colour">Brown</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/green-hair-dye">Green</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/orange-hair-dye">Orange</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/pink-hair-dye">Pink</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/purple-hair-dye">Purple</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/red-hair-dye">Red</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/silver-hair-dye">Silver</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/white-hair-dye">White</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/yellow-hair-dye">Yellow</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/hair-dye-colours">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Brands</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/crazy-color-hair-dye">Crazy Color</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/la-riche-directions-hair-dye">La Riche Directions</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/manic-panic">Manic Panic</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/stargazer-makeup">Stargazer</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/hair-dye-brands">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Accessories</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/hair-dye-accessories?attributes%5Battribute_hair_product%5D%5B%5D=951aa3cc_b432_11ed_bb59_0242ac140006">Bleach</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/hair-dye-accessories?attributes%5Battribute_hair_product%5D%5B%5D=951aec60_b432_11ed_bc24_0242ac140006&amp;attributes%5Battribute_hair_product%5D%5B%5D=951b5678_b432_11ed_a31b_0242ac140006">Brushes &amp; Bowls</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/hair-dye-accessories?attributes%5Battribute_hair_product%5D%5B%5D=951b8120_b432_11ed_af19_0242ac140006">Hair Extensions</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/hair-dye-accessories?attributes%5Battribute_hair_product%5D%5B%5D=951acdf2_b432_11ed_8561_0242ac140006&amp;attributes%5Battribute_hair_product%5D%5B%5D=951add6a_b432_11ed_a6d4_0242ac140006">Shampoo &amp; Conditioner</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/hair-dye-accessories?attributes%5Battribute_hair_product%5D%5B%5D=951b6744_b432_11ed_ae5f_0242ac140006">Toners</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/hair-dye-accessories">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos">
+              <a class="mega-promo" href="https://www.bluebanana.com/en_GB/section/hair-dye">
+                <img src="../images/menu/menu-hair-dye-multibuy.jpg" width="195" height="267" alt="Hair dye multibuy madness: add 2 or more and save" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Shop Offer</span>
+              </a>
+              <a class="mega-promo" href="https://www.bluebanana.com/en_GB/section/sale">
+                <img src="../images/menu/menu-hair-dye-clearance.jpg" width="195" height="267" alt="Hair dye clearance: singles from £1.99, 4 packs from £6.99" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Shop Clearance</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- PIERCING JEWELLERY -->
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/section/body-jewellery">Piercing Jewellery</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-piercing">
+          <span class="site-nav__toggle-label">Piercing Jewellery<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-piercing">
+          <div class="mega__inner">
+            <a class="mega__all" href="https://www.bluebanana.com/en_GB/section/body-jewellery">Shop All Piercing Jewellery</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Piercing Types</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/piercing-aftercare">Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/ear-piercing-jewellery">Ear</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/facial-piercing-jewellery">Face</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/genital-piercing-jewellery">Intimate</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/lip-piercing-jewellery">Lip</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/navel-piercing-jewellery">Navel</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/nipple-piercing-jewellery">Nipple</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/nose-piercing-jewellery">Nose</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/oral-piercing-jewellery">Oral</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/surface-piercing-jewellery">Surface</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/piercing-types-glossary">Piercings A-Z</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Jewellery Styles</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=bd72aa8e_b394_11ed_b2c0_0242ac140006">Add Ons</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/piercing-aftercare">Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=1736cb46_b394_11ed_aa87_0242ac140006&amp;attributes%5Battribute_jewellery_type%5D%5B%5D=fbaac192_b394_11ed_8b21_0242ac140006">Barbells</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=1736be8a_b394_11ed_985f_0242ac140006">Circular Bars</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=17370cb4_b394_11ed_a067_0242ac140006&amp;attributes%5Battribute_jewellery_type%5D%5B%5D=1737192a_b394_11ed_832c_0242ac140006">Earrings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=17370052_b394_11ed_9e88_0242ac140006">Hangers</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=bd72549e_b394_11ed_8b80_0242ac140006">Labrets</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=1736b17e_b394_11ed_beac_0242ac140006&amp;attributes%5Battribute_jewellery_type%5D%5B%5D=bd723928_b394_11ed_9f18_0242ac140006">Rings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=bd72b880_b394_11ed_87aa_0242ac140006&amp;attributes%5Battribute_jewellery_type%5D%5B%5D=fbaad0d8_b394_11ed_ac47_0242ac140006">Stretchers &amp; Plugs</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_type%5D%5B%5D=1737192a_b394_11ed_832c_0242ac140006&amp;attributes%5Battribute_jewellery_type%5D%5B%5D=bd729c92_b394_11ed_95a6_0242ac140006">Studs</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_threading%5D%5B%5D=40980db2_25cd_11f0_8e0d_0242ac120008">Threadless</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/body-jewellery">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Shop By Material</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/section/piercing-aftercare">Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_material%5D%5B%5D=91d0a6f8_b428_11ed_ba6c_0242ac140006">Acrylic</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_material%5D%5B%5D=91d1130e_b428_11ed_8393_0242ac140006">Plasma Gold</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_material%5D%5B%5D=6f9152cc_c7f6_11ed_90d2_0242ac1a0007&amp;attributes%5Battribute_jewellery_material%5D%5B%5D=85d61f06_c7e0_11ed_96f0_0242ac1a0005">Real Gold</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_material%5D%5B%5D=91d0dcd6_b428_11ed_87e1_0242ac140006">Surgical Steel</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_material%5D%5B%5D=55c69410_b8ec_11ed_bb3e_0242ac140005&amp;attributes%5Battribute_jewellery_material%5D%5B%5D=91d0c3c2_b428_11ed_9425_0242ac140006">Titanium</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/body-jewellery?attributes%5Battribute_jewellery_material%5D%5B%5D=91d0e992_b428_11ed_a4de_0242ac140006">Wood</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/section/body-jewellery">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos">
+              <a class="mega-promo" href="https://www.bluebanana.com/en_GB/section/bogof-piercing-sale">
+                <img src="../images/menu/menu-piercing-bogof.jpg" width="195" height="267" alt="Body jewellery: buy 1 get 1 free, get the cheapest item free" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Shop Offer</span>
+              </a>
+              <a class="mega-promo" href="https://www.bluebanana.com/en_GB/section/piercing-aftercare">
+                <img src="../images/menu/menu-pro-pierce-aftercare.jpg" width="195" height="267" alt="Pro Pierce Ultimate piercing aftercare" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Piercing Aftercare</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="site-nav__item">
+        <a class="site-nav__link site-nav__link--sale" href="https://www.bluebanana.com/en_GB/cms/alternative-fashion-sale">Sale</a>
+      </li>
+
+      <!-- STYLE GALLERY -->
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="../style-inspo.html">Style Gallery</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-style">
+          <span class="site-nav__toggle-label">Style Gallery<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-style">
+          <div class="mega__inner">
+            <a class="mega__all" href="../style-inspo.html">Explore The Style Gallery</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Browse By Aesthetic</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/style-inspo/band-merch-styling">Band Merch</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/style-inspo/alt-festival-outfits">Festival</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/style-inspo/gothic-outfit-ideas">Gothic</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery">Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/style-inspo/pop-culture-styling-ideas">Pop Culture</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/style-inspo/vintage-outfit-ideas">Vintage</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/style-inspo/witchy-outfit-ideas">Witchy</a></li>
+                  <li><a class="mega__more" href="../style-inspo.html">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Browse By Brand</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/official-band-merchandise">Band Merch</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/banned">Banned</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/bleeding-heart">Bleeding Heart</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/blue-banana">Blue Banana</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/blue-banana-piercing">Blue Banana Piercing</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/dr-martens">Dr Martens</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/heartless">Heartless</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/hell-bunny">Hell Bunny</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/jawbreaker">Jawbreaker</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/killstar">Killstar</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/new-rocks">New Rock</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/profile/the-ragged-priest">The Ragged Priest</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/profiles">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Our Style Guides</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/blogs/fancy-dress-cosplay">Cosplay Style</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/blogs/festival-fashion">Festival Style</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/blogs/goth-witchy-fashion">Gothic Style</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/blogs/piercing-jewellery">Piercing Style</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/blogs/vintage-fashion">Vintage Style</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/alternative-fashion-styled-by-blue-banana">Styled By Blue Banana</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/blogs/styling-inspiration">View All</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- GET PIERCED
+           Links marked data-todo-url have no matching page on the live site yet;
+           they point at the closest existing page until the real URL exists. -->
+      <li class="site-nav__item has-mega">
+        <a class="site-nav__link" href="https://www.bluebanana.com/en_GB/cms/blue-banana-piercing">Get Pierced</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-pierced">
+          <span class="site-nav__toggle-label">Get Pierced<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-pierced">
+          <div class="mega__inner">
+            <a class="mega__all" href="https://www.bluebanana.com/en_GB/cms/blue-banana-piercing">About Blue Banana Piercing</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Piercing Information</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information">Age Restrictions</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/cms/first-piercings">First Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information" data-todo-url>Inserting &amp; Changing Jewellery</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information" data-todo-url>Jewellery Size Guides</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/blog/which-piercings-hurt-the-most-or-least">Pain Guide</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/section/piercing-aftercare" data-todo-url>Piercing Care Solution</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/piercing-migration">Piercing Migration FAQs</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information">Piercing Prices</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/piercing-rejection">Piercing Rejection</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information" data-todo-url>Re-Piercing FAQs</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information" data-todo-url>UK Piercing Laws</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/blue-banana-piercing">Find Out More</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Aftercare</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/piercing-aftercare-guides">Aftercare Guide</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/ear-piercing-aftercare">Ear Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/genital-piercing-aftercare">Genital Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/microdermal-piercing-aftercare">Microdermal Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/nose-piercing-aftercare">Nose Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/oral-piercing-aftercare">Oral Piercing Aftercare</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/surface-piercing-aftercare">Surface Piercing Aftercare</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/piercing-aftercare-cms">View All</a></li>
+                </ul>
+              </div>
+              <div class="mega__group">
+                <h3 class="mega__heading">Medi-Daith Information</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/about-the-london-migraine-clinic">About LMC</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/about-migraines">About Migraines</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/about-the-study">About The Study</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/medi-daith-for-migraine-headaches-at-blue-banana" data-todo-url>Existing Migraine Research</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores">Find A Studio</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/an-introduction-to-medi-daiths">Intro To Medi-Daiths</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/medi-daith-piercing-faqs">Medi-Daith Piercing FAQs</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/cms/medi-daith-cms">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Studio Locations</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/birmingham">Birmingham</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/bristol">Bristol</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/cardiff">Cardiff</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/coventry">Coventry</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/exeter">Exeter</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/leeds">Leeds</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/leicester">Leicester</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/liverpool">Liverpool</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/manchester">Manchester</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/newport">Newport</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/nottingham">Nottingham</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/plymouth">Plymouth</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/reading">Reading</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/sheffield">Sheffield</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/stoke">Stoke-on-Trent</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/swansea">Swansea</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/swindon">Swindon</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/stores/wolverhampton">Wolverhampton</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/stores">Studio Locator</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">Piercing Gallery</h3>
+                <ul class="mega__links">
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/add-on-piercing-styling-ideas">Add-On Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/body-piercing-styling-ideas">Body Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/ear-piercing-styling-ideas">Ear Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/gold-piercing-styling-ideas">Gold Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/lab-diamonds-piercing-styling-ideas">Lab Diamond Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/mouth-lip-piercing-styling-ideas">Lip/Mouth Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/nose-piercing-styling-ideas">Nose Piercings</a></li>
+                  <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery/threadless-piercing-styling-ideas">Threadless Piercings</a></li>
+                  <li><a class="mega__more" href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery">View All</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega__promos mega__promos--single">
+              <a class="mega-promo" href="../booking/index.html">
+                <img src="../images/menu/menu-piercing-booking.jpg" width="195" height="267" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+                <span class="mega-promo__label">Book Online</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- KEY PAGES (preview only): quick links to every page type in this project, for showing
+           the work in meetings. Remove before any of these pages go live. -->
+      <li class="site-nav__item has-mega site-nav__item--key">
+        <a class="site-nav__link" href="../index.html">Key Pages</a>
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mega-key-pages">
+          <span class="site-nav__toggle-label">Key Pages<span class="sr-only"> menu</span></span>
+          <svg class="icon icon--chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <div class="mega" id="mega-key-pages">
+          <div class="mega__inner">
+            <a class="mega__all" href="../index.html">Homepage</a>
+            <div class="mega__col">
+              <div class="mega__group">
+                <h3 class="mega__heading">All Key Pages</h3>
+                <ul class="mega__links">
+                  <li><a href="../index.html">Homepage</a></li>
+                  <li><a href="../new-in.html">New In</a></li>
+                  <li><a href="../taxon.html">Category Page (Clothing)</a></li>
+                  <li><a href="../product.html">Product Page</a></li>
+                  <li><a href="../cart.html">Cart Page</a></li>
+                  <li><a href="../style-inspo.html">Style Gallery</a></li>
+                  <li><a href="../loyalty/inner-circle.html">Inner Circle Landing Page</a></li>
+                  <li><a href="../booking/index.html">Piercing Booking</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- ============ IN-STORE MENU (phones and tablets) ============
+         Plain links, then the booking banner and the studio reviews (iPhone 14 Pro Max – 8).
+         Desktop shows the same content in the In-Store side panel. -->
+    <ul class="site-nav__list site-nav__list--instore" id="menu-instore" data-menu-panel="instore">
+      <li class="site-nav__item"><a class="site-nav__link" href="https://www.bluebanana.com/en_GB/body-piercing-information">Piercing Info</a></li>
+      <li class="site-nav__item"><a class="site-nav__link" href="https://www.bluebanana.com/en_GB/stores">Store Locator</a></li>
+      <li class="site-nav__item"><a class="site-nav__link" href="https://www.bluebanana.com/en_GB/cms/piercing-aftercare-cms">Aftercare Info</a></li>
+      <li class="site-nav__item"><a class="site-nav__link" href="https://www.bluebanana.com/en_GB/cms/medi-daith-cms">Medi-Daith Info</a></li>
+      <li class="site-nav__item"><a class="site-nav__link" href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery">Piercing Gallery</a></li>
+    </ul>
+
+    <!-- Phones and tablets only (iPhone 14 Pro Max – 8) -->
+    <div class="instore-extras" data-menu-panel="instore">
+      <a class="instore-promo" href="../booking/index.html">
+        <img src="../images/menu/menu-piercing-booking-wide.jpg" width="340" height="180" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+        <span class="instore-promo__label">Book Online</span>
+      </a>
+      <a class="instore-promo" href="../loyalty/inner-circle.html">
+        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 1 point per £1 spent, 10% off piercing jewellery, free to join in store" loading="lazy" decoding="async">
+        <span class="instore-promo__label">Join Inner Circle</span>
+      </a>
+      <div class="studio-reviews">
+        <p class="studio-reviews__title">Piercing Studio Reviews</p>
+        <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
+        <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
+      </div>
+    </div>
+
+    <div class="site-nav__foot">
+      <!-- Hand-off: point this form at the real mailing-list endpoint, as with the newsletter block. -->
+      <form class="nav-signup" action="https://www.bluebanana.com/en_GB/form/mailing-list-signup" method="post" novalidate data-newsletter>
+        <p class="nav-signup__title" id="nav-signup-title">Stay In The Loop, Sign Up</p>
+        <div class="nav-signup__row">
+          <label class="sr-only" for="nav-signup-email">Email address</label>
+          <input class="nav-signup__input" id="nav-signup-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+          <button class="nav-signup__btn" type="submit">
+            <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            <span class="sr-only">Sign up</span>
+          </button>
+        </div>
+        <label class="nav-signup__consent">
+          <input type="checkbox" name="marketing_consent" value="1" required>
+          <span>Sign me up to offers &amp; updates. Opt-out at any time.</span>
+        </label>
+        <p class="nav-signup__msg" role="status" aria-live="polite" data-newsletter-msg></p>
+      </form>
+      <a class="site-nav__loyalty" href="../loyalty/inner-circle.html">Loyalty Scheme</a>
+      <a href="https://www.bluebanana.com/en_GB/login">Sign In / Register</a>
+      <a href="https://www.bluebanana.com/en_GB/tracking">Track My Order</a>
+      <a href="https://www.bluebanana.com/en_GB/stores">Find A Store &amp; Studio</a>
+      <a href="https://www.bluebanana.com/en_GB/contact-forms/contact-us">Customer Services</a>
+      <p class="site-nav__locale">Shipping to: <strong>United Kingdom (GB/£)</strong></p>
+    </div>
+  </nav>
+
+  <div class="site-search" id="site-search" data-search>
+    <form class="site-search__form" action="https://www.bluebanana.com/en_GB/search" method="get" role="search">
+      <svg class="icon icon--search" aria-hidden="true"><use href="#i-search"></use></svg>
+      <label class="sr-only" for="search-input">Search for products</label>
+      <input class="site-search__input" id="search-input" type="search" name="bitbag_elasticsearch_search[box][query]" placeholder="Search..." autocomplete="off" enterkeyhint="search">
+      <button class="icon-btn site-search__close" type="button" data-search-close>
+        <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"></use></svg>
+        <span class="sr-only">Close search</span>
+      </button>
+    </form>
+  </div>
+</header>
+
+<!-- ============================== IN-STORE SERVICES PANEL (desktop) ==============================
+     Opened by the In-Store Services button at the left of the menu bar. Same content as the
+     In-store tab of the mobile menu. -->
+<div class="panel-backdrop" data-instore-close></div>
+<aside class="instore-panel" id="instore-panel" role="dialog" aria-modal="true" aria-labelledby="instore-panel-title" inert>
+  <div class="instore-panel__head">
+    <h2 class="instore-panel__title" id="instore-panel-title">In-Store</h2>
+    <button class="icon-btn" type="button" data-instore-close>
+      <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"></use></svg>
+      <span class="sr-only">Close in-store services</span>
+    </button>
+  </div>
+  <div class="instore-panel__body">
+    <ul class="instore-panel__list">
+      <li><a href="https://www.bluebanana.com/en_GB/body-piercing-information">Piercing Info</a></li>
+      <li><a href="https://www.bluebanana.com/en_GB/stores">Store Locator</a></li>
+      <li><a href="https://www.bluebanana.com/en_GB/cms/piercing-aftercare-cms">Aftercare Info</a></li>
+      <li><a href="https://www.bluebanana.com/en_GB/cms/medi-daith-cms">Medi-Daith Info</a></li>
+      <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery">Piercing Gallery</a></li>
+    </ul>
+    <div class="instore-panel__extras">
+      <a class="instore-promo" href="../booking/index.html">
+        <img src="../images/menu/menu-piercing-booking-wide.jpg" width="340" height="180" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
+        <span class="instore-promo__label">Book Online</span>
+      </a>
+      <a class="instore-promo" href="../loyalty/inner-circle.html">
+        <img src="../images/menu/menu-loyalty-inner-circle-wide.jpg" width="340" height="180" alt="Join the Inner Circle, the Blue Banana customer loyalty scheme: 1 point per £1 spent, 10% off piercing jewellery, free to join in store" loading="lazy" decoding="async">
+        <span class="instore-promo__label">Join Inner Circle</span>
+      </a>
+      <div class="studio-reviews">
+        <p class="studio-reviews__title">Piercing Studio Reviews</p>
+        <p class="studio-reviews__rating"><span>Studio Average Rating: <strong>4.96</strong></span> <span class="stars" role="img" aria-label="Rated 4.96 out of 5"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></p>
+        <p class="studio-reviews__count"><strong>71,282</strong> Total Reviews (18 Nationwide Studios)</p>
+      </div>
+    </div>
+    <!-- Same sign-up as the mobile menu's "Stay In The Loop". Hand-off: point it at the real mailing-list endpoint. -->
+    <div class="instore-panel__signup">
+      <form class="nav-signup" action="https://www.bluebanana.com/en_GB/form/mailing-list-signup" method="post" novalidate data-newsletter>
+        <p class="nav-signup__title">Stay In The Loop, Sign Up</p>
+        <div class="nav-signup__row">
+          <label class="sr-only" for="panel-signup-email">Email address</label>
+          <input class="nav-signup__input" id="panel-signup-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+          <button class="nav-signup__btn" type="submit">
+            <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            <span class="sr-only">Sign up</span>
+          </button>
+        </div>
+        <label class="nav-signup__consent">
+          <input type="checkbox" name="marketing_consent" value="1" required>
+          <span>Sign me up to offers &amp; updates. Opt-out at any time.</span>
+        </label>
+        <p class="nav-signup__msg" role="status" aria-live="polite" data-newsletter-msg></p>
+      </form>
+    </div>
+  </div>
+</aside>
+
+<!-- Piercing menu: the booking app's own links, under the shop header -->
+<nav class="bk-subnav" aria-label="Piercing">
+  <div class="bk-wrap">
+    <ul>
         <li><a href="https://piercing.bluebanana.com/" data-todo-url>Visits</a></li>
         <li><a href="https://piercing.bluebanana.com/" data-todo-url>My Data</a></li>
         <li><a href="index.html" aria-current="page">Book Online</a></li>
@@ -46,10 +925,9 @@
         <li><a href="https://www.bluebanana.com/en_GB/cms/piercing-aftercare-cms">Aftercare Info</a></li>
         <li><a href="https://www.bluebanana.com/en_GB/cms/medi-daith-cms">Medi-Daith Info</a></li>
         <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery">Piercing Gallery</a></li>
-      </ul>
-    </div>
-  </nav>
-</header>
+    </ul>
+  </div>
+</nav>
 
 <section class="bk-progress" aria-label="Booking progress">
   <div class="bk-wrap">
