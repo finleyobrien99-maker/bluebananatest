@@ -126,7 +126,7 @@ Every "Book Online" link now opens it: the Get Pierced mega menu promo, the In-s
 | `booking/confirmed.html` | Done | Visit ID, Add To Calendar (downloads an .ics file), Get Directions, What Happens Next |
 
 How it behaves:
-- **Phones:** one column, with the Continue button in a bar stuck to the bottom of the screen. It says what's missing ("Tick the age restrictions box to continue") and, if pressed anyway, shows the errors and moves to the first one.
+- **Phones:** one column, with the Continue button at the end of each step (it doesn't stick to the screen). It says what's missing ("Tick the age restrictions box to continue") and, if pressed anyway, shows the errors and moves to the first one.
 - **1000px and wider:** a "Your Booking" summary sits on the right and fills in as you go. On step 5 that column is the deposit and pay card.
 - **Progress:** the dark band shows the step, the title and five bars; from 760px the bars have labels, and finished steps are links back.
 - **Slot hold:** your time is held for 10 minutes from step 2 (as now). Steps 3 to 5 show the countdown; at 2 minutes left screen readers hear a warning, and when it runs out a notice offers Hold It Again or Choose Another Time.

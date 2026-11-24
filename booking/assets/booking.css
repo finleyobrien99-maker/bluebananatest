@@ -386,19 +386,13 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
 .bk-back:hover { text-decoration: underline; text-underline-offset: 4px; }
 .bk-back svg { width: 18px; height: 18px; }
 
-/* Sticky action bar: pinned to the bottom of the screen on phones, inline on desktop */
+/* Action block: sits at the end of each step (not stuck to the screen), under a rule */
 .bk-actions {
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin: 0 -20px;
-  padding: 12px 20px calc(14px + env(safe-area-inset-bottom));
-  background: var(--bb-paper);
-  border-top: 1px solid var(--bb-rule);
-  box-shadow: 0 -6px 16px -10px rgba(0, 0, 0, .25);
+  padding: 20px 0 32px;
+  border-top: 1px solid var(--bb-rule-strong);
 }
 .bk-actions__summary { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 13px; }
 .bk-actions__summary span { color: var(--bk-text-2); }
@@ -694,7 +688,6 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
    ========================================================================== */
 @media (min-width: 600px) {
   .bk-wrap { padding: 0 var(--gutter); }
-  .bk-actions { margin: 0 calc(-1 * var(--gutter)); padding-left: var(--gutter); padding-right: var(--gutter); }
   .bk-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bk-slots { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .bk-progress__title { font-size: 40px; }
@@ -716,14 +709,7 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
   .bk-aside { display: block; position: sticky; top: calc(var(--bar-h) + 24px); }
   .bk-content { gap: 32px; }
   .bk-slots { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .bk-actions {
-    position: static;
-    margin: 0;
-    padding: 20px 0 0;
-    background: none;
-    border-top: 1px solid var(--bb-rule-strong);
-    box-shadow: none;
-  }
+  .bk-actions { padding-bottom: 0; }
   .bk-actions__summary { display: none; }
   .bk-actions__hint { text-align: right; }
   .bk-actions__row { justify-content: space-between; }
