@@ -17,8 +17,9 @@
   --bb-button-light: #e0e0e0;
   --bb-rule: #e6e6e6;
 
-  /* Theme colours. Most of the colours above and below switch in the dark theme; these don't:
-     --bb-black, --bb-band, --bb-blue, --bb-yellow, --bb-sale and --bb-success. */
+  /* Page colours. The site is light only; the secret dark mode below is an easter egg, not a
+     feature. These stay the same even there: --bb-black, --bb-band, --bb-blue, --bb-yellow,
+     --bb-sale and --bb-success. */
   --bb-paper: #fff;                  /* page, header, menus, drawers and inputs */
   --bb-black: #1d1c1b;               /* text on yellow and on white inputs, in both themes */
   --bb-band: #1d1c1b;                /* footer, newsletter and other dark blocks, in both themes */
@@ -40,10 +41,12 @@
   --ease-out: cubic-bezier(.22, .61, .36, 1);
 }
 
-/* ---------- Dark theme ----------
-   html[data-theme] is set before the page draws by the inline script in <head>: the visitor's
-   choice from the footer switch (kept in localStorage as bb-theme), or the system setting when
-   they've chosen Match System. Product photos keep their white backgrounds. */
+/* ---------- EASTER EGG: secret dark mode (NOT A FEATURE) ----------
+   Just us messing around. Nobody sees this unless they type up, up, down, down, left, right on
+   the arrow keys (js/main.js), which sets html[data-theme="dark"].
+   Developers: please don't build this into the live site or add a theme switch. Delete this
+   block, the [data-theme="dark"] rules at the end of the other stylesheets, the easter egg block
+   in js/main.js and the bb-theme script in each page's <head>. */
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bb-ink: #edebe7;
@@ -59,9 +62,9 @@
   --bb-success-text: #5fc27a;
   --bb-notice: #2b2716;
 }
-/* The black logo artwork turns white */
+/* Easter egg: the black logo artwork turns white */
 [data-theme="dark"] .site-logo img { filter: invert(1); }
-/* Stop every colour animating at once when the theme changes */
+/* Easter egg: stop every colour animating at once when the code switches the theme */
 .theme-changing *,
 .theme-changing *::before,
 .theme-changing *::after { transition: none !important; }
@@ -1010,55 +1013,6 @@ input { font: inherit; }
   transition: opacity .2s;
 }
 .site-footer__social a:hover { opacity: 1; }
-
-/* Theme switch: Match System / Light / Dark. The footer stays dark in both themes.
-   Hidden without JavaScript, which saves and applies the choice (js/main.js). */
-.theme-switch {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px 16px;
-  margin-top: 26px;
-}
-.no-js .theme-switch { display: none; }
-.theme-switch__label {
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 16px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  opacity: .75;
-}
-.theme-switch__options { display: flex; }
-.theme-switch__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 38px;
-  padding: 0 14px;
-  border: 1px solid rgba(255, 255, 255, .3);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 16px;
-  white-space: nowrap;
-  transition: background-color .2s, color .2s, border-color .2s;
-}
-.theme-switch__btn + .theme-switch__btn { margin-left: -1px; }
-.theme-switch__btn .icon { width: 15px; height: 15px; }
-.theme-switch__btn:hover { position: relative; border-color: #fff; }
-.theme-switch__btn[aria-pressed="true"] {
-  position: relative;
-  border-color: #fff;
-  background: #fff;
-  color: var(--bb-black);
-  font-weight: 700;
-}
-.theme-switch__btn:focus-visible { position: relative; z-index: 1; }
-@media (max-width: 479.98px) {
-  .theme-switch__label { flex-basis: 100%; text-align: center; }
-}
 
 .site-footer__copy {
   margin-top: 24px;

@@ -6,7 +6,6 @@
   <title>Style Inspiration Gallery, Outfit Ideas &amp; Guides | Blue Banana</title>
   <meta name="description" content="Alternative outfit ideas from Blue Banana's models and affiliates. Browse witchy, gothic, vintage and festival looks, then shop the pieces used in each one.">
   <meta name="theme-color" content="#1d1c1b">
-  <meta name="color-scheme" content="light dark">
   <!-- Preview copy: keeps search engines from indexing it. Remove when this goes into the live site. -->
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="https://cdn.bluebanana.com/prod/build/shop/assets/images/bluebanana/favicon/favicon.f28c8ea2.ico">
@@ -14,8 +13,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@800&amp;family=Montserrat:wght@400;500;700;800&amp;display=swap">
-  <!-- Colour theme: the visitor's choice from the footer switch (bb-theme) or the system setting, set before the page draws -->
-  <script>(function(){var t;try{t=localStorage.getItem('bb-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+  <!-- EASTER EGG, NOT A FEATURE: a secret dark mode we added for fun. The site is always light; typing
+       up, up, down, down, left, right on the arrow keys toggles dark (js/main.js), saved as bb-theme.
+       Developers: please don't build this into the live site. Delete this script along with the
+       easter egg block in js/main.js and the dark blocks in the stylesheets. -->
+  <script>try{if(localStorage.getItem('bb-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/gallery.css">
   <link rel="canonical" href="https://www.bluebanana.com/en_GB/gallery/style-inspo">
@@ -38,9 +40,6 @@
   <symbol id="i-shop" viewBox="48 96 544 448"><path d="M53.5 245.1L110.3 131.4C121.2 109.7 143.3 96 167.6 96L472.5 96C496.7 96 518.9 109.7 529.7 131.4L586.5 245.1C590.1 252.3 592 260.2 592 268.3C592 295.6 570.8 318 544 319.9L544 512C544 529.7 529.7 544 512 544C494.3 544 480 529.7 480 512L480 320L384 320L384 496C384 522.5 362.5 544 336 544L144 544C117.5 544 96 522.5 96 496L96 319.9C69.2 318 48 295.6 48 268.3C48 260.3 49.9 252.3 53.5 245.1zM160 320L160 432C160 440.8 167.2 448 176 448L304 448C312.8 448 320 440.8 320 432L320 320L160 320z"/></symbol>
   <symbol id="i-house" viewBox="64 64 512 512"><path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336L112 512C112 547.3 140.7 576 176 576L464 576C499.3 576 528 547.3 528 512L528 336L544 336C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384L336 384C362.5 384 384 405.5 384 432L384 528L256 528L256 432C256 405.5 277.5 384 304 384z"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 3.5v17L20.5 12z"/></symbol>
-  <symbol id="i-theme-system" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 3a9 9 0 0 1 0 18z"/></symbol>
-  <symbol id="i-theme-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6"/><path d="M12 1.8v2.6M12 19.6v2.6M1.8 12h2.6M19.6 12h2.6M4.8 4.8l1.8 1.8M17.4 17.4l1.8 1.8M4.8 19.2l1.8-1.8M17.4 6.6l1.8-1.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
-  <symbol id="i-theme-dark" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
 </svg>
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -1510,15 +1509,6 @@
     <li><a href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/icons/instagram.png" width="16" height="16" alt="Blue Banana on Instagram"></a></li>
     <li><a href="https://www.tiktok.com/@bluebananauk" target="_blank" rel="noopener"><img src="images/icons/tiktok.png" width="15" height="16" alt="Blue Banana on TikTok"></a></li>
   </ul>
-  <!-- Theme switch: Match System / Light / Dark. js/main.js saves the choice; hidden without JavaScript. -->
-  <div class="theme-switch" role="group" aria-labelledby="theme-switch-label">
-    <p class="theme-switch__label" id="theme-switch-label">Theme</p>
-    <div class="theme-switch__options">
-      <button class="theme-switch__btn" type="button" aria-pressed="true" data-theme-choice="system"><svg class="icon" aria-hidden="true"><use href="#i-theme-system"></use></svg>Match System</button>
-      <button class="theme-switch__btn" type="button" aria-pressed="false" data-theme-choice="light"><svg class="icon" aria-hidden="true"><use href="#i-theme-light"></use></svg>Light</button>
-      <button class="theme-switch__btn" type="button" aria-pressed="false" data-theme-choice="dark"><svg class="icon" aria-hidden="true"><use href="#i-theme-dark"></use></svg>Dark</button>
-    </div>
-  </div>
   <p class="site-footer__copy">&copy; 2026 - Blue Banana</p>
 </footer>
 

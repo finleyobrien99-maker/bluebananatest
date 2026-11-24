@@ -626,7 +626,8 @@ html:has(.express-dialog[open]) { overflow: hidden; }
 }
 
 /* ==========================================================================
-   Dark theme: colours here that don't come from the theme tokens in styles.css
+   EASTER EGG, NOT A FEATURE: secret dark mode overrides (see the note in styles.css).
+   Just us messing around. Developers: don't ship these rules; delete this block.
    ========================================================================== */
 /* Apple's guidance: a white Apple Pay button on dark backgrounds */
 [data-theme="dark"] .express__btn--apple { background: #fff; color: #000; }

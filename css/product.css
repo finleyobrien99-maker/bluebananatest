@@ -819,7 +819,8 @@
 }
 
 /* ==========================================================================
-   Dark theme: colours here that don't come from the theme tokens in styles.css.
+   EASTER EGG, NOT A FEATURE: secret dark mode overrides (see the note in styles.css).
+   Just us messing around. Developers: don't ship these rules; delete this block.
    Product photos, the image viewer and partner buttons keep their own colours.
    ========================================================================== */
 :root[data-theme="dark"] { --pdp-grey: #2a2927; }

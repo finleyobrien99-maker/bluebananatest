@@ -6,7 +6,6 @@
   <title>New In | Latest Alternative Clothing, Footwear &amp; Jewellery | Blue Banana</title>
   <meta name="description" content="Every new arrival at Blue Banana, newest first: alternative clothing, boots, band merch, body jewellery and hair dye from Banned, Hell Bunny, Dr Martens and more.">
   <meta name="theme-color" content="#1d1c1b">
-  <meta name="color-scheme" content="light dark">
   <!-- Preview copy: keeps search engines from indexing it. Remove when this goes into the live site. -->
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="https://cdn.bluebanana.com/prod/build/shop/assets/images/bluebanana/favicon/favicon.f28c8ea2.ico">
@@ -14,8 +13,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@800&amp;family=Montserrat:wght@400;500;700;800&amp;display=swap">
-  <!-- Colour theme: the visitor's choice from the footer switch (bb-theme) or the system setting, set before the page draws -->
-  <script>(function(){var t;try{t=localStorage.getItem('bb-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+  <!-- EASTER EGG, NOT A FEATURE: a secret dark mode we added for fun. The site is always light; typing
+       up, up, down, down, left, right on the arrow keys toggles dark (js/main.js), saved as bb-theme.
+       Developers: please don't build this into the live site. Delete this script along with the
+       easter egg block in js/main.js and the dark blocks in the stylesheets. -->
+  <script>try{if(localStorage.getItem('bb-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
   <link rel="stylesheet" href="css/styles.css">
   <!-- taxon.css supplies the shared listing parts: breadcrumbs, product tiles, badges, pills, tool buttons and the dropdown menu -->
   <link rel="stylesheet" href="css/taxon.css">
@@ -40,9 +42,6 @@
   <symbol id="i-house" viewBox="64 64 512 512"><path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336L112 512C112 547.3 140.7 576 176 576L464 576C499.3 576 528 547.3 528 512L528 336L544 336C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384L336 384C362.5 384 384 405.5 384 432L384 528L256 528L256 432C256 405.5 277.5 384 304 384z"/></symbol>
   <symbol id="i-fire" viewBox="96 30 448 546"><path d="M256.5 37.6C265.8 29.8 279.5 30.1 288.4 38.5C300.7 50.1 311.7 62.9 322.3 75.9C335.8 92.4 352 114.2 367.6 140.1C372.8 133.3 377.6 127.3 381.8 122.2C382.9 120.9 384 119.5 385.1 118.1C393 108.3 402.8 96 415.9 96C429.3 96 438.7 107.9 446.7 118.1C448 119.8 449.3 121.4 450.6 122.9C460.9 135.3 474.6 153.2 488.3 175.3C515.5 219.2 543.9 281.7 543.9 351.9C543.9 475.6 443.6 575.9 319.9 575.9C196.2 575.9 96 475.7 96 352C96 260.9 137.1 182 176.5 127C196.4 99.3 216.2 77.1 231.1 61.9C239.3 53.5 247.6 45.2 256.6 37.7zM321.7 480C347 480 369.4 473 390.5 459C432.6 429.6 443.9 370.8 418.6 324.6C414.1 315.6 402.6 315 396.1 322.6L370.9 351.9C364.3 359.5 352.4 359.3 346.2 351.4C328.9 329.3 297.1 289 280.9 268.4C275.5 261.5 265.7 260.4 259.4 266.5C241.1 284.3 207.9 323.3 207.9 370.8C207.9 439.4 258.5 480 321.6 480z"/></symbol>
   <symbol id="i-chevron-down" viewBox="96 224 448 256"><path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z"/></symbol>
-  <symbol id="i-theme-system" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 3a9 9 0 0 1 0 18z"/></symbol>
-  <symbol id="i-theme-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6"/><path d="M12 1.8v2.6M12 19.6v2.6M1.8 12h2.6M19.6 12h2.6M4.8 4.8l1.8 1.8M17.4 17.4l1.8 1.8M4.8 19.2l1.8-1.8M17.4 6.6l1.8-1.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
-  <symbol id="i-theme-dark" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
 </svg>
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -1417,15 +1416,6 @@
     <li><a href="https://instagram.com/bluebananauk" target="_blank" rel="noopener"><img src="images/icons/instagram.png" width="16" height="16" alt="Blue Banana on Instagram"></a></li>
     <li><a href="https://www.tiktok.com/@bluebananauk" target="_blank" rel="noopener"><img src="images/icons/tiktok.png" width="15" height="16" alt="Blue Banana on TikTok"></a></li>
   </ul>
-  <!-- Theme switch: Match System / Light / Dark. js/main.js saves the choice; hidden without JavaScript. -->
-  <div class="theme-switch" role="group" aria-labelledby="theme-switch-label">
-    <p class="theme-switch__label" id="theme-switch-label">Theme</p>
-    <div class="theme-switch__options">
-      <button class="theme-switch__btn" type="button" aria-pressed="true" data-theme-choice="system"><svg class="icon" aria-hidden="true"><use href="#i-theme-system"></use></svg>Match System</button>
-      <button class="theme-switch__btn" type="button" aria-pressed="false" data-theme-choice="light"><svg class="icon" aria-hidden="true"><use href="#i-theme-light"></use></svg>Light</button>
-      <button class="theme-switch__btn" type="button" aria-pressed="false" data-theme-choice="dark"><svg class="icon" aria-hidden="true"><use href="#i-theme-dark"></use></svg>Dark</button>
-    </div>
-  </div>
   <p class="site-footer__copy">&copy; 2026 - Blue Banana</p>
 </footer>
 

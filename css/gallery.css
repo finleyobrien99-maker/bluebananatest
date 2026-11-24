@@ -557,7 +557,8 @@
 }
 
 /* ==========================================================================
-   Dark theme: colours here that don't come from the theme tokens in styles.css
+   EASTER EGG, NOT A FEATURE: secret dark mode overrides (see the note in styles.css).
+   Just us messing around. Developers: don't ship these rules; delete this block.
    ========================================================================== */
 /* The video cards would match the dark grey row, so lift them a step */
 [data-theme="dark"] .reel__link { background: var(--bb-button-light); }
