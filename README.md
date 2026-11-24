@@ -31,6 +31,9 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `js/gallery.js` | Style Gallery: Shop The Look panel, Load More |
 | `js/product.js` | Product page: gallery and full-screen image viewer, colour swatches, size checks and stock badge, quantity, Klarna message, Add to Cart, "Added to Cart" panel, pop-ups, sticky bar and size sheet, delivery countdown and Shipping Options |
 | `js/new-in.js` | New In: category, brand and "since your visit" filters, Show All, the drop list, last-visit memory |
+| `booking/` | Online Piercing Booking prototype: five steps and a confirmation page (see [Online Piercing Booking](#online-piercing-booking-booking)) |
+| `booking/assets/booking.css` | Booking styles, built on the tokens, buttons and footer in `css/styles.css` |
+| `booking/assets/booking.js` | Booking logic for all six booking pages: studios, slots, age checks, validation, slot hold, summary, calendar file |
 | `images/` | Web-sized copies of the artwork. The `Assets` folder is untouched |
 
 ## How it behaves
@@ -69,7 +72,7 @@ The yellow Loyalty button has gone from the header (as asked in the Word documen
 
 ## Key Pages menu (preview only)
 
-"Key Pages" is the last item in the top menu on every page with the shop header (homepage, cart, taxon, product, style gallery, New In, and the four loyalty pages). It's a dropdown like the others, with one list of the key page types: Homepage, New In, Category Page (Clothing), Product Page, Cart Page, Style Gallery and Inner Circle Landing Page. (The earlier loyalty name concepts are left out; they're still at `loyalty/`.)
+"Key Pages" is the last item in the top menu on every page with the shop header (homepage, cart, taxon, product, style gallery, New In, and the four loyalty pages). It's a dropdown like the others, with one list of the key page types: Homepage, New In, Category Page (Clothing), Product Page, Cart Page, Style Gallery, Inner Circle Landing Page and Piercing Booking. (The earlier loyalty name concepts are left out; they're still at `loyalty/`.)
 
 On phones it's an accordion in the burger menu. `loyalty/index.html` has no shop menu, so it has a small Key Pages dropdown in its header instead. Between 1180px and 1300px wide the category text drops to 11px so the extra item fits.
 
@@ -102,7 +105,43 @@ The colour variables it relies on (`--bb-paper` for backgrounds, `--bb-ink` for 
    - Existing Migraine Research
 5. **Favicon:** it loads from the live CDN.
 6. **Search engines:** the preview has a `noindex` tag in `index.html` so it stays out of Google. Remove it when this goes into the live site.
-7. **Secret dark mode:** delete it. It's an easter egg we added for fun, not a feature (see [Secret dark mode](#secret-dark-mode-easter-egg-not-a-feature)).
+7. **Online Piercing Booking:** see [the booking hand-offs](#before-the-booking-goes-live).
+8. **Secret dark mode:** delete it. It's an easter egg we added for fun, not a feature (see [Secret dark mode](#secret-dark-mode-easter-egg-not-a-feature)).
+
+## Online Piercing Booking (`booking/`)
+
+A prototype of the updated "Online Piercing Booking" app (the one at piercing.bluebanana.com today). It follows the "Blue Banana Mobile Booking Redesign" canvas for the steps, layout and behaviour, and the shop's colours, type and square corners. It runs on its own, like the real app, with a slim header (Back To Shop, logo, My Visits), the piercing menu from the current app, and the shop footer.
+
+Every "Book Online" link now opens it: the Get Pierced mega menu promo, the In-store menu and In-Store panel banners on every page, the Inner Circle "Book A Piercing" button, and the Inner Circle store finder's "Book Now" links (which preselect that studio with `?store=<code>`). The product page's "Book a Consultation" link opens it with Consultation picked (`?visit=consult`). It's also in the Key Pages menu.
+
+| Page | Step | What it does |
+| --- | --- | --- |
+| `booking/index.html` | 1. Piercing | New Piercing Or Changeover / Consultation cards, body area and part, New Piercing / Jewellery Change, a numbered selection with age chips for each piercing, the full age table (rows you've picked are highlighted), and the ID tick box |
+| `booking/studio.html` | 2. Studio & Time | Studio card with a searchable list of the 18 studios and "Find your nearest studio" (asks for location), a week of days with free-slot counts, morning and afternoon slot grids. Today is walk-in only |
+| `booking/details.html` | 3. Your Details | About You, postcode finder, address, Stay In The Loop (nothing ticked by default). Checks each field, and checks the date of birth against the piercings on the appointment date: it asks for a parent or guardian where needed and stops piercings that can't be done at that age (tongue is 18+ at the Welsh studios) |
+| `booking/health.html` | 4. Health Check | The 17 questions from the current form as Yes / No pairs with a progress bar; a "Yes" shows a note. All 17 must be answered |
+| `booking/summary.html` | 5. Review & Pay | Appointment ticket, piercings, details and health with Change / Edit links, Before You Pay points, the full terms, and the deposit card with Confirm & Pay |
+| `booking/confirmed.html` | Done | Visit ID, Add To Calendar (downloads an .ics file), Get Directions, What Happens Next |
+
+How it behaves:
+- **Phones:** one column, with the Continue button in a bar stuck to the bottom of the screen. It says what's missing ("Tick the age restrictions box to continue") and, if pressed anyway, shows the errors and moves to the first one.
+- **1000px and wider:** a "Your Booking" summary sits on the right and fills in as you go. On step 5 that column is the deposit and pay card.
+- **Progress:** the dark band shows the step, the title and five bars; from 760px the bars have labels, and finished steps are links back.
+- **Slot hold:** your time is held for 10 minutes from step 2 (as now). Steps 3 to 5 show the countdown; at 2 minutes left screen readers hear a warning, and when it runs out a notice offers Hold It Again or Choose Another Time.
+- **Memory:** the booking is kept in `sessionStorage` (key `bb-booking`) so moving between steps keeps everything, and closing the tab clears it.
+- **Skipping ahead:** opening a later step directly shows "You've Skipped A Step" with a link back and a **Fill In A Demo Booking** button, so any step can be shown on its own in a meeting.
+- **Without JavaScript:** a notice says booking needs JavaScript and points to walk-ins and the studio contacts.
+
+### Before the booking goes live
+
+1. **Slots:** times are made up per studio and day (10:00 to 17:30, Sundays 11:00 to 16:00, with walk-in-only blocks). Connect the booking app's real availability and slot hold (`daySlots` in `booking.js`).
+2. **Studios:** the 18 studios and their map positions come from the Inner Circle store finder. Connect them to the studio list the booking app uses.
+3. **Address lookup:** Find fills the postcode only. Connect the UK address lookup the current app uses.
+4. **Payment:** Confirm & Pay goes straight to the confirmation page. No payment is taken. Connect the payment provider, then show the confirmation after payment.
+5. **Sign-in and My Visits:** the prototype doesn't sign anyone in. Visits, My Data and My Visits point at the current app (`data-todo-url`). Prefill Your Details for signed-in customers.
+6. **Terms:** the first 15 paragraphs match the current form; the rest needs carrying over.
+7. **Deposit:** £5.00 a booking (£4.17 + £0.83 VAT), as on the current form. Confirm it's one deposit per booking, not per piercing.
+8. **Remove the demo button** ("Fill In A Demo Booking", `fillDemo` in `booking.js`) and the `noindex` tag on each booking page.
 
 ## Cart page (`cart.html`)
 

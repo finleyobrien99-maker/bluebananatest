@@ -1054,7 +1054,7 @@ h1,h2,h3{margin:0}
               </div>
             </div>
             <div class="mega__promos mega__promos--single">
-              <a class="mega-promo" href="https://piercing.bluebanana.com/">
+              <a class="mega-promo" href="../booking/index.html">
                 <img src="../images/menu/menu-piercing-booking.jpg" width="195" height="267" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
                 <span class="mega-promo__label">Book Online</span>
               </a>
@@ -1085,6 +1085,7 @@ h1,h2,h3{margin:0}
                   <li><a href="../cart.html">Cart Page</a></li>
                   <li><a href="../style-inspo.html">Style Gallery</a></li>
                   <li><a href="../loyalty/inner-circle.html">Inner Circle Landing Page</a></li>
+                  <li><a href="../booking/index.html">Piercing Booking</a></li>
                 </ul>
               </div>
             </div>
@@ -1106,7 +1107,7 @@ h1,h2,h3{margin:0}
 
     <!-- Phones and tablets only (iPhone 14 Pro Max – 8) -->
     <div class="instore-extras" data-menu-panel="instore">
-      <a class="instore-promo" href="https://piercing.bluebanana.com/">
+      <a class="instore-promo" href="../booking/index.html">
         <img src="../images/menu/menu-piercing-booking-wide.jpg" width="340" height="180" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
         <span class="instore-promo__label">Book Online</span>
       </a>
@@ -1182,7 +1183,7 @@ h1,h2,h3{margin:0}
       <li><a href="https://www.bluebanana.com/en_GB/gallery/piercing-style-gallery">Piercing Gallery</a></li>
     </ul>
     <div class="instore-panel__extras">
-      <a class="instore-promo" href="https://piercing.bluebanana.com/">
+      <a class="instore-promo" href="../booking/index.html">
         <img src="../images/menu/menu-piercing-booking-wide.jpg" width="340" height="180" alt="£5 deposit secures your appointment: book your piercing online" loading="lazy" decoding="async">
         <span class="instore-promo__label">Book Online</span>
       </a>
@@ -1347,7 +1348,7 @@ h1,h2,h3{margin:0}
         <p class="eyebrow">Member Piercing Offer</p>
         <h2 id="piercing-title" data-reveal>10% Off All Piercing Jewellery</h2>
         <p>Just show your Inner Circle card in any of our 18 stores and piercing studios.</p>
-        <a class="btn btn--dark btn--wide" href="https://piercing.bluebanana.com/">Book A Piercing</a>
+        <a class="btn btn--dark btn--wide" href="../booking/index.html">Book A Piercing</a>
       </div>
       <ul class="products">
         <li class="product" data-reveal><a href="https://www.bluebanana.com/en_GB/products/blue-banana-14k-gold-4mm-moon-threadless-top-gold"><span class="product__media"><img src="../images/products/blue-banana-14k-gold-4mm-moon-threadless-top-gold-480.jpg" alt="" width="480" height="480" loading="lazy"></span><span class="product__name">Blue Banana 14K Gold 4mm Moon Threadless Top (Gold)</span><span class="product__price">£29.99</span></a></li>
@@ -1662,7 +1663,7 @@ h1,h2,h3{margin:0}
     var map = null, markers = {};
 
     function address(s) { return s.street + ', ' + s.city + ', ' + s.postcode; }
-    function bookingUrl(s) { return 'https://piercing.bluebanana.com/?store=' + s.code; }
+    function bookingUrl(s) { return '../booking/index.html?store=' + s.code; }
     function directionsUrl(s) { return 'https://www.google.com/maps/dir//' + encodeURIComponent(s.street + ' ' + s.city + ' ' + s.postcode); }
     function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; }
     function link(text, href) { var a = el('a', '', text); a.href = href; a.target = '_blank'; a.rel = 'noreferrer'; return a; }
