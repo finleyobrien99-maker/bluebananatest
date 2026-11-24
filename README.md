@@ -18,6 +18,7 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `taxon.html` | Taxon (product list) page for Alternative Clothing: same header, footer and cart drawer as the homepage |
 | `style-inspo.html` | Style Gallery page: the live style-inspo gallery rebuilt in the new style, with a Shop The Look panel |
 | `new-in.html` | New In page: new arrivals as a timeline of drops, with category and brand filters and "New Since Your Visit" |
+| `new-order-leaflet.html` | The A7 trifold piercing leaflet, outside and inside, scaled to fill the window. It's the leaflet's HTML export as supplied, with a fit-to-window script and the `noindex` tag added. Linked from Key Pages as "New Order Leaflet" |
 | `product.html` | Product page for a piercing product: gallery, sizes, Add to Cart with an "Added to Cart" panel, pop-ups, accordions, reviews, range block |
 | `css/styles.css` | All styles. Brand colours from the XD document library are variables at the top |
 | `css/cart.css` | Cart page styles, built on the tokens and components in `styles.css` |
