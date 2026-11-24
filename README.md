@@ -53,7 +53,7 @@ The menu has two versions: **Online** (the shop categories) and **In-store** (th
 
 - **Phones and tablets (below 1180px):** the burger menu follows iPhone 14 Pro Max – 7 and 8 in the XD.
   - The menu opens with Login at the top, then two tabs, Online and In-store. The chosen tab is black with a small pointer under it.
-  - In-store lists Piercing Info, Store Locator, Aftercare Info, Medi-Daith Info and Piercing Gallery as plain links. Under them are the Book Online banner (`images/menu/menu-piercing-booking-wide.jpg`, the XD's `20260909_menu_large_piercing_booking_mobile.jpg`), the Join Inner Circle banner (`images/menu/menu-loyalty-inner-circle-wide.jpg`, same 340 x 180 size, links to the Inner Circle page) and the Piercing Studio Reviews block.
+  - In-store lists Piercing Info, Store Locator, Aftercare Info, Medi-Daith Info and Piercing Gallery as plain links. Under them are the Book Online banner (`images/menu/menu-piercing-booking-wide.jpg`, the XD's `20260909_menu_large_piercing_booking_mobile.jpg`), the Join Inner Circle banner (`images/menu/menu-loyalty-gift-bag-wide.jpg`, the gift bag hero photo from the Inner Circle page cropped to the same 340 x 180 size, links to the Inner Circle page) and the Piercing Studio Reviews block.
   - The menu footer now starts with "Stay In The Loop, Sign Up": an email field, a yellow arrow button and an opt-in tick box.
 - **Desktop (1180px and wider):** follows the "Blue Banana Homepage Changes" Word document (13 Nov 2026).
   - An In-Store Services button sits at the left of the menu bar. It's dark, like the site's other buttons, with the shop icon from the XD assets.
