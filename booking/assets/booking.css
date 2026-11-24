@@ -755,3 +755,13 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
 @media (min-width: 1180px) {
   .bk-aside { top: calc(var(--bar-h) + var(--nav-h) + 24px); }
 }
+
+/* Lined dropdown: matches the cart page's "Add a discount code" (rules above and below, no box) */
+.bk-disclosure--lined {
+  background: none;
+  border-top: 1px solid var(--bb-rule-strong);
+  border-bottom: 1px solid var(--bb-rule-strong);
+}
+.bk-disclosure--lined > summary { padding: 0; font-size: 14px; }
+.bk-disclosure--lined > summary .bk-chev { width: 18px; height: 18px; }
+.bk-disclosure--lined .bk-disclosure__body { padding: 0 0 14px; }
