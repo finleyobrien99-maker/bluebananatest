@@ -1241,13 +1241,13 @@ h1,h2,h3{margin:0}
         <div class="carousel" data-carousel role="region" aria-roledescription="carousel" aria-label="Inner Circle in our stores">
           <div class="carousel__track" tabindex="0">
             <div class="carousel__slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
-              <img src="assets/inner-circle-hero-till.jpg" alt="Smiling customer at the till while a Blue Banana team member signs her up on a tablet" width="1080" height="700" fetchpriority="high" style="object-position:30% 30%">
+              <img src="assets/inner-circle-hero-gift-bag.jpg" alt="Blue Banana Body Piercing gift bag held up in front of the neon studio sign" width="1080" height="700" fetchpriority="high" style="object-position:45% 50%">
             </div>
             <div class="carousel__slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
-              <img src="assets/inner-circle-hero-jewellery.jpg" alt="Piercer showing a customer piercing jewellery at the studio counter" width="1080" height="700" loading="lazy" style="object-position:40% 40%">
+              <img src="assets/inner-circle-hero-till.jpg" alt="Smiling customer at the till while a Blue Banana team member signs her up on a tablet" width="1080" height="700" loading="lazy" style="object-position:30% 30%">
             </div>
             <div class="carousel__slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
-              <img src="assets/inner-circle-hero-gift-bag.jpg" alt="Blue Banana Body Piercing gift bag held up in front of the neon studio sign" width="1080" height="700" loading="lazy" style="object-position:45% 50%">
+              <img src="assets/inner-circle-hero-jewellery.jpg" alt="Piercer showing a customer piercing jewellery at the studio counter" width="1080" height="700" loading="lazy" style="object-position:40% 40%">
             </div>
           </div>
           <div class="carousel__dots" role="group" aria-label="Choose an image">
@@ -1576,6 +1576,8 @@ h1,h2,h3{margin:0}
 <script>
   // Hero carousel: swipe or use the dots; moves on by itself every 5 seconds unless the
   // visitor is hovering, focused on it, or prefers reduced motion.
+  // It loops: a copy of the last photo sits before the first and a copy of the first after
+  // the last. When a swipe lands on a copy, the track jumps (unseen) to the real photo.
   (function () {
     var root = document.querySelector('[data-carousel]');
     if (!root) return;
@@ -1583,36 +1585,72 @@ h1,h2,h3{margin:0}
     var slides = Array.prototype.slice.call(track.children);
     var dots = Array.prototype.slice.call(root.querySelectorAll('.carousel__dot'));
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var index = 0, timer = 0, frame = 0, paused = false;
+    var count = slides.length;
+    var index = 0, timer = 0, frame = 0, settleTimer = 0, paused = false;
+    if (count < 2) return;
 
+    function copy(slide) {
+      var c = slide.cloneNode(true);
+      c.removeAttribute('role');
+      c.removeAttribute('aria-roledescription');
+      c.removeAttribute('aria-label');
+      c.setAttribute('aria-hidden', 'true');
+      c.setAttribute('inert', '');
+      var img = c.querySelector('img');
+      if (img) { img.alt = ''; img.removeAttribute('fetchpriority'); img.loading = 'lazy'; }
+      return c;
+    }
+    track.insertBefore(copy(slides[count - 1]), slides[0]);
+    track.appendChild(copy(slides[0]));
+
+    // Track positions: 0 = copy of last, 1..count = real photos, count + 1 = copy of first.
+    function width() { return Math.max(track.clientWidth, 1); }
+    function position() { return Math.round(track.scrollLeft / width()); }
+    function jump(p) {
+      track.style.scrollBehavior = 'auto';
+      track.scrollLeft = p * width();
+      track.style.scrollBehavior = '';
+    }
     function setCurrent(i) {
       index = i;
       dots.forEach(function (dot, j) { dot.setAttribute('aria-current', String(j === i)); });
       slides.forEach(function (slide, j) { slide.setAttribute('aria-hidden', String(j !== i)); });
     }
-    function go(i) {
-      track.scrollTo({ left: i * track.clientWidth, behavior: reduce.matches ? 'auto' : 'smooth' });
+    // After a swipe ends on a copy, swap to the real photo it shows.
+    function settle() {
+      var p = position();
+      if (p <= 0) jump(count);
+      else if (p >= count + 1) jump(1);
+    }
+    function go(p) {
+      if (reduce.matches) { jump(p); settle(); return; }
+      track.scrollTo({ left: p * width(), behavior: 'smooth' });
     }
     function stop() { clearInterval(timer); timer = 0; }
     function start() {
       stop();
-      if (reduce.matches || paused || document.hidden || slides.length < 2) return;
-      timer = setInterval(function () { go((index + 1) % slides.length); }, 5000);
+      if (reduce.matches || paused || document.hidden) return;
+      timer = setInterval(function () { go(index + 2); }, 5000);
     }
 
     dots.forEach(function (dot, i) {
-      dot.addEventListener('click', function () { go(i); start(); });
+      dot.addEventListener('click', function () { go(i + 1); start(); });
     });
     track.addEventListener('scroll', function () {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(function () {
-        var i = Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
-        if (i !== index && slides[i]) setCurrent(i);
+        var i = ((position() - 1) % count + count) % count;
+        if (i !== index) setCurrent(i);
       });
+      if (!('onscrollend' in window)) {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(settle, 150);
+      }
     }, { passive: true });
+    track.addEventListener('scrollend', settle);
     track.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(Math.min(index + 1, slides.length - 1)); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(Math.max(index - 1, 0)); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 2); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index); }
     });
     root.addEventListener('pointerenter', function () { paused = true; stop(); });
     root.addEventListener('pointerleave', function () { paused = false; start(); });
@@ -1620,8 +1658,9 @@ h1,h2,h3{margin:0}
     root.addEventListener('focusout', function (e) { if (!root.contains(e.relatedTarget)) { paused = false; start(); } });
     track.addEventListener('touchstart', function () { stop(); }, { passive: true });
     document.addEventListener('visibilitychange', start);
-    window.addEventListener('resize', function () { track.scrollLeft = index * track.clientWidth; });
+    window.addEventListener('resize', function () { jump(index + 1); });
 
+    jump(1);
     root.classList.add('is-ready');
     setCurrent(0);
     start();
