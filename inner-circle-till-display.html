@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Inner Circle Till Display | Blue Banana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&amp;display=swap">
+  <style>
+    :root { --bb-ink: #1d1c1b; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      background: #fff;
+      color: var(--bb-ink);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+    /* The link sits on the white above the graphic, so it never covers it */
+    .bar { flex: none; padding: 12px max(16px, env(safe-area-inset-left)); }
+    .back {
+      color: var(--bb-ink);
+      font: 600 14px/1.4 "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      text-decoration: none;
+    }
+    .back:hover { text-decoration: underline; }
+    .back:focus-visible { outline: 2px solid var(--bb-ink); outline-offset: 3px; }
+    /* The graphic fills the rest of the screen without cropping */
+    .display {
+      flex: 1 1 auto;
+      min-height: 0;
+      width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <a class="back" href="index.html">&larr; Back to Homepage</a>
+  </div>
+  <img class="display" src="images/display/inner-circle-till-display.jpg" width="1920" height="1080"
+       alt="Join the Inner Circle, sign up here. Free to join, 50 bonus points. A Blue Banana Body Piercing gift bag held up in front of the neon studio sign.">
+</body>
+</html>
