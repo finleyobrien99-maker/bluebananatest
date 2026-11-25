@@ -56,6 +56,14 @@
   };
   const ageKey = (area, part) => { const p = (AREAS[area] || []).find((x) => x[0] === part); return p ? p[1] : null; };
   const QCOUNT = 17;
+
+  // MEETING DEMO (preview only): details that fill Your Details so the steps can be shown quickly.
+  // Remove before go-live, with the "Fill In A Demo Booking" button (fillDemo) and the prefill in step3().
+  const DEMO_DETAILS = {
+    firstName: 'Luke', lastName: 'Miller', gender: 'Male', dob: '1995-03-12',
+    email: 'luke@bluebanana.com', phone: '01234567890',
+    street: '16 Forge Land', building: '', city: 'Saltash', postcode: 'PL12 6LX', country: 'United Kingdom'
+  };
   const MODE_LABEL = { new: 'New Piercing', change: 'Jewellery Change', consult: 'Consultation' };
 
   /* ---------- State ---------- */
@@ -209,7 +217,8 @@
       state.heldUntil = Date.now() + HOLD_MS;
     }
     if (upTo > 3 && !done3()) {
-      state.details = Object.assign({ firstName: 'Sam', lastName: 'Taylor', gender: 'Prefer not to say', dob: '2000-05-14', email: 'sam.taylor@example.com', phone: '07700 900123', street: '1 Example Street', building: '', city: 'Plymouth', postcode: 'PL1 1AA', country: 'United Kingdom', marketing: 'no' }, state.details);
+      state.details = Object.assign({}, DEMO_DETAILS, { marketing: 'no' }, state.details);
+      state.demoPrefilled = true;
       state.detailsOk = true;
     }
     if (upTo > 4 && !done4()) { for (let i = 1; i <= QCOUNT; i++) state.health['q' + i] = state.health['q' + i] || 'no'; }
@@ -559,6 +568,13 @@
   function step3() {
     const form = $('[data-details-form]');
     const d = state.details;
+    // MEETING DEMO: fill any empty fields once per visit, so later edits stay as typed
+    if (!state.demoPrefilled) {
+      Object.keys(DEMO_DETAILS).forEach((k) => { if (!d[k]) d[k] = DEMO_DETAILS[k]; });
+      state.demoPrefilled = true;
+      save();
+    }
+    if (d.postcode) $('#pcFind').value = d.postcode;
     const fields = $$('[data-field]', form);
     fields.forEach((f) => {
       if (f.type === 'radio') f.checked = d[f.name] === f.value;

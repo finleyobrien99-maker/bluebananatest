@@ -132,6 +132,7 @@ How it behaves:
 - **Progress:** the dark band shows the step, the title and five bars; from 760px the bars have labels, and finished steps are links back.
 - **Slot hold:** your time is held for 10 minutes from step 2 (as now). Steps 3 to 5 show the countdown; at 2 minutes left screen readers hear a warning, and when it runs out a notice offers Hold It Again or Choose Another Time.
 - **Memory:** the booking is kept in `sessionStorage` (key `bb-booking`) so moving between steps keeps everything, and closing the tab clears it.
+- **Meeting demo:** Your Details fills itself in with demo details the first time it opens in a browser tab, so the steps can be shown quickly. Anything typed over them stays.
 - **Skipping ahead:** opening a later step directly shows "You've Skipped A Step" with a link back and a **Fill In A Demo Booking** button, so any step can be shown on its own in a meeting.
 - **Without JavaScript:** a notice says booking needs JavaScript and points to walk-ins and the studio contacts.
 
@@ -144,7 +145,7 @@ How it behaves:
 5. **Sign-in and Visits:** the prototype doesn't sign anyone in. Visits and My Data point at the current app (`data-todo-url`). Prefill Your Details for signed-in customers.
 6. **Terms:** the first 15 paragraphs match the current form; the rest needs carrying over.
 7. **Deposit:** £5.00 a booking (£4.17 + £0.83 VAT), as on the current form. Confirm it's one deposit per booking, not per piercing.
-8. **Remove the demo button** ("Fill In A Demo Booking", `fillDemo` in `booking.js`) and the `noindex` tag on each booking page.
+8. **Remove the meeting demo:** the "Fill In A Demo Booking" button and the Your Details prefill (`DEMO_DETAILS`, `fillDemo` and the prefill in `step3()` in `booking.js`, all marked MEETING DEMO), and the `noindex` tag on each booking page.
 
 ## Cart page (`cart.html`)
 
