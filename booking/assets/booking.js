@@ -62,7 +62,7 @@
   const DEMO_DETAILS = {
     firstName: 'Luke', lastName: 'Miller', gender: 'Male', dob: '1995-03-12',
     email: 'luke@bluebanana.com', phone: '01234567890',
-    street: '16 Forge Land', building: '', city: 'Saltash', postcode: 'PL12 6LX', country: 'United Kingdom'
+    street: '16 Forge Lane', building: '', city: 'Saltash', postcode: 'PL12 6LX', country: 'United Kingdom'
   };
   const MODE_LABEL = { new: 'New Piercing', change: 'Jewellery Change', consult: 'Consultation' };
 
