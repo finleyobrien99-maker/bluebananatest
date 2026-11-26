@@ -18,7 +18,7 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `taxon.html` | Taxon (product list) page for Alternative Clothing: same header, footer and cart drawer as the homepage |
 | `style-inspo.html` | Style Gallery page: the live style-inspo gallery rebuilt in the new style, with a Shop The Look panel |
 | `new-in.html` | New In page: new arrivals as a timeline of drops, with category and brand filters and "New Since Your Visit" |
-| `new-order-leaflet.html` | The A7 trifold piercing leaflet, outside and inside, scaled to fill the window. It's the leaflet's HTML export as supplied, with a fit-to-window script and the `noindex` tag added. Linked from Key Pages as "New Order Leaflet" |
+| `new-order-leaflet.html` | The A7 trifold piercing leaflet, outside and inside, scaled to fill the window. It's the leaflet's HTML export as supplied, with a fit-to-window script, the `noindex` tag and a "Back to Homepage" text link (same style as the till display page) added. Linked from Key Pages as "New Order Leaflet" |
 | `inner-circle-till-display.html` | The Inner Circle till display graphic (`images/display/inner-circle-till-display.jpg`, 1920 x 1080) shown as large as it fits on a white page, with a plain "Back to Homepage" text link above it. `noindex`. Linked from Key Pages as "Inner Circle Till Display", under Inner Circle Landing Page |
 | `product.html` | Product page for a piercing product: gallery, sizes, Add to Cart with an "Added to Cart" panel, pop-ups, accordions, reviews, range block |
 | `css/styles.css` | All styles. Brand colours from the XD document library are variables at the top |
