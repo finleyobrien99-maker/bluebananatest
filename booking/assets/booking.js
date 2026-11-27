@@ -72,7 +72,7 @@
     try { const raw = sessionStorage.getItem(KEY); if (raw) return JSON.parse(raw); } catch (e) { /* storage blocked */ }
     return memory || {};
   }
-  const state = Object.assign({ visit: 'new', items: [], nextId: 1, ageAgreed: false, store: 'plymouth', date: '', time: '', heldUntil: 0, details: {}, health: {}, notes: '', terms: false }, load());
+  const state = Object.assign({ visit: '', items: [], nextId: 1, ageAgreed: false, store: 'plymouth', date: '', time: '', heldUntil: 0, details: {}, health: {}, notes: '', terms: false }, load());
   function save() {
     memory = state;
     try { sessionStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked: kept in memory for this page */ }
@@ -143,7 +143,7 @@
 
   /* ---------- Step completeness ---------- */
   const itemName = (it) => it.area + ' – ' + it.part;
-  const done1 = () => (state.visit === 'consult' || state.items.length > 0) && state.ageAgreed;
+  const done1 = () => !!state.visit && (state.visit === 'consult' || state.items.length > 0) && state.ageAgreed;
   const done2 = () => !!storeBy(state.store) && dateInRange(state.date) && slotFree(state.store, state.date, state.time);
   const done3 = () => !!state.detailsOk;
   const done4 = () => Object.keys(state.health).length >= QCOUNT;
@@ -180,7 +180,7 @@
     const when = state.date && state.time && done2() ? '<strong>' + shortDate(state.date) + '</strong><span>' + state.time + '–' + endOf(state.time) + '</span>' : empty('Not chosen yet');
     box.innerHTML =
       '<h2 class="bk-summary__title">Your Booking</h2>' +
-      '<div class="bk-summary__group"><span>Visit</span><strong>' + (state.visit === 'consult' ? 'Consultation' : 'New Piercing Or Changeover') + '</strong></div>' +
+      '<div class="bk-summary__group"><span>Visit</span>' + (state.visit ? '<strong>' + (state.visit === 'consult' ? 'Consultation' : 'New Piercing Or Changeover') + '</strong>' : empty('Not chosen yet')) + '</div>' +
       '<div class="bk-summary__group"><span>Piercings</span>' + items + '</div>' +
       '<div class="bk-summary__group"><span>Studio</span>' + (store ? '<strong>' + esc(store.name) + '</strong><span>' + esc(store.street) + ', ' + esc(store.postcode) + '</span>' : empty('Not chosen yet')) + '</div>' +
       '<div class="bk-summary__group"><span>Date &amp; Time</span>' + when + '</div>' +
@@ -316,7 +316,7 @@
     Object.keys(AREAS).forEach((a) => area.add(new Option(a, a)));
     $$('input[name="visit"]').forEach((r) => {
       r.checked = r.value === state.visit;
-      r.addEventListener('change', () => { setVisit(r.value); save(); renderVisit(); renderItems(); refresh(); });
+      r.addEventListener('change', () => { setVisit(r.value); save(); setError($('[data-visit-error]'), ''); renderVisit(); renderItems(); refresh(); });
     });
     agree.checked = !!state.ageAgreed;
     agree.addEventListener('change', () => {
@@ -337,6 +337,7 @@
 
     function renderVisit() {
       const consult = state.visit === 'consult';
+      document.querySelectorAll('[data-visit-desc]').forEach((note) => { note.hidden = note.dataset.visitDesc !== state.visit; });
       modeGroup.hidden = consult;
       $('[data-pierce-title]').textContent = consult ? 'What Would You Like Advice On?' : 'Add Your Piercings';
       $('[data-pierce-lede]').textContent = consult
@@ -394,6 +395,10 @@
 
     const refresh = wireNext((show) => {
       const needItems = state.visit !== 'consult' && state.items.length === 0;
+      if (!state.visit) {
+        if (show) { setError($('[data-visit-error]'), 'Choose what you\u2019re booking.'); $('input[name="visit"]').focus(); }
+        return 'Choose what you\u2019re booking to continue';
+      }
       if (show) {
         setError(itemsErr, needItems ? 'Add at least one piercing to continue.' : '');
         setError(agreeErr, state.ageAgreed ? '' : 'Please tick to confirm you’ve read the age restrictions.');

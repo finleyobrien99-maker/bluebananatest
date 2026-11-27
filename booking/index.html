@@ -963,20 +963,22 @@
         <h2 class="bk-h2" id="visit-h">What Are You Booking?</h2>
         <div class="bk-choices" role="radiogroup" aria-labelledby="visit-h">
           <label class="bk-choice">
-            <input type="radio" name="visit" value="new" checked>
+            <input type="radio" name="visit" value="new" aria-describedby="visit-desc-new">
             <span class="bk-choice__body"><span class="bk-choice__dot"></span><span class="bk-choice__text">
               <span class="bk-choice__title">New Piercing Or Changeover</span>
-              <span class="bk-choice__desc">A brand new piercing, a jewellery change, or help removing your piercing.</span>
             </span></span>
           </label>
           <label class="bk-choice">
-            <input type="radio" name="visit" value="consult">
+            <input type="radio" name="visit" value="consult" aria-describedby="visit-desc-consult">
             <span class="bk-choice__body"><span class="bk-choice__dot"></span><span class="bk-choice__text">
               <span class="bk-choice__title">Consultation</span>
-              <span class="bk-choice__desc">Advice from one of our expert piercers about one of your piercings.</span>
             </span></span>
           </label>
         </div>
+        <!-- Neither option is picked when the page opens; the chosen one's description shows here -->
+        <p class="bk-choice-note" id="visit-desc-new" data-visit-desc="new" hidden>A brand new piercing, a jewellery change, or help removing your piercing.</p>
+        <p class="bk-choice-note" id="visit-desc-consult" data-visit-desc="consult" hidden>Advice from one of our expert piercers about one of your piercings.</p>
+        <p class="bk-error" id="visit-error" data-visit-error hidden>Choose what you&rsquo;re booking.</p>
         <details class="bk-disclosure">
           <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Some Piercings Can&rsquo;t Be Booked Online</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="bk-chev"><path d="M6 9l6 6 6-6"/></svg></summary>
           <div class="bk-disclosure__body">

@@ -212,13 +212,13 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
 .bk-notice .bk-disclosure { background: var(--bb-paper); }
 
 /* ---------- Choice cards (radio) ---------- */
-.bk-choices { display: grid; gap: 8px; align-items: start; }
+.bk-choices { display: grid; gap: 8px; }
 .bk-choice { position: relative; display: block; cursor: pointer; }
 .bk-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .bk-choice__body {
   display: flex;
   gap: 12px;
-  align-items: flex-start;
+  align-items: center;
   min-height: 48px;
   padding: 13px 14px;
   background: var(--bb-paper);
@@ -238,23 +238,12 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
 .bk-choice__dot::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--bk-blue); transform: scale(0); transition: transform .15s; }
 .bk-choice__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .bk-choice__title { font-size: 14px; font-weight: 700; line-height: 20px; }
-/* The description shows only on the chosen option (screen readers still hear both) */
-.bk-choice__desc {
-  position: absolute;
-  width: 1px; height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+/* The chosen option's description sits under both options */
+.bk-choice-note {
+  margin-top: -4px;
   font-size: 13px;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--bk-text-2);
-}
-.bk-choice input:checked + .bk-choice__body .bk-choice__desc {
-  position: static;
-  width: auto; height: auto;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
   animation: bk-in .2s var(--ease-out);
 }
 .bk-choice:hover .bk-choice__body { border-color: var(--bk-blue); }

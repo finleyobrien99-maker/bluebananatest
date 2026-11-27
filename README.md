@@ -121,7 +121,7 @@ Every "Book Online" link now opens it: the Get Pierced mega menu promo, the In-s
 
 | Page | Step | What it does |
 | --- | --- | --- |
-| `booking/index.html` | 1. Piercing | New Piercing Or Changeover / Consultation cards, body area and part, New Piercing / Jewellery Change, a numbered selection with age chips for each piercing, the full age table (rows you've picked are highlighted), and the ID tick box |
+| `booking/index.html` | 1. Piercing | New Piercing Or Changeover / Consultation options (neither picked at first; the chosen one's description shows underneath), body area and part, New Piercing / Jewellery Change, a numbered selection with age chips for each piercing, the full age table (rows you've picked are highlighted), and the ID tick box |
 | `booking/studio.html` | 2. Studio & Time | Studio card with a searchable list of the 18 studios and "Find your nearest studio" (asks for location), a week of days with free-slot counts, morning and afternoon slot grids. Today is walk-in only |
 | `booking/details.html` | 3. Your Details | About You, postcode finder, address, Stay In The Loop (nothing ticked by default). Checks each field, and checks the date of birth against the piercings on the appointment date: it asks for a parent or guardian where needed and stops piercings that can't be done at that age (tongue is 18+ at the Welsh studios) |
 | `booking/health.html` | 4. Health Check | The 17 questions from the current form as Yes / No pairs with a progress bar; a "Yes" shows a note. All 17 must be answered |
