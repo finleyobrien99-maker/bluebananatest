@@ -212,15 +212,15 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
 .bk-notice .bk-disclosure { background: var(--bb-paper); }
 
 /* ---------- Choice cards (radio) ---------- */
-.bk-choices { display: grid; gap: 10px; }
+.bk-choices { display: grid; gap: 8px; align-items: start; }
 .bk-choice { position: relative; display: block; cursor: pointer; }
 .bk-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .bk-choice__body {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   align-items: flex-start;
-  height: 100%;
-  padding: 16px;
+  min-height: 48px;
+  padding: 13px 14px;
   background: var(--bb-paper);
   border: 1px solid #d6d3cc;
   transition: border-color .2s, background-color .2s;
@@ -228,19 +228,37 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
 .bk-choice__dot {
   display: grid;
   place-items: center;
-  width: 22px; height: 22px;
-  margin-top: 1px;
+  width: 20px; height: 20px;
+  margin-top: 0;
   border: 2px solid var(--bk-blue);
   border-radius: 50%;
   background: #fff;
   flex-shrink: 0;
 }
-.bk-choice__dot::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--bk-blue); transform: scale(0); transition: transform .15s; }
-.bk-choice__text { display: flex; flex-direction: column; gap: 4px; }
-.bk-choice__title { font-size: 15px; font-weight: 700; }
-.bk-choice__desc { font-size: 13px; line-height: 1.45; color: var(--bk-text-2); }
+.bk-choice__dot::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--bk-blue); transform: scale(0); transition: transform .15s; }
+.bk-choice__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.bk-choice__title { font-size: 14px; font-weight: 700; line-height: 20px; }
+/* The description shows only on the chosen option (screen readers still hear both) */
+.bk-choice__desc {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--bk-text-2);
+}
+.bk-choice input:checked + .bk-choice__body .bk-choice__desc {
+  position: static;
+  width: auto; height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  animation: bk-in .2s var(--ease-out);
+}
 .bk-choice:hover .bk-choice__body { border-color: var(--bk-blue); }
-.bk-choice input:checked + .bk-choice__body { border: 2px solid var(--bk-blue); padding: 15px; background: var(--bk-blue-tint); }
+.bk-choice input:checked + .bk-choice__body { border: 2px solid var(--bk-blue); padding: 12px 13px; background: var(--bk-blue-tint); }
 .bk-choice input:checked + .bk-choice__body .bk-choice__dot::after { transform: scale(1); }
 .bk-choice input:focus-visible + .bk-choice__body { outline: 2px solid var(--bb-blue); outline-offset: 2px; }
 
@@ -414,8 +432,8 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
   align-items: center;
   gap: 12px;
   padding: 12px 6px 12px 14px;
-  background: var(--bb-ink);
-  color: #fff;
+  background: var(--bk-box);
+  color: var(--bb-ink);
   animation: bk-in .25s var(--ease-out);
 }
 .bk-num {
@@ -432,9 +450,9 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
 }
 .bk-item__text { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
 .bk-item__name { font-size: 15px; font-weight: 700; }
-.bk-item__meta { font-size: 12px; color: #d6d3cc; }
-.bk-item__remove { display: grid; place-items: center; width: 44px; height: 44px; color: #fff; flex-shrink: 0; }
-.bk-item__remove:hover { color: var(--bb-yellow); }
+.bk-item__meta { font-size: 12px; color: var(--bk-text-2); }
+.bk-item__remove { display: grid; place-items: center; width: 44px; height: 44px; color: var(--bk-text-2); flex-shrink: 0; }
+.bk-item__remove:hover { color: var(--bk-error); }
 .bk-item__remove svg { width: 20px; height: 20px; }
 @keyframes bk-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 
@@ -451,7 +469,7 @@ html { scroll-padding-top: calc(var(--bar-h) + 24px); }
   line-height: 16px;
   white-space: nowrap;
 }
-.bk-item .bk-age { color: #e2dfd8; }
+.bk-item .bk-age { color: var(--bk-text-2); border-color: var(--bk-box-rule); background: var(--bb-paper); }
 
 /* Age table */
 .bk-table-wrap { overflow-x: auto; margin-top: 4px; background: var(--bb-paper); }
