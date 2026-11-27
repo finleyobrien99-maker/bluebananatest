@@ -20,6 +20,7 @@ The design source files (XD, PSDs) aren't in this repository, only the finished 
 | `new-in.html` | New In page: new arrivals as a timeline of drops, with category and brand filters and "New Since Your Visit" |
 | `new-order-leaflet.html` | The A7 trifold piercing leaflet, outside and inside, scaled to fill the window. It's the leaflet's HTML export as supplied, with a fit-to-window script, the `noindex` tag and a "Back to Homepage" text link (same style as the till display page) added. Linked from Key Pages as "New Order Leaflet" |
 | `inner-circle-till-display.html` | The Inner Circle till display graphic (`images/display/inner-circle-till-display.jpg`, 1920 x 1080) shown as large as it fits on a white page, with a plain "Back to Homepage" text link above it. `noindex`. Linked from Key Pages as "Inner Circle Till Display", under Inner Circle Landing Page |
+| `sale-email.html` | The Sale email (selected clothing and accessories, plus the 2 for £65 band hoodies offer) in the new site style: a 600px table-based email with inline styles, so it can be pasted into Keap. Header image in `images/email/`. In this copy the Blue Banana logo links to the project homepage; the copy that gets sent should link to bluebanana.com. `noindex`. Linked from Key Pages as "Sale Email", under New Order Leaflet. Hand-off notes for sending are in the comment at the top of the file |
 | `product.html` | Product page for a piercing product: gallery, sizes, Add to Cart with an "Added to Cart" panel, pop-ups, accordions, reviews, range block |
 | `css/styles.css` | All styles. Brand colours from the XD document library are variables at the top |
 | `css/cart.css` | Cart page styles, built on the tokens and components in `styles.css` |
@@ -74,7 +75,7 @@ The yellow Loyalty button has gone from the header (as asked in the Word documen
 
 ## Key Pages menu (preview only)
 
-"Key Pages" is the last item in the top menu on every page with the shop header (homepage, cart, taxon, product, style gallery, New In, and the four loyalty pages). It's a dropdown like the others, with one list of the key page types: Homepage, New In, Category Page (Clothing), Product Page, Cart Page, Style Gallery, Inner Circle Landing Page and Piercing Booking. (The earlier loyalty name concepts are left out; they're still at `loyalty/`.)
+"Key Pages" is the last item in the top menu on every page with the shop header (homepage, cart, taxon, product, style gallery, New In, and the four loyalty pages). It's a dropdown like the others, with one list of the key page types: Homepage, New In, Category Page (Clothing), Product Page, Cart Page, Style Gallery, Inner Circle Landing Page, Inner Circle Till Display, Piercing Booking, New Order Leaflet and Sale Email. (The earlier loyalty name concepts are left out; they're still at `loyalty/`.)
 
 On phones it's an accordion in the burger menu. `loyalty/index.html` has no shop menu, so it has a small Key Pages dropdown in its header instead. Between 1180px and 1300px wide the category text drops to 11px so the extra item fits.
 
